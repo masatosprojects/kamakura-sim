@@ -46,21 +46,48 @@
 <body class="lang-ja">
   <div class="film-grain"></div>
   <div class="scanlines"></div>
-  <a href="index.html" class="home-back">← <span class="lang-ja">ホームへ戻る</span><span class="lang-en">Return Home</span><span class="lang-zh">返回首页</span><span class="lang-ko">홈으로 돌아가기</span><span class="lang-es">Volver al Inicio</span><span class="lang-fr">Retour à l'Accueil</span></a>
-
-  <div class="lang-btn-contact">
-    <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
-    <span class="sep">/</span>
-    <span data-lang="en" onclick="setLang('en')">EN</span>
-    <span class="sep">/</span>
-    <span data-lang="zh" onclick="setLang('zh')">中文</span>
-    <span class="sep">/</span>
-    <span data-lang="ko" onclick="setLang('ko')">한국</span>
-    <span class="sep">/</span>
-    <span data-lang="es" onclick="setLang('es')">ES</span>
-    <span class="sep">/</span>
-    <span data-lang="fr" onclick="setLang('fr')">FR</span>
+  <!-- NAVIGATION -->
+  <div class="hamburger" id="hamburger">
+    <div class="h-lines"><span></span><span></span></div>
+    <span class="h-text">MENU</span>
   </div>
+
+  <nav class="overlay-nav" id="overlay-nav">
+    <div class="overlay-nav-inner">
+      <div class="menu-col">
+        <h3>PORTAL</h3>
+        <ul>
+          <li><a href="./index.html" class="nav-link">BACK TO HOME</a></li>
+          <li><a href="./contact.html" class="nav-link active">CONTACT</a></li>
+        </ul>
+      </div>
+      <div class="menu-col">
+        <h3>PAGES</h3>
+        <ul>
+          <li><a href="./manifesto.html" class="nav-link">&#9632; <span class="lang-ja">思想</span><span class="lang-en">Philosophy</span><span class="lang-zh">理念</span><span class="lang-ko">철학</span><span class="lang-es">Filosofía</span><span class="lang-fr">Philosophie</span></a></li>
+          <li><a href="./news.html" class="nav-link">&#9632; <span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
+          <li><a href="./profile.html" class="nav-link">&#9632; <span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
+          <li><a href="./simulator/portal.html" class="nav-link">&#9632; <span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
+          <li><a href="./simulator/dist/index.html" class="nav-link">&#9632; <span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+        </ul>
+      </div>
+      <div class="menu-col" style="align-self:flex-end;">
+        <div class="lang-switcher" style="font-size:1rem; gap:10px;">
+          <span data-lang="ja" onclick="setLang('ja')">JP</span>
+          <span class="sep">/</span>
+          <span data-lang="en" onclick="setLang('en')">EN</span>
+          <span class="sep">/</span>
+          <span data-lang="zh" onclick="setLang('zh')">中文</span>
+          <span class="sep">/</span>
+          <span data-lang="ko" onclick="setLang('ko')">한국</span>
+          <span class="sep">/</span>
+          <span data-lang="es" onclick="setLang('es')">ES</span>
+          <span class="sep">/</span>
+          <span data-lang="fr" onclick="setLang('fr')">FR</span>
+        </div>
+      </div>
+    </div>
+  </nav>
 
   <video src="pic/KAMAKURASIM.mp4" class="global-video-bg" autoplay loop muted playsinline style="opacity:0.3;"></video>
   <!-- Disaster radio: visual anchor representing emergency communication -->

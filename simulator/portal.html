@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Syne:wght@700;800&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/main.css">
 
     
     
@@ -142,20 +143,63 @@
     <canvas id="particle-canvas"></canvas>
     <div id="page-transition"></div>
 
-    <!-- ===== NAVBAR ===== -->
-    <header class="navbar">
+    <!-- NAVIGATION -->
+    <div class="hamburger" id="hamburger">
+        <div class="h-lines"><span></span><span></span></div>
+        <span class="h-text">MENU</span>
+    </div>
+
+    <nav class="overlay-nav" id="overlay-nav">
+        <div class="overlay-nav-inner">
+            <div class="menu-col">
+                <h3>PORTAL</h3>
+                <ul>
+                    <li><a href="../index.html" class="nav-link">BACK TO HOME</a></li>
+                    <li><a href="../contact.html" class="nav-link">CONTACT</a></li>
+                </ul>
+            </div>
+            <div class="menu-col">
+                <h3>PAGES</h3>
+                <ul>
+                    <li><a href="../manifesto.html" class="nav-link">&#9632; <span class="lang-ja">思想</span><span class="lang-en">Philosophy</span><span class="lang-zh">理念</span><span class="lang-ko">철학</span><span class="lang-es">Filosofía</span><span class="lang-fr">Philosophie</span></a></li>
+                    <li><a href="../news.html" class="nav-link">&#9632; <span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
+                    <li><a href="../profile.html" class="nav-link">&#9632; <span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
+                    <li><a href="portal.html" class="nav-link active">&#9632; <span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
+                    <li><a href="dist/index.html" class="nav-link">&#9632; <span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+                </ul>
+            </div>
+            <div class="menu-col" style="align-self:flex-end;">
+                <div class="lang-switcher" style="font-size:1rem; gap:10px;">
+                    <span data-lang="ja" onclick="setLang('ja')">JP</span>
+                    <span class="sep">/</span>
+                    <span data-lang="en" onclick="setLang('en')">EN</span>
+                    <span class="sep">/</span>
+                    <span data-lang="zh" onclick="setLang('zh')">中文</span>
+                    <span class="sep">/</span>
+                    <span data-lang="ko" onclick="setLang('ko')">한국</span>
+                    <span class="sep">/</span>
+                    <span data-lang="es" onclick="setLang('es')">ES</span>
+                    <span class="sep">/</span>
+                    <span data-lang="fr" onclick="setLang('fr')">FR</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Desktop nav (navbar) -->
+    <header class="navbar desktop-nav">
         <a href="../index.html" class="nav-brand">KAMAKURA SIM.</a>
         <ul class="nav-links">
-            <li><a href="../manifesto.html"><span class="lang-ja">思想</span><span class="lang-en">Philosophy</span><span class="lang-zh">理念</span><span class="lang-ko">철학</span><span class="lang-es">Filosofía</span><span class="lang-fr">Philosophie</span></a></li>
-            <li><a href="../news.html"><span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
-            <li><a href="../profile.html"><span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
-            <li><a href="portal.html" class="active"><span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
-            <li><a href="dist/index.html"><span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+            <li><a href="../manifesto.html"><span class="lang-ja">思想</span><span class="lang-en">Philosophy</span></a></li>
+            <li><a href="../news.html"><span class="lang-ja">ニュース</span><span class="lang-en">Updates</span></a></li>
+            <li><a href="../profile.html"><span class="lang-ja">開発者</span><span class="lang-en">Developer</span></a></li>
+            <li><a href="portal.html" class="active"><span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span></a></li>
+            <li><a href="dist/index.html"><span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span></a></li>
             <li><a href="../contact.html" style="color:var(--color-accent);">CONTACT</a></li>
         </ul>
         <div class="nav-meta">
             <div class="lang-switcher">
-                <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
+                <span data-lang="ja" onclick="setLang('ja')">JP</span>
                 <span class="sep">/</span>
                 <span data-lang="en" onclick="setLang('en')">EN</span>
                 <span class="sep">/</span>

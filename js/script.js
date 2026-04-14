@@ -30,15 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setLang = window.toggleLang = function(lang) {
         document.body.classList.remove(...LANGS.map(l => 'lang-' + l));
         document.body.classList.add('lang-' + lang);
+        
         // Update all .lang-switcher and .lang-toggle-wrap buttons
-        document.querySelectorAll('.lang-switcher [data-lang], .lang-toggle[data-lang]').forEach(btn => {
+        document.querySelectorAll('.lang-switcher [data-lang], .lang-toggle[data-lang], .lang-btn-contact [data-lang]').forEach(btn => {
             btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
         });
+        
         // Also handle legacy onclick-based toggles
         document.querySelectorAll('.lang-toggle:not([data-lang])').forEach(btn => {
             const onclick = btn.getAttribute('onclick') || '';
             btn.classList.toggle('active', onclick.includes("'" + lang + "'") || onclick.includes('"' + lang + '"'));
         });
+        
         try { localStorage.setItem('kamakura_lang', lang); } catch(e) {}
     };
 
@@ -47,6 +50,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const saved = localStorage.getItem('kamakura_lang');
         if (saved && LANGS.includes(saved)) window.setLang(saved);
     } catch(e) {}
+
+    /* Global Hamburger Nav Logic */
+    const hamburger = document.getElementById('hamburger');
+    const overlayNav = document.getElementById('overlay-nav');
+    if (hamburger && overlayNav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            overlayNav.classList.toggle('active');
+        });
+        // Close menu when clicking links
+        overlayNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                overlayNav.classList.remove('active');
+            });
+        });
+    }
 
     /* Dynamic Theme via scroll */
     const panels = document.querySelectorAll('.pad-panel');
@@ -93,12 +113,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Active nav link */
     const path = window.location.pathname;
-    document.querySelectorAll('.navbar .nav-links a').forEach(a => {
+    document.querySelectorAll('.navbar .nav-links a, .nav .nav-links a').forEach(a => {
         const href = a.getAttribute('href') || '';
         const aName = href.split('/').pop().replace('.html', '');
         const pName = path.split('/').pop().replace('.html', '');
         if (aName && pName && (aName === pName || href.endsWith(path.split('/').pop()))) {
             a.classList.add('active');
+        }
+    });
+
+    // Close any open panel on escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.overlay-nav.active, .hamburger.open').forEach(el => el.classList.remove('active', 'open'));
+            if (window.closePanel) {
+                document.querySelectorAll('.slide-panel.open').forEach(p => window.closePanel(p.id));
+            }
         }
     });
 });

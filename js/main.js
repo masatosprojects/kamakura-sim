@@ -299,13 +299,13 @@ function initExperience() {
 
     // Parallax
     gsap.to(mainHugeNum, {
-      scale: 1.5,
-      x: 200,
+      scale: isMobile ? 1.2 : 1.5,
+      x: isMobile ? 50 : 200,
       scrollTrigger: {
         trigger: mainHugeNum.parentElement,
         containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
-        start: "left center",
-        end: "right left",
+        start: isMobile ? "top center" : "left center",
+        end: isMobile ? "bottom top" : "right left",
         scrub: 1
       }
     });
@@ -323,8 +323,8 @@ function initExperience() {
       scrollTrigger: {
         trigger: line,
         containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
-        start: "left 80%",
-        end: "left 40%",
+        start: isMobile ? "top 90%" : "left 90%",
+        end: isMobile ? "top 40%" : "left 40%",
         scrub: 1
       }
     });
@@ -339,24 +339,26 @@ function initExperience() {
       scrollTrigger: {
         trigger: card,
         containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
-        start: "left 90%",
-        end: "left 50%",
+        start: isMobile ? "top 95%" : "left 90%",
+        end: isMobile ? "top 60%" : "left 50%",
         scrub: 1
       }
     });
   });
 
   const techStreamSpans = document.querySelectorAll('.tech-stream span');
-  gsap.to(techStreamSpans, {
-    opacity: 1,
-    x: 0,
-    stagger: 0.2,
-    scrollTrigger: {
-      trigger: '.tech-stream',
-      containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
-      start: "left 80%",
-    }
-  });
+  if (techStreamSpans.length > 0) {
+    gsap.to(techStreamSpans, {
+      opacity: 1,
+      x: 0,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: '.tech-stream',
+        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
+        start: isMobile ? "top 80%" : "left 80%",
+      }
+    });
+  }
 
   // Final Gate Reverse background
   const gateBtn = document.getElementById('gate-btn');
