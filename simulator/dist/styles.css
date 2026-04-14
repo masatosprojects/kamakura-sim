@@ -554,13 +554,20 @@ html, body {
 
 /* レスポンシブ */
 @media (max-width: 900px) {
-  :root { --nav-width: 52px; }
+  :root { --nav-width: 52px; --header-h: 56px; }
   .nav-label { display: none; }
   .nav-btn { justify-content: center; padding: 10px; }
   .chart-grid { grid-template-columns: 1fr; }
   .timelapse-layout { grid-template-columns: 1fr; height: auto; }
   .timelapse-map-wrap { height: 400px; }
-  .file-inputs { flex-wrap: wrap; }
+  
+  /* Mobile Header simplification */
+  .app-header { padding: 0 12px; gap: 8px; justify-content: flex-start; }
+  .header-left h1 { font-size: 14px; }
+  .header-sub, .file-load-group { display: none !important; }
+  .load-status { min-width: auto; font-size: 10px; margin-left: auto; } 
+  .kpi-bar-inner { padding: 0 10px; }
+  .kpi-card { padding: 8px 12px; min-width: 90px; }
 }
 
 /* ==============================================================

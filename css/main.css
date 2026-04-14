@@ -157,7 +157,7 @@ body { cursor: none; }
 /* Evacuation sign image — hidden by default, JS activates in Phase 2 */
 .ritual-img {
   position: absolute;
-  width: 340px; max-width: 38vw;
+  width: 340px; max-width: 80vw;
   top: 50%; left: 50%;
   z-index: 2;
   object-fit: contain;
@@ -361,7 +361,7 @@ body { cursor: none; }
   .hero-title .lang-ko { font-size: 6vw; }
   .huge-number { font-size: 50vw; }
   .manifesto-text-wrap { width: 100%; margin-left: 0; }
-  .manifesto-p { font-size: 7vw; line-height: 1.5; }
+  .manifesto-p { font-size: 7vw; line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere; }
   .tech-grid-scene { flex-direction: column; height: auto; padding-left: 0; gap: 40px; }
   .tech-card { width: 100%; padding: 1.5rem; }
   .tech-card h3 { font-size: 10vw; }
