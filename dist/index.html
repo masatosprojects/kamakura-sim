@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鎌倉市 津波避難シミュレーター — 分析ビューア</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+
+<!-- ===== ヘッダー ===== -->
+<header class="app-header">
+  <div class="header-left">
+    <span class="header-icon">🌊</span>
+    <div>
+      <h1>鎌倉市 津波避難シミュレーター</h1>
+      <p class="header-sub">静的分析ビューア — Flask不要・ブラウザ単体で動作</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="file-load-group">
+      <label class="file-label">
+        📂 JSONファイルを開く
+        <span class="file-hint">（analysis_data.json / timelapse_data.json）</span>
+      </label>
+      <div class="file-inputs">
+        <label class="btn btn-secondary btn-sm">
+          📊 分析データ
+          <input type="file" id="file-analysis" accept=".json" hidden>
+        </label>
+        <label class="btn btn-secondary btn-sm">
+          🎬 タイムラプス
+          <input type="file" id="file-timelapse" accept=".json" hidden>
+        </label>
+        <button class="btn btn-primary btn-sm" id="btn-auto-load">⚡ 自動読み込み</button>
+      </div>
+    </div>
+    <div id="load-status" class="load-status"></div>
+  </div>
+</header>
+
+<!-- ===== KPI サマリーバー ===== -->
+<div id="kpi-bar" class="kpi-bar">
+  <div class="kpi-bar-inner" id="kpi-strip">
+    <div class="kpi-placeholder">データを読み込むとサマリーが表示されます</div>
+  </div>
+</div>
+
+<!-- ===== メインレイアウト ===== -->
+<div class="app-body">
+
+  <!-- サイドナビ -->
+  <nav class="side-nav">
+    <button class="nav-btn active" data-tab="timeseries">
+      <span class="nav-icon">📈</span>
+      <span class="nav-label">時系列分析</span>
+    </button>
+    <button class="nav-btn" data-tab="attribute">
+      <span class="nav-icon">👥</span>
+      <span class="nav-label">属性別比較</span>
+    </button>
+    <button class="nav-btn" data-tab="distribution">
+      <span class="nav-icon">📐</span>
+      <span class="nav-label">相関・分布</span>
+    </button>
+    <button class="nav-btn" data-tab="spatial">
+      <span class="nav-icon">🗺️</span>
+      <span class="nav-label">空間・地理統計</span>
+    </button>
+    <div class="nav-divider"></div>
+    <button class="nav-btn" data-tab="timelapse">
+      <span class="nav-icon">▶️</span>
+      <span class="nav-label">タイムラプス再生</span>
+    </button>
+    <div class="nav-footer">
+      <div id="data-info" class="data-info"></div>
+    </div>
+  </nav>
+
+  <!-- コンテンツエリア -->
+  <main class="main-content">
+
+    <!-- ローディング -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loading-box">
+        <div class="spinner"></div>
+        <p id="loading-msg">データを読み込んでいます...</p>
+      </div>
+    </div>
+
+    <!-- 空状態 -->
+    <div id="empty-state" class="empty-state">
+      <div class="empty-icon">📂</div>
+      <h2>JSONファイルを読み込んでください</h2>
+      <p>右上の「⚡ 自動読み込み」ボタン、または「📊 分析データ」「🎬 タイムラプス」ボタンからファイルを選択してください。</p>
+      <p class="empty-hint">
+        ファイルの生成方法：<code>python export_static_data.py</code>
+      </p>
+    </div>
+
+    <!-- タブ: 時系列分析 -->
+    <div id="tab-timeseries" class="tab-content" hidden>
+      <div class="tab-header">
+        <h2>📈 時系列分析</h2>
+        <p>時間経過に伴うエージェントの状態変化・避難開始遅延との相関など</p>
+      </div>
+      <div class="chart-grid" id="grid-timeseries"></div>
+    </div>
+
+    <!-- タブ: 属性別比較 -->
+    <div id="tab-attribute" class="tab-content" hidden>
+      <div class="tab-header">
+        <h2>👥 属性別比較</h2>
+        <p>エージェント属性・年齢層・行動モード別の生存率・死亡要因の比較</p>
+      </div>
+      <div class="chart-grid" id="grid-attribute"></div>
+    </div>
+
+    <!-- タブ: 相関・分布 -->
+    <div id="tab-distribution" class="tab-content" hidden>
+      <div class="tab-header">
+        <h2>📐 相関・分布</h2>
+        <p>移動距離・危機感・速度低下率などの分布と生死との相関分析</p>
+      </div>
+      <div class="chart-grid" id="grid-distribution"></div>
+    </div>
+
+    <!-- タブ: 空間・地理統計 -->
+    <div id="tab-spatial" class="tab-content" hidden>
+      <div class="tab-header">
+        <h2>🗺️ 空間・地理統計</h2>
+        <p>死亡者・ボトルネック・パニック発生源の地図上の分布</p>
+      </div>
+      <div class="chart-grid chart-grid--maps" id="grid-spatial"></div>
+    </div>
+
+    <!-- タブ: タイムラプス再生 -->
+    <div id="tab-timelapse" class="tab-content" hidden>
+      <div class="tab-header">
+        <h2>▶️ タイムラプス再生</h2>
+        <p>シミュレーション結果を時系列でアニメーション再生します</p>
+      </div>
+
+      <div class="timelapse-layout">
+
+        <!-- コントロールパネル -->
+        <div class="timelapse-controls card">
+          <div class="tl-stats-grid" id="tl-stats">
+            <div class="tl-stat"><span class="tl-stat-val" id="tl-arrived">—</span><span class="tl-stat-lbl">避難完了</span></div>
+            <div class="tl-stat"><span class="tl-stat-val evac" id="tl-evac">—</span><span class="tl-stat-lbl">避難中</span></div>
+            <div class="tl-stat"><span class="tl-stat-val wait" id="tl-wait">—</span><span class="tl-stat-lbl">待機中</span></div>
+            <div class="tl-stat"><span class="tl-stat-val dead" id="tl-dead">—</span><span class="tl-stat-lbl">死亡</span></div>
+          </div>
+
+          <div class="tl-time-display">
+            <span id="tl-time-label">0秒</span>
+            <span class="tl-rate" id="tl-rate">生存率 —%</span>
+          </div>
+
+          <input type="range" id="tl-slider" class="tl-slider" min="0" value="0">
+
+          <div class="tl-btn-row">
+            <button class="btn btn-primary" id="btn-play">▶ 再生</button>
+            <button class="btn btn-secondary" id="btn-pause" disabled>⏸ 一時停止</button>
+            <button class="btn btn-secondary" id="btn-reset">⏮ 最初に戻る</button>
+            <label class="tl-speed-label">
+              速度
+              <select id="tl-speed">
+                <option value="500">0.5×</option>
+                <option value="250" selected>1×</option>
+                <option value="100">2.5×</option>
+                <option value="33">8×</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="tl-legend">
+            <span class="dot arrived"></span>避難完了
+            <span class="dot evac"></span>避難中
+            <span class="dot wait"></span>待機中
+            <span class="dot dead"></span>死亡
+          </div>
+
+          <!-- ステップ別グラフ -->
+          <div class="tl-mini-charts">
+            <canvas id="tl-chart-status" height="80"></canvas>
+          </div>
+
+          <!-- 属性別生存率 -->
+          <div class="tl-type-rates" id="tl-type-rates"></div>
+        </div>
+
+        <!-- 地図 -->
+        <div class="timelapse-map-wrap">
+          <div id="timelapse-map"></div>
+          <div class="map-no-data" id="map-no-data">タイムラプスデータを読み込むと地図が表示されます</div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== モーダル ===== -->
+<div id="modal-overlay" class="modal-overlay" hidden aria-modal="true" role="dialog">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-desc"  id="modal-desc"></div>
+      </div>
+      <button class="modal-close" id="modal-close" aria-label="閉じる">✕</button>
+    </div>
+    <div class="modal-chart-wrap" id="modal-chart-wrap">
+      <!-- 拡大チャートをここに挿入 -->
+    </div>
+  </div>
+</div>
+
+<!-- ===== ライブラリ ===== -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

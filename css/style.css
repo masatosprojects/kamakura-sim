@@ -1,0 +1,415 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-color: #111111;
+    --text-color: #ffffff;
+    --color-accent: #ff2a4b;
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+/* Dynamic Themes */
+body.theme-light { --bg-color: #f4f4f4; --text-color: #050505; }
+body.theme-dark  { --bg-color: #111111; --text-color: #ffffff; }
+body.theme-accent { --bg-color: #ff2a4b; --text-color: #111111; --color-accent: #111111; }
+
+/* Language — 6 languages */
+body.lang-ja :is(.lang-en,.lang-zh,.lang-ko,.lang-es,.lang-fr) { display: none !important; }
+body.lang-en :is(.lang-ja,.lang-zh,.lang-ko,.lang-es,.lang-fr) { display: none !important; }
+body.lang-zh :is(.lang-ja,.lang-en,.lang-ko,.lang-es,.lang-fr) { display: none !important; }
+body.lang-ko :is(.lang-ja,.lang-en,.lang-zh,.lang-es,.lang-fr) { display: none !important; }
+body.lang-es :is(.lang-ja,.lang-en,.lang-zh,.lang-ko,.lang-fr) { display: none !important; }
+body.lang-fr :is(.lang-ja,.lang-en,.lang-zh,.lang-ko,.lang-es) { display: none !important; }
+
+/* Lang switcher component */
+.lang-switcher { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.08em; flex-wrap: wrap; }
+.lang-switcher span[data-lang] { cursor: pointer; opacity: 0.35; transition: opacity 0.2s, color 0.2s; white-space: nowrap; }
+.lang-switcher span[data-lang]:hover { opacity: 0.8; }
+.lang-switcher span[data-lang].active { opacity: 1; color: var(--color-accent); }
+.lang-switcher .sep { opacity: 0.2; cursor: default; }
+
+/* --- Navbar --- */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.6rem 5vw; z-index: 100;
+    mix-blend-mode: difference;
+    color: white; pointer-events: none;
+}
+.nav-brand {
+    font-weight: 800; font-family: var(--font-heading); font-size: 1.2rem;
+    text-transform: uppercase;
+}
+.nav-meta { pointer-events: auto; font-weight: 600; display: flex; gap: 1rem; }
+.lang-toggle { cursor: pointer; opacity: 0.5; transition: 0.3s; }
+.lang-toggle:hover { opacity: 1; transform: scale(1.1); }
+.lang-toggle.active { opacity: 1; color: var(--color-accent); }
+
+/* --- Panels --- */
+.pad-panel {
+    min-height: 100vh;
+    padding: 18vh 5vw 12vh;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Typography --- */
+.huge-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 9rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative; z-index: 2;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.huge-title .accent { color: var(--color-accent); }
+
+.summary-text {
+    font-size: clamp(1.1rem, 2vw, 2rem);
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 900px;
+    letter-spacing: -0.01em;
+    margin-top: 1rem;
+    position: relative; z-index: 2;
+}
+
+/* --- Cards --- */
+.card-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    position: relative; z-index: 2;
+}
+
+.info-card {
+    background: rgba(128,128,128,0.08);
+    border: 2px solid rgba(128,128,128,0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: default;
+}
+.info-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-accent);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.info-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+    transition: transform 0.3s;
+}
+.info-card:hover .info-card-icon { transform: scale(1.15) rotate(5deg); }
+
+.info-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+}
+.info-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+/* Math in cards */
+.math-formula {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    background: rgba(0,0,0,0.15);
+    border: 2px solid currentColor;
+    padding: 0.6rem 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    letter-spacing: 0.02em;
+}
+
+/* --- SVG Decorations --- */
+.bg-svg {
+    position: absolute; z-index: 1; pointer-events: none; opacity: 0.3;
+}
+.svg-arrow { top: 15%; right: 8%; width: 35vw; }
+.svg-circle { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70vw; }
+
+@keyframes scribble {
+    0% { stroke-dashoffset: 1000; }
+    100% { stroke-dashoffset: 0; }
+}
+.animated-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: scribble 2s ease forwards;
+}
+
+/* --- Video --- */
+.video-wrap {
+    width: 100%; padding-bottom: 56.25%; position: relative;
+    border-radius: 20px; overflow: hidden;
+    margin: 4rem 0 0; box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    transform: scale(0.97); transition: transform 0.8s;
+}
+.video-wrap.visible { transform: scale(1); }
+.video-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+}
+
+/* --- CTA Button --- */
+.btn-massive {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 4rem);
+    font-weight: 800;
+    color: var(--bg-color);
+    background: var(--text-color);
+    text-decoration: none;
+    padding: 1.2rem 3rem;
+    border-radius: 100px;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    position: relative; overflow: hidden; cursor: pointer;
+}
+.btn-massive::after {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 150%; padding-top: 150%;
+    border-radius: 50%;
+    background: var(--color-accent);
+    z-index: 0;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.btn-massive:hover::after { transform: translate(-50%, -50%) scale(1); }
+.btn-massive span { position: relative; z-index: 1; transition: color 0.3s; }
+.btn-massive:hover span { color: #fff !important; }
+
+/* --- Footer --- */
+footer {
+    padding: 4rem 5vw;
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: #050505;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+/* --- Scroll Animation --- */
+.gsap-reveal {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+                opacity  1.2s cubic-bezier(0.77, 0, 0.175, 1),
+                transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.gsap-reveal.visible {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .card-row { grid-template-columns: 1fr; }
+    .huge-title { font-size: clamp(2.5rem, 12vw, 5rem); }
+    footer { font-size: 1rem; flex-direction: column; }
+}
+
+/* ============================================================
+   UNIFIED NAV EXTENSIONS (portal.html)
+   ============================================================ */
+
+/* Allow brand link to be clickable */
+.navbar .nav-brand {
+    pointer-events: auto;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Nav links list */
+.navbar .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.8rem;
+    pointer-events: auto;
+    align-items: center;
+}
+.navbar .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.55;
+    transition: opacity 0.25s;
+    pointer-events: auto;
+}
+.navbar .nav-links a:hover,
+.navbar .nav-links a.active { opacity: 1; }
+
+/* ============================================================
+   PARTICLE CANVAS + PAGE TRANSITION (portal.html)
+   ============================================================ */
+
+#particle-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.35;
+}
+
+#page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #000;
+    transform-origin: bottom center;
+    transform: scaleY(0);
+    pointer-events: none;
+}
+#page-transition.leaving {
+    animation: ptCurtainDown 0.55s cubic-bezier(0.77,0,0.175,1) forwards;
+}
+#page-transition.entering {
+    transform: scaleY(1);
+    transform-origin: top center;
+    animation: ptCurtainUp 0.55s cubic-bezier(0.77,0,0.175,1) 0.1s forwards;
+}
+@keyframes ptCurtainDown {
+    from { transform: scaleY(0); transform-origin: bottom center; }
+    to   { transform: scaleY(1); transform-origin: bottom center; }
+}
+@keyframes ptCurtainUp {
+    from { transform: scaleY(1); transform-origin: top center; }
+    to   { transform: scaleY(0); transform-origin: top center; }
+}
+
+/* ============================================================
+   CLICKABLE CARDS & BADGES
+   ============================================================ */
+
+.info-card.clickable { cursor: pointer; }
+.info-card.clickable:hover { border-color: var(--color-accent) !important; }
+
+.click-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--color-accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* ============================================================
+   MODAL SYSTEM
+   ============================================================ */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+}
+.modal-overlay.active { display: flex; }
+
+.modal-content {
+    position: relative;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 90vw;
+    max-width: 720px;
+    max-height: 85vh;
+    overflow-y: auto;
+    color: #fff;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    line-height: 1;
+    pointer-events: auto;
+    background: none;
+    border: none;
+    color: inherit;
+}
+.close-btn:hover { opacity: 1; }
+
+.modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+}
+.modal-desc {
+    opacity: 0.65;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 1.4rem;
+}
+.modal-canvas-wrap {
+    width: 100%;
+    height: 280px;
+    background: #0d0d0d;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+.sim-canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ============================================================
+   PORTAL RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .navbar .nav-links { gap: 1rem; }
+    .navbar .nav-links li:nth-child(n+4) { display: none; }
+}
+@media (max-width: 600px) {
+    .navbar .nav-links { display: none; }
+}

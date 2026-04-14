@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTACT — KAMAKURA SIM.</title>
+  <meta name="description" content="お問い合わせ / Contact information for the Kamakura MAS Project.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&family=Inter:wght@900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .contact-scene {
+      width: 100vw; height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-title {
+      font-size: 10vw; line-height: 1; letter-spacing: -0.05em; color: #fff;
+      mix-blend-mode: difference; z-index: 10; margin-bottom: 2rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 2rem; z-index: 10; }
+    .contact-link {
+      font-size: 4vw; text-decoration: none; color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.5); font-weight: 900;
+      transition: all 0.3s; position: relative;
+    }
+    .contact-link:hover {
+      -webkit-text-stroke: 0px; color: var(--accent); letter-spacing: 0.1em;
+      filter: drop-shadow(0 0 20px var(--accent));
+    }
+    .home-back {
+      position: absolute; top: 40px; left: 40px; color: #fff; text-decoration: none;
+      font-weight: 900; font-size: 1rem; z-index: 100;
+    }
+    .home-back:hover { color: var(--accent); }
+    .lang-btn-contact {
+      position: absolute; top: 40px; right: 40px; z-index: 200;
+      display: flex; gap: 8px; font-weight: 900; font-size: 0.85rem; letter-spacing: 0.2em;
+    }
+    .lang-btn-contact span { cursor: pointer; opacity: 0.4; transition: opacity 0.2s, color 0.2s; }
+    .lang-btn-contact span.active { opacity: 1; color: var(--accent); }
+    .lang-btn-contact .sep { opacity: 0.2; cursor: default; }
+  </style>
+</head>
+<body class="lang-ja">
+  <div class="film-grain"></div>
+  <div class="scanlines"></div>
+  <a href="index.html" class="home-back">← <span class="lang-ja">ホームへ戻る</span><span class="lang-en">Return Home</span><span class="lang-zh">返回首页</span><span class="lang-ko">홈으로 돌아가기</span><span class="lang-es">Volver al Inicio</span><span class="lang-fr">Retour à l'Accueil</span></a>
+
+  <div class="lang-btn-contact">
+    <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
+    <span class="sep">/</span>
+    <span data-lang="en" onclick="setLang('en')">EN</span>
+    <span class="sep">/</span>
+    <span data-lang="zh" onclick="setLang('zh')">中文</span>
+    <span class="sep">/</span>
+    <span data-lang="ko" onclick="setLang('ko')">한국</span>
+    <span class="sep">/</span>
+    <span data-lang="es" onclick="setLang('es')">ES</span>
+    <span class="sep">/</span>
+    <span data-lang="fr" onclick="setLang('fr')">FR</span>
+  </div>
+
+  <video src="pic/KAMAKURASIM.mp4" class="global-video-bg" autoplay loop muted playsinline style="opacity:0.3;"></video>
+  <!-- Disaster radio: visual anchor representing emergency communication -->
+  <img src="pic/AZ2HpMdazzkAXMd3Hhq71A-AZ2HpMda0dqEFxFYimpTuQ-removebg-preview.png"
+       aria-hidden="true" loading="lazy"
+       style="position:fixed; bottom:40px; right:48px; height:220px; opacity:0.18; pointer-events:none; z-index:1; filter:brightness(1.4);">
+
+
+  <section class="contact-scene">
+    <h1 class="contact-title">CONTACT<span style="color:var(--accent);">.</span></h1>
+    <div class="contact-links">
+      <a href="mailto:determined.masato@gmail.com" class="contact-link">EMAIL // determined.masato@gmail.com</a>
+      <a href="https://github.com/masatosprojects" target="_blank" class="contact-link">GITHUB // masatosprojects</a>
+      <a href="https://x.com/masatosprojects" target="_blank" class="contact-link">X // @masatosprojects</a>
+      <a href="https://www.instagram.com/masatosprojects/" target="_blank" class="contact-link">INSTAGRAM // masatosprojects</a>
+      <a href="https://www.youtube.com/@masatosprojects-c6e" target="_blank" class="contact-link">YOUTUBE // masatosprojects-c6e</a>
+      <a href="https://www.facebook.com/profile.php?id=61573518448871" target="_blank" class="contact-link">FACEBOOK // masatosprojects</a>
+    </div>
+    <p style="margin-top:3rem; font-size:0.85rem; color:rgba(255,255,255,0.3); letter-spacing:0.2em; z-index:10;">
+      <span class="lang-ja">Maruyama Masato — 東京都立国分寺高等学校</span>
+      <span class="lang-en">Maruyama Masato — Tokyo Metropolitan Kokubunji High School</span>
+      <span class="lang-zh">Maruyama Masato — 东京都立国分寺高中</span>
+      <span class="lang-ko">Maruyama Masato — 도쿄도립 고쿠분지 고등학교</span>
+      <span class="lang-es">Maruyama Masato — Esc. Secundaria Metropolitana de Kokubunji, Tokio</span>
+      <span class="lang-fr">Maruyama Masato — Lycée Métropolitain de Kokubunji, Tokyo</span>
+    </p>
+  </section>
+
+  <script>
+  var LANGS = ['ja','en','zh','ko','es','fr'];
+  function setLang(lang) {
+    document.body.classList.remove.apply(document.body.classList, LANGS.map(function(l){ return 'lang-' + l; }));
+    document.body.classList.add('lang-' + lang);
+    document.querySelectorAll('.lang-btn-contact [data-lang]').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    try { localStorage.setItem('kamakura_lang', lang); } catch(e){}
+  }
+  try { var saved = localStorage.getItem('kamakura_lang'); if (saved && LANGS.indexOf(saved) !== -1) setLang(saved); } catch(e){}
+  const cursor = document.createElement('div');
+  cursor.classList.add('custom-cursor');
+  document.body.appendChild(cursor);
+  window.addEventListener('mousemove', (e) => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+  document.querySelectorAll('a').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+  </script>
+</body>
+</html>

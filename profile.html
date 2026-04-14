@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>開発者 / Developer — KAMAKURA SIM</title>
+  <meta name="description" content="Kamakura MAS Project 開発者の思想と技術スタック / Developer profile and technical philosophy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body class="lang-ja">
+
+  <nav class="nav">
+    <a href="./index.html" class="nav-brand">KAMAKURA SIM.</a>
+    <ul class="nav-links">
+      <li><a href="./manifesto.html"><span class="lang-ja">思想</span><span class="lang-en">Philosophy</span><span class="lang-zh">理念</span><span class="lang-ko">철학</span><span class="lang-es">Filosofía</span><span class="lang-fr">Philosophie</span></a></li>
+      <li><a href="./news.html"><span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
+      <li><a href="./profile.html" class="active"><span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
+      <li><a href="./simulator/portal.html"><span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
+      <li><a href="./simulator/dist/index.html"><span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+      <li><a href="./contact.html" style="color:var(--accent);">CONTACT</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
+      <span class="sep">/</span>
+      <span data-lang="en" onclick="setLang('en')">EN</span>
+      <span class="sep">/</span>
+      <span data-lang="zh" onclick="setLang('zh')">中文</span>
+      <span class="sep">/</span>
+      <span data-lang="ko" onclick="setLang('ko')">한국</span>
+      <span class="sep">/</span>
+      <span data-lang="es" onclick="setLang('es')">ES</span>
+      <span class="sep">/</span>
+      <span data-lang="fr" onclick="setLang('fr')">FR</span>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <div class="page-header">
+      <p class="eyebrow reveal">About the Developer</p>
+      <h1 class="title reveal reveal-delay-1"><span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></h1>
+    </div>
+
+    <hr class="rule">
+
+    <div class="profile-grid">
+
+      <aside class="profile-aside">
+        <div class="profile-name reveal">Maruyama<br>Masato</div>
+        <div class="profile-role reveal reveal-delay-1" style="font-size:1em; font-family:'Inter',sans-serif; opacity:0.8; letter-spacing:0.05em; line-height:1.6;">
+          <span class="lang-ja">東京都立国分寺高等学校</span>
+          <span class="lang-en">Tokyo Metropolitan Kokubunji High School</span>
+          <span class="lang-zh">东京都立国分寺高中</span>
+          <span class="lang-ko">도쿄도립 고쿠분지 고등학교</span>
+          <span class="lang-es">Escuela Secundaria Metropolitana de Kokubunji, Tokio</span>
+          <span class="lang-fr">Lycée Métropolitain de Kokubunji, Tokyo</span>
+        </div>
+        <div class="profile-links reveal reveal-delay-2" style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+          <a href="https://github.com/masatosprojects" target="_blank" rel="noopener">■ GitHub</a>
+          <a href="https://x.com/masatosprojects" target="_blank" rel="noopener">■ X (Twitter)</a>
+          <a href="https://www.instagram.com/masatosprojects/" target="_blank" rel="noopener">■ Instagram</a>
+          <a href="https://www.youtube.com/@masatosprojects-c6e" target="_blank" rel="noopener">■ YouTube</a>
+          <a href="https://www.facebook.com/profile.php?id=61573518448871" target="_blank" rel="noopener">■ Facebook</a>
+          <a href="mailto:determined.masato@gmail.com">■ Email</a>
+        </div>
+        <!-- Guide with megaphone: the human face of evacuation guidance -->
+        <img src="pic/unnamed_design_2-removebg-preview.png"
+             alt="Evacuation guide with megaphone"
+             loading="lazy"
+             class="reveal"
+             style="margin-top:32px; width:100%; max-width:200px; opacity:0.8; filter:brightness(0.9);">
+
+      </aside>
+
+      <div class="profile-main">
+
+        <h2 class="reveal">
+          <span class="lang-ja">なぜ、これを作ったのか。</span>
+          <span class="lang-en">Why I Built This.</span>
+          <span class="lang-zh">为何构建这个项目。</span>
+          <span class="lang-ko">왜 이것을 만들었는가.</span>
+          <span class="lang-es">Por Qué Lo Construí.</span>
+          <span class="lang-fr">Pourquoi Je L'ai Construit.</span>
+        </h2>
+        <p class="reveal">
+          <span class="lang-ja">東日本大震災の映像を見て育った世代として、「次の大地震で鎌倉はどうなるのか」という問いは個人的な切迫感を持つテーマだった。</span>
+          <span class="lang-en">Growing up watching footage of the Great East Japan Earthquake, the question of "what would happen to Kamakura in the next major earthquake" became a deeply personal urgency.</span>
+          <span class="lang-zh">作为看着东日本大震灾影像长大的一代，"下一次大地震时镰仓会怎样"这个问题，对我而言有着切身的紧迫感。</span>
+          <span class="lang-ko">동일본대지진 영상을 보며 자란 세대로서, "다음 대지진에서 가마쿠라는 어떻게 될까"라는 물음은 개인적 절박감을 지닌 주제였다.</span>
+          <span class="lang-es">Habiendo crecido viendo imágenes del Gran Terremoto del Este de Japón, la pregunta "¿qué le pasaría a Kamakura en el próximo gran terremoto?" se convirtió en una urgencia profundamente personal.</span>
+          <span class="lang-fr">Ayant grandi en regardant les images du Grand Séisme de l'Est du Japon, la question "qu'arriverait-il à Kamakura lors du prochain grand séisme ?" est devenue une urgence profondément personnelle.</span>
+        </p>
+        <p class="reveal">
+          <span class="lang-ja">既存の行政シミュレーションは非公開か、あるいは現実の複雑性を捨象したモデルが多い。ならば自分で作る、という単純な動機が出発点だ。</span>
+          <span class="lang-en">Existing governmental simulations are either classified or built on models that strip away real-world complexity. Building one myself, from scratch — that was the simple motivation at the start.</span>
+          <span class="lang-zh">现有的行政模拟要么不公开，要么是舍弃了现实复杂性的模型。"那就自己做"——这个简单的动机是出发点。</span>
+          <span class="lang-ko">기존의 행정 시뮬레이션은 비공개이거나, 현실의 복잡성을 버린 모델이 많다. 그렇다면 직접 만들자는 단순한 동기가 출발점이었다.</span>
+          <span class="lang-es">Las simulaciones gubernamentales existentes son confidenciales o están construidas sobre modelos que eliminan la complejidad real. Construirlo yo mismo desde cero — esa fue la motivación simple al principio.</span>
+          <span class="lang-fr">Les simulations gouvernementales existantes sont soit classifiées, soit construites sur des modèles qui éliminent la complexité réelle. Le construire moi-même — c'était la motivation simple au départ.</span>
+        </p>
+
+        <h2 class="reveal">
+          <span class="lang-ja">技術への信念。</span>
+          <span class="lang-en">A Belief in Technology.</span>
+          <span class="lang-zh">对技术的信念。</span>
+          <span class="lang-ko">기술에 대한 신념.</span>
+          <span class="lang-es">Una Fe en la Tecnología.</span>
+          <span class="lang-fr">Une Foi dans la Technologie.</span>
+        </h2>
+        <p class="reveal">
+          <span class="lang-ja">コードは思考の延長だ。数学モデルを書くことは、世界の仕組みについての仮説を立てることと同義だと思っている。</span>
+          <span class="lang-en">Code is an extension of thought. Writing a mathematical model is equivalent to forming a hypothesis about how the world works.</span>
+          <span class="lang-zh">代码是思维的延伸。我认为，编写数学模型等同于对世界运作方式提出假说。</span>
+          <span class="lang-ko">코드는 사고의 연장이다. 수학 모델을 작성하는 것은 세계의 작동 방식에 대한 가설을 세우는 것과 동의어라고 생각한다.</span>
+          <span class="lang-es">El código es una extensión del pensamiento. Escribir un modelo matemático es equivalente a formular una hipótesis sobre cómo funciona el mundo.</span>
+          <span class="lang-fr">Le code est une extension de la pensée. Écrire un modèle mathématique équivaut à formuler une hypothèse sur le fonctionnement du monde.</span>
+        </p>
+        <p class="reveal">
+          <span class="lang-ja">シミュレーションの結果が「正しい」かどうかより、<strong>問いが鋭くなっているかどうか</strong>を判断基準にしている。精度の高い答えより、解像度の高い問いの方が価値がある。</span>
+          <span class="lang-en">Rather than asking whether the simulation result is "correct," I ask whether <strong>the questions it enables are sharper</strong>. A more precise question is worth more than a more precise answer.</span>
+          <span class="lang-zh">与其问模拟结果是否"正确"，不如问<strong>问题是否变得更锐利</strong>。一个高分辨率的问题比高精度的答案更有价值。</span>
+          <span class="lang-ko">시뮬레이션 결과가 "맞는지"보다, <strong>질문이 더 날카로워지고 있는지</strong>를 판단 기준으로 삼는다. 정밀한 답보다 해상도 높은 질문이 더 가치 있다.</span>
+          <span class="lang-es">En lugar de preguntar si el resultado es "correcto," me pregunto si <strong>las preguntas que habilita son más precisas</strong>. Una pregunta más precisa vale más que una respuesta más precisa.</span>
+          <span class="lang-fr">Plutôt que de demander si le résultat est "correct," je demande si <strong>les questions qu'il permet sont plus précises</strong>. Une question plus précise vaut plus qu'une réponse plus précise.</span>
+        </p>
+
+        <h2 class="reveal"><span class="lang-ja">技術スタック</span><span class="lang-en">Tech Stack</span><span class="lang-zh">技术栈</span><span class="lang-ko">기술 스택</span><span class="lang-es">Stack Tecnológico</span><span class="lang-fr">Stack Technologique</span></h2>
+        <p class="reveal" style="margin-bottom:20px;">
+          <span class="lang-ja">シミュレーションコアから可視化まで、フルスタックで独自実装。外部ライブラリへの依存を最小化し、数理モデルの透明性を担保する。</span>
+          <span class="lang-en">Fully self-implemented from simulation core to visualization. Minimizing external library dependency ensures mathematical transparency.</span>
+          <span class="lang-zh">从模拟核心到可视化，全栈独立实现。将对外部库的依赖降至最低，确保数理模型的透明性。</span>
+          <span class="lang-ko">시뮬레이션 코어부터 시각화까지 풀스택으로 독자 구현. 외부 라이브러리 의존을 최소화하여 수리 모델의 투명성을 담보한다.</span>
+          <span class="lang-es">Implementación propia completa desde el núcleo de simulación hasta la visualización. Minimizar dependencias externas garantiza la transparencia matemática.</span>
+          <span class="lang-fr">Implémentation complète de A à Z. Minimiser les dépendances externes garantit la transparence mathématique.</span>
+        </p>
+        <div class="tech-grid">
+          <div class="tech-item reveal">Python — <span class="lang-ja">シミュレーションコア</span><span class="lang-en">Simulation Core</span><span class="lang-zh">模拟核心</span><span class="lang-ko">시뮬레이션 코어</span><span class="lang-es">Núcleo de Simulación</span><span class="lang-fr">Noyau de Simulation</span></div>
+          <div class="tech-item reveal reveal-delay-1">NumPy / SciPy — <span class="lang-ja">数値計算</span><span class="lang-en">Numerical Computation</span><span class="lang-zh">数值计算</span><span class="lang-ko">수치 계산</span><span class="lang-es">Cálculo Numérico</span><span class="lang-fr">Calcul Numérique</span></div>
+          <div class="tech-item reveal reveal-delay-2">JavaScript (Vanilla) — <span class="lang-ja">ビューア</span><span class="lang-en">Viewer</span><span class="lang-zh">查看器</span><span class="lang-ko">뷰어</span><span class="lang-es">Visor</span><span class="lang-fr">Visionneuse</span></div>
+          <div class="tech-item reveal reveal-delay-1">Canvas API — <span class="lang-ja">リアルタイム描画</span><span class="lang-en">Real-time Rendering</span><span class="lang-zh">实时渲染</span><span class="lang-ko">실시간 렌더링</span><span class="lang-es">Renderizado en Tiempo Real</span><span class="lang-fr">Rendu en Temps Réel</span></div>
+          <div class="tech-item reveal reveal-delay-2">OSMnx — <span class="lang-ja">道路ネットワーク</span><span class="lang-en">Road Network</span><span class="lang-zh">道路网络</span><span class="lang-ko">도로 네트워크</span><span class="lang-es">Red Vial</span><span class="lang-fr">Réseau Routier</span></div>
+          <div class="tech-item reveal reveal-delay-1">Netlify — <span class="lang-ja">デプロイ</span><span class="lang-en">Deployment</span><span class="lang-zh">部署</span><span class="lang-ko">배포</span><span class="lang-es">Despliegue</span><span class="lang-fr">Déploiement</span></div>
+        </div>
+
+        <h2 class="reveal" style="margin-top:64px;"><span class="lang-ja">数理モデルの設計思想</span><span class="lang-en">Mathematical Model Design</span><span class="lang-zh">数理模型设计理念</span><span class="lang-ko">수리 모델 설계 사상</span><span class="lang-es">Diseño del Modelo Matemático</span><span class="lang-fr">Conception du Modèle Mathématique</span></h2>
+        <p class="reveal">
+          <span class="lang-ja">エージェントベースモデル (ABM) の核心は、<strong>マクロな挙動をミクロなルールから創発させる</strong>ことだ。避難という集団現象を、個人の意思決定の積み重ねとして記述する。</span>
+          <span class="lang-en">The essence of Agent-Based Modeling (ABM) is <strong>allowing macro-level behavior to emerge from micro-level rules</strong>. Evacuation as a mass phenomenon is described as an accumulation of individual decisions.</span>
+          <span class="lang-zh">智能体基础模型（ABM）的核心，是<strong>从微观规则中涌现出宏观行为</strong>。将避难这一集体现象，描述为个人决策的积累。</span>
+          <span class="lang-ko">에이전트 기반 모델(ABM)의 핵심은 <strong>마크로 행동을 마이크로 규칙으로부터 창발시키는</strong> 것이다. 대피라는 집단 현상을 개인의 의사결정 집적으로 기술한다.</span>
+          <span class="lang-es">La esencia del Modelado Basado en Agentes (ABM) es <strong>permitir que el comportamiento macro emerja de reglas micro</strong>. La evacuación como fenómeno masivo se describe como acumulación de decisiones individuales.</span>
+          <span class="lang-fr">L'essence du Modèle Multi-Agents (ABM) est de <strong>laisser le comportement macro émerger des règles micro</strong>. L'évacuation comme phénomène de masse est décrite comme une accumulation de décisions individuelles.</span>
+        </p>
+        <p class="reveal">
+          <span class="lang-ja">Social Force Model (Helbing &amp; Molnár, 1995) を基底とし、パニック状態の伝染 (Contagion Model)、目的地選択の不確実性、物理的環境特性との相互作用を拡張実装している。</span>
+          <span class="lang-en">Built on the Social Force Model (Helbing &amp; Molnár, 1995), extended with panic contagion (Contagion Model), destination selection uncertainty, and interactions with physical terrain constraints.</span>
+          <span class="lang-zh">以Social Force Model（Helbing & Molnár, 1995）为基础，扩展实现了恐慌状态的传染（Contagion Model）、目的地选择的不确定性以及与物理环境特性的交互。</span>
+          <span class="lang-ko">Social Force Model (Helbing & Molnár, 1995)을 기저로, 패닉 상태의 전염(Contagion Model), 목적지 선택의 불확실성, 물리적 환경 특성과의 상호작용을 확장 구현하고 있다.</span>
+          <span class="lang-es">Construido sobre el Social Force Model (Helbing &amp; Molnár, 1995), extendido con contagio de pánico (Contagion Model), incertidumbre en selección de destino e interacciones con el terreno físico.</span>
+          <span class="lang-fr">Construit sur le Social Force Model (Helbing &amp; Molnár, 1995), étendu avec la contagion de panique (Contagion Model), l'incertitude de sélection de destination et les interactions avec le terrain physique.</span>
+        </p>
+
+        <div class="reveal" style="margin-top:60px; padding-top:48px; border-top:1px solid rgba(255,255,255,0.1);">
+          <a href="./manifesto.html" class="btn-primary">
+            <span class="lang-ja">プロジェクトの思想を読む →</span>
+            <span class="lang-en">Read the Project Philosophy →</span>
+            <span class="lang-zh">阅读项目理念 →</span>
+            <span class="lang-ko">프로젝트 철학 읽기 →</span>
+            <span class="lang-es">Leer la Filosofía del Proyecto →</span>
+            <span class="lang-fr">Lire la Philosophie du Projet →</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <span class="footer-copy">© 2026 Kamakura MAS Project.</span>
+    <a href="./simulator/portal.html" class="footer-link">
+      <span class="lang-ja">仕組みを解説 →</span>
+      <span class="lang-en">How It Works →</span>
+      <span class="lang-zh">原理解析 →</span>
+      <span class="lang-ko">작동 원리 →</span>
+      <span class="lang-es">Cómo Funciona →</span>
+      <span class="lang-fr">Comment Ça Marche →</span>
+    </a>
+  </footer>
+
+  <script src="./js/script.js"></script>
+  <script>
+  var LANGS = ['ja','en','zh','ko','es','fr'];
+  function setLang(lang) {
+    document.body.classList.remove.apply(document.body.classList, LANGS.map(function(l){ return 'lang-' + l; }));
+    document.body.classList.add('lang-' + lang);
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    try { localStorage.setItem('kamakura_lang', lang); } catch(e){}
+  }
+  try { var saved = localStorage.getItem('kamakura_lang'); if (saved && LANGS.indexOf(saved) !== -1) setLang(saved); } catch(e){}
+  </script>
+</body>
+</html>

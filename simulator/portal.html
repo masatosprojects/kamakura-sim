@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シミュレーター解説 — KAMAKURA SIM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Syne:wght@700;800&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+
+    
+    
+    <style>
+    /* ============================================================
+       YOUTUBE THUMBNAIL
+       ============================================================ */
+    .yt-thumb-link {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        text-decoration: none; overflow: hidden;
+    }
+    .yt-thumb-link img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .yt-thumb-link:hover img { transform: scale(1.03); filter: brightness(1); }
+    .yt-play-overlay {
+        position: absolute; background: rgba(255, 77, 0, 0.9); color: #fff; padding: 12px 35px;
+        font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.5rem; border: 2px solid #fff;
+        text-transform: uppercase; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .yt-thumb-link:hover .yt-play-overlay { background: #fff; color: #FF4D00; border-color: #FF4D00; transform: scale(1.05); }
+
+    /* ============================================================
+       BRUTALIST PORTAL OVERRIDES
+       ============================================================ */
+    body { background: #05070a; color: #fff; font-family: 'Noto Sans JP', sans-serif; }
+    
+    .intro-wrap { background: transparent; padding: 0; margin-top: 100px; }
+    .intro-wrap .container { max-width: 1400px; margin: 0 auto; padding: 0 4vw 100px; }
+    
+    .intro-wrap .isec {
+        background: transparent; border: none; padding: 0; margin-bottom: 120px;
+        opacity: 1; transform: none; box-shadow: none; border-top: 2px solid rgba(255,255,255,0.1); padding-top: 60px;
+    }
+    
+    .intro-wrap .isec-title { text-align: left; margin-bottom: 50px; }
+    .intro-wrap .isec-title h2 {
+        font-size: clamp(2rem, 5vw, 4rem); font-family: 'Inter', sans-serif; font-weight: 900;
+        color: #fff; text-transform: uppercase; border-bottom: none; display: block; padding: 0; letter-spacing: -0.02em; margin: 0;
+        line-height: 1.1;
+    }
+    .intro-wrap .isec-title p {
+        font-size: 1.2rem; color: #FF4D00; margin-top: 15px; font-weight: 900; letter-spacing: 0.2em; font-family: 'Inter', sans-serif;
+    }
+    
+    .intro-wrap .lead-text {
+        font-size: 1.2rem; text-align: left; line-height: 1.9; color: #ccc; margin-bottom: 60px; max-width: 900px;
+    }
+
+    /* Cards */
+    .intro-wrap .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0; border: 1px solid rgba(255,255,255,0.1); }
+    
+    .intro-wrap .icard {
+        background: #05070a; border: 1px solid rgba(255,255,255,0.1); padding: 50px 40px; cursor: default;
+        transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; align-items: flex-start;
+        opacity: 1; transform: none; box-shadow: none; position: relative; overflow: hidden;
+    }
+    .intro-wrap .icard::before {
+        content: ''; position: absolute; inset: 0; background: #FF4D00; opacity: 0; transform: translateY(100%); transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 0;
+    }
+    .intro-wrap .icard:hover::before { transform: translateY(0); opacity: 0.05; }
+    .intro-wrap .icard:hover { border-color: #FF4D00; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); z-index: 2; }
+    
+    .intro-wrap .icard .icon { margin-bottom: 30px; display: block; width: 100%; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 25px; overflow: hidden; position: relative; z-index: 1; }
+    
+    .intro-wrap .icard h3 {
+        font-size: 1.8rem; margin: 0 0 20px; color: #fff; text-align: left;
+        border-bottom: 2px solid #FF4D00; padding-bottom: 15px; width: 100%; font-weight: 900; position: relative; z-index: 1;
+        transition: color 0.3s;
+    }
+    .intro-wrap .icard:hover h3 { color: #FF4D00; }
+    
+    .intro-wrap .icard p { color: #aaa; font-size: 1.1rem; margin: 0; line-height: 1.8; position: relative; z-index: 1; }
+
+    /* Rule list */
+    .intro-wrap .rule-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 40px; }
+    .intro-wrap .rule-item {
+        background: rgba(255,255,255,0.02); padding: 40px; border: 1px solid rgba(255,255,255,0.1); border-left: 8px solid #FF4D00;
+        display: flex; flex-direction: row; align-items: stretch; gap: 40px;
+        opacity: 1; transform: none; box-shadow: none; position: relative; transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .intro-wrap .rule-item:hover { transform: translateX(10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.2); border-left-color: #FF4D00; }
+    .intro-wrap .rule-item.clickable { cursor: pointer; }
+    .intro-wrap .rule-item.clickable:hover .rule-text h4 { color: #FF4D00; }
+    
+    .intro-wrap .rule-emoji { margin: 0; display: flex; align-items: center; justify-content: center; width: 300px; overflow: hidden; border-radius: 4px; background: #000; }
+    .intro-wrap .rule-text { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+    .intro-wrap .rule-text h4 { margin: 0 0 20px; font-size: 2.2rem; color: #fff; font-weight: 900; transition: color 0.3s; letter-spacing: -0.02em; }
+    .intro-wrap .rule-text p { margin: 0; font-size: 1.2rem; color: #aaa; line-height: 1.8; max-width: 800px; }
+
+    .click-badge { position: absolute; top: -1px; right: -1px; background: #FF4D00; color: #000; font-size: 0.9rem; font-weight: 900; padding: 8px 20px; letter-spacing: 0.1em; z-index: 10; }
+
+    .intro-wrap .math-box {
+        background: rgba(255,77,0,0.05); padding: 20px 30px; border: 1px solid rgba(255,77,0,0.3); color: #FF4D00;
+        text-align: left; font-size: 1.3rem; margin: 30px 0 0; font-family: monospace; display: inline-block;
+    }
+
+    /* ====== IMAGES ====== */
+    /* Remove the extreme color distortion! Added slow pulse. */
+    .deco-img { 
+        width: 100%; height: 260px; object-fit: cover; 
+        filter: brightness(0.85); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s; 
+        animation: subtlePulse 8s ease-in-out infinite alternate; border-radius: 4px;
+    }
+    .intro-wrap .icard:hover .deco-img { transform: scale(1.05); filter: brightness(1.1); }
+    .intro-wrap .rule-item:hover .deco-img { transform: scale(1.03); filter: brightness(1.1); }
+    
+    .rule-emoji .deco-img { width: 100%; height: 100%; min-height: 200px; object-fit: cover; }
+    
+    @keyframes subtlePulse {
+       0% { transform: scale(1) translate(0, 0); }
+       100% { transform: scale(1.02) translate(0, -2px); }
+    }
+    
+    .btn-massive { background: #FF4D00 !important; color: #000 !important; border-radius: 0 !important; font-family: 'Inter', sans-serif !important; border: 4px solid #FF4D00 !important; }
+    .btn-massive:hover { background: transparent !important; color: #FF4D00 !important; }
+    
+    .modal-canvas-container { border: 1px solid #333; margin-top: 30px; }
+    
+    @media(max-width: 900px){
+        .intro-wrap .rule-item { flex-direction: column; gap: 30px; }
+        .intro-wrap .rule-emoji { width: 100%; height: 200px; }
+        .intro-wrap .icard { padding: 30px 20px; }
+        .deco-img { height: 180px; }
+    }
+    </style>
+
+
+</head>
+<body class="lang-ja theme-dark">
+
+    <canvas id="particle-canvas"></canvas>
+    <div id="page-transition"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+        <a href="../index.html" class="nav-brand">KAMAKURA SIM.</a>
+        <ul class="nav-links">
+            <li><a href="../manifesto.html"><span class="lang-ja">思想</span><span class="lang-en">Philosophy</span><span class="lang-zh">理念</span><span class="lang-ko">철학</span><span class="lang-es">Filosofía</span><span class="lang-fr">Philosophie</span></a></li>
+            <li><a href="../news.html"><span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
+            <li><a href="../profile.html"><span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
+            <li><a href="portal.html" class="active"><span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
+            <li><a href="dist/index.html"><span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+            <li><a href="../contact.html" style="color:var(--color-accent);">CONTACT</a></li>
+        </ul>
+        <div class="nav-meta">
+            <div class="lang-switcher">
+                <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
+                <span class="sep">/</span>
+                <span data-lang="en" onclick="setLang('en')">EN</span>
+                <span class="sep">/</span>
+                <span data-lang="zh" onclick="setLang('zh')">中文</span>
+                <span class="sep">/</span>
+                <span data-lang="ko" onclick="setLang('ko')">한국</span>
+                <span class="sep">/</span>
+                <span data-lang="es" onclick="setLang('es')">ES</span>
+                <span class="sep">/</span>
+                <span data-lang="fr" onclick="setLang('fr')">FR</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section style="position:relative; width:100%; min-height:100vh; background:#000; display:flex; flex-direction:column; justify-content:flex-end; padding:0; overflow:hidden;">
+        <!-- HERO FULL-WIDTH IMAGE -->
+        <div style="position:absolute; inset:0; z-index:0; overflow:hidden;">
+            <img src="../pic/AZ2Hoy8mgso-iDRYtia4Mw-AZ2Hoy8maZsy5n_sJ7zilQ-removebg-preview.png"
+                 alt="Evacuation simulation visualization"
+                 style="width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(0.55) contrast(1.1); animation: heroImgDrift 18s ease-in-out infinite alternate;"
+            >
+            <div style="position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);"></div>
+        </div>
+        <!-- TITLE BLOCK -->
+        <div style="position:relative; z-index:2; padding: 0 8vw 10vh;">
+            <p style="font-family:'Inter',sans-serif; font-weight:900; font-size: clamp(0.7rem, 1.2vw, 1rem); letter-spacing:0.4em; color:#FF4D00; margin:0 0 20px; text-transform:uppercase;">SIMULATION DESIGN — <span class="lang-ja">シミュレーションの設計</span><span class="lang-en">SIMULATION DESIGN</span><span class="lang-zh">模拟设计</span><span class="lang-ko">시뮬레이션 설계</span><span class="lang-es">DISEÑO DE SIMULACIÓN</span><span class="lang-fr">CONCEPTION DE SIMULATION</span></p>
+            <h1 style="font-family:'Inter',sans-serif; font-weight:900; font-size: clamp(3rem, 8vw, 9rem); color:#fff; line-height:1; letter-spacing:-0.04em; margin:0; text-shadow: 0 0 80px rgba(255,77,0,0.3);">
+                <span class="lang-ja">89,000の命が<br><span style="color:#FF4D00;">動き出す</span>とき。</span>
+                <span class="lang-en">When 89,000 Lives<br><span style="color:#FF4D00;">Start Moving</span>.</span>
+                <span class="lang-zh">当89,000条生命<br><span style="color:#FF4D00;">开始移动</span>之时。</span>
+                <span class="lang-ko">89,000개의 생명이<br><span style="color:#FF4D00;">움직이기 시작할</span> 때.</span>
+                <span class="lang-es">Cuando 89,000 Vidas<br><span style="color:#FF4D00;">Empiezan</span> a Moverse.</span>
+                <span class="lang-fr">Quand 89 000 Vies<br><span style="color:#FF4D00;">Commencent</span> à Bouger.</span>
+            </h1>
+            <p style="font-family:'Noto Sans JP',sans-serif; font-size: clamp(1rem, 1.8vw, 1.4rem); color:rgba(255,255,255,0.7); margin: 30px 0 0; max-width: 700px; line-height:1.8;">
+                <span class="lang-ja">鎌倉市の津波避難を数学・物理・心理の三軸で解き明かす、超大規模マルチエージェント・シミュレーション。</span>
+                <span class="lang-en">A massive multi-agent simulation deciphering Kamakura's tsunami evacuation through mathematics, physics, and psychology.</span>
+                <span class="lang-zh">从数学、物理、心理三个维度解析镰仓市海啸疏散的超大规模多智能体模拟。</span>
+                <span class="lang-ko">수학·물리·심리의 세 축으로 가마쿠라시의 쓰나미 대피를 해명하는 초대규모 멀티에이전트 시뮬레이션.</span>
+                <span class="lang-es">Una simulación masiva multi-agente que descifra la evacuación ante tsunamis de Kamakura a través de matemáticas, física y psicología.</span>
+                <span class="lang-fr">Une simulation multi-agents massive déchiffrant l'évacuation face au tsunami de Kamakura à travers les mathématiques, la physique et la psychologie.</span>
+            </p>
+        </div>
+    </section>
+    <style>
+    @keyframes heroImgDrift {
+        0%   { transform: scale(1) translate(0, 0); }
+        100% { transform: scale(1.06) translate(-1%, -1%); }
+    }
+    </style>
+
+    <!-- ===== 入門CONTENT SECTIONS ===== -->
+    <div class="intro-wrap">
+        <div class="container">
+
+            <!-- 1. システム概要 -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">1. システムの全体概要</span><span class="lang-en">1. System Overview</span><span class="lang-zh">1. 系统总体概述</span><span class="lang-ko">1. 시스템 전체 개요</span><span class="lang-es">1. Descripción General del Sistema</span><span class="lang-fr">1. Vue d'Ensemble du Système</span></h2>
+                    <p>System Overview &amp; Architecture</p>
+                </div>
+                <p class="lead-text">
+                    <span class="lang-ja">本システムは、鎌倉市沿岸部における大規模な津波避難を対象としたマルチエージェント・シミュレーションです。<br>単なる「最短経路の探索」にとどまらず、<strong>「周囲への同調行動（パニックの伝染）」</strong>や、地形・混雑による<strong>「物理的な歩行速度の低下」</strong>を数学的モデルで再現します。</span>
+                    <span class="lang-en">This system is a multi-agent simulation targeting large-scale tsunami evacuation along Kamakura's coastline. Beyond mere "shortest path search," it mathematically reproduces <strong>herd behavior (panic contagion)</strong> and <strong>physical speed reduction</strong> due to terrain and congestion.</span>
+                    <span class="lang-zh">本系统是针对镰仓市沿海地区大规模海啸避难的多智能体模拟。不仅仅是"最短路径搜索"，还通过数学模型再现了<strong>从众行为（恐慌传染）</strong>以及因地形和拥堵导致的<strong>物理步行速度下降</strong>。</span>
+                    <span class="lang-ko">본 시스템은 가마쿠라시 해안부의 대규모 쓰나미 대피를 대상으로 한 멀티에이전트 시뮬레이션입니다. 단순한 "최단 경로 탐색"에 그치지 않고, <strong>동조 행동(패닉 전염)</strong>과 지형·혼잡에 의한 <strong>물리적 보행 속도 저하</strong>를 수학 모델로 재현합니다.</span>
+                    <span class="lang-es">Este sistema es una simulación multi-agente de evacuación masiva ante tsunamis en la costa de Kamakura. Más allá de la "búsqueda de la ruta más corta," reproduce matemáticamente el <strong>comportamiento gregario (contagio de pánico)</strong> y la <strong>reducción física de velocidad</strong> por terreno y congestión.</span>
+                    <span class="lang-fr">Ce système est une simulation multi-agents ciblant l'évacuation massive face au tsunami sur la côte de Kamakura. Au-delà de la "recherche du plus court chemin," il reproduit mathématiquement le <strong>comportement grégaire (contagion de panique)</strong> et la <strong>réduction physique de vitesse</strong> due au terrain et à la congestion.</span>
+                </p>
+                <div class="card-grid">
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G2pkwuKwAAfAkYyntyg-AZ2G2pkw3-dGKCSomrQklQ-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#8c7ae6"><span class="lang-ja">並列計算処理システム</span><span class="lang-en">Parallel Processing System</span><span class="lang-zh">并行计算处理系统</span><span class="lang-ko">병렬 계산 처리 시스템</span><span class="lang-es">Sistema de Procesamiento Paralelo</span><span class="lang-fr">Système de Traitement Parallèle</span></h3>
+                        <p><span class="lang-ja">数万人の「周囲の状況把握」と「経路選択」を、複数の頭脳（マルチプロセッシング機構）を用いて並行して計算処理することで、膨大なシミュレーションを高速に行います。</span><span class="lang-en">Tens of thousands of agents' "situational awareness" and "route selection" are computed simultaneously using multi-processing, enabling massive simulations at high speed.</span><span class="lang-zh">通过多处理器机制并行计算数万人的"周围状况感知"和"路径选择"，高速执行庞大的模拟。</span><span class="lang-ko">수만 명의 "주변 상황 파악"과 "경로 선택"을 복수의 프로세서를 이용하여 병렬 계산함으로써 방대한 시뮬레이션을 고속으로 수행합니다.</span><span class="lang-es">La "percepción situacional" y "selección de rutas" de decenas de miles de agentes se computan simultáneamente mediante multiprocesamiento, realizando simulaciones masivas a alta velocidad.</span><span class="lang-fr">La "conscience situationnelle" et la "sélection de routes" de dizaines de milliers d'agents sont calculées simultanément via le multitraitement, permettant des simulations massives à haute vitesse.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G3EKFvDVNyc_1m-LbXg-AZ2G3EKFTkevtc1C2oZjMA-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#0097e6"><span class="lang-ja">独立したモジュール構成</span><span class="lang-en">Modular Architecture</span><span class="lang-zh">独立的模块构成</span><span class="lang-ko">독립적 모듈 구성</span><span class="lang-es">Arquitectura Modular</span><span class="lang-fr">Architecture Modulaire</span></h3>
+                        <p><span class="lang-ja">設定管理、データ読み込み、計算の実行、画面の描画など、役割ごとにプログラムファイルが美しく分割されており、高い拡張性を備えています。</span><span class="lang-en">Program files are cleanly separated by role — config management, data loading, computation, and rendering — ensuring high extensibility.</span><span class="lang-zh">配置管理、数据加载、计算执行、画面渲染等各职能的程序文件进行了清晰分割，具备高度可扩展性。</span><span class="lang-ko">설정 관리, 데이터 로딩, 계산 실행, 화면 렌더링 등 역할별로 프로그램 파일이 명확히 분리되어 있어 높은 확장성을 갖추고 있습니다.</span><span class="lang-es">Los archivos de programa están separados limpiamente por rol — gestión de configuración, carga de datos, cálculo y renderizado — garantizando alta extensibilidad.</span><span class="lang-fr">Les fichiers de programme sont clairement séparés par rôle — gestion de configuration, chargement de données, calcul et rendu — assurant une haute extensibilité.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2K993rtwgqWvoLQ4bgCg-AZ2K993rirZqFqb4jSSpBg-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#e84118"><span class="lang-ja">地震被害の現実</span><span class="lang-en">The Reality of Earthquake Damage</span><span class="lang-zh">地震灾害的现实</span><span class="lang-ko">지진 피해의 현실</span><span class="lang-es">La Realidad del Daño Sísmico</span><span class="lang-fr">La Réalité des Dommages Sismiques</span></h3>
+                        <p><span class="lang-ja">建物倒壊や家具の転倒は、室内での一次被害をもたらすと同時に、避難開始の遅延要因となります。本シミュレーションが前提とする「なぜ人は即座に逃げられないのか」という問いの根拠です。</span><span class="lang-en">Building collapses and falling furniture cause primary indoor casualties while also delaying evacuation start. This grounds the simulation's core question: "Why can't people flee immediately?"</span><span class="lang-zh">建筑倒塌和家具翻倒造成室内一次伤害，同时也成为避难开始延迟的原因。这是本模拟所基于的问题"为何人们无法立即逃跑"的依据。</span><span class="lang-ko">건물 붕괴나 가구 전도는 실내에서의 1차 피해를 야기하는 동시에 대피 시작 지연의 요인이 됩니다. 이것이 이 시뮬레이션의 전제인 "왜 사람은 즉시 도망치지 못하는가"라는 물음의 근거입니다.</span><span class="lang-es">El derrumbe de edificios y la caída de muebles causan víctimas primarias en interiores y retrasan el inicio de la evacuación. Esto fundamenta la pregunta central de la simulación: "¿Por qué las personas no pueden huir de inmediato?"</span><span class="lang-fr">L'effondrement de bâtiments et la chute de meubles causent des victimes primaires et retardent l'évacuation. Cela fonde la question centrale de la simulation : "Pourquoi les gens ne peuvent-ils pas fuir immédiatement ?"</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 空間データ -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">2. 空間データと情報の仕組み</span><span class="lang-en">2. Spatial Data &amp; Information</span><span class="lang-zh">2. 空间数据与信息结构</span><span class="lang-ko">2. 공간 데이터와 정보 구조</span><span class="lang-es">2. Datos Espaciales e Información</span><span class="lang-fr">2. Données Spatiales et Information</span></h2>
+                    <p>Data Structures &amp; Maps</p>
+                </div>
+                <ul class="rule-list">
+                    <li class="rule-item">
+                        <div class="rule-emoji"><img src="../pic/AZ2HqNWUge6XEllVGcziNQ-AZ2HqNWU1RCvZsIwYRc1uw-removebg-preview.png" class="deco-img"></div>
+                        <div class="rule-text">
+                            <h4><span class="lang-ja">空間ネットワークデータの構築</span><span class="lang-en">Building Spatial Network Data</span><span class="lang-zh">空间网络数据的构建</span><span class="lang-ko">공간 네트워크 데이터 구축</span><span class="lang-es">Construcción de Red Espacial</span><span class="lang-fr">Construction du Réseau Spatial</span></h4>
+                            <p><span class="lang-ja">鎌倉の道路の長さ、道幅、標高、そして「浸水予測域」や「指定避難所」の情報をネットワークデータとして統合し、正確な避難空間を構築しています。</span><span class="lang-en">Road length, width, elevation, "predicted flood zones," and "designated shelters" in Kamakura are integrated as network data to build an accurate evacuation space.</span><span class="lang-zh">将镰仓道路的长度、宽度、海拔以及"预测浸水区域"和"指定避难所"信息整合为网络数据，构建精确的避难空间。</span><span class="lang-ko">가마쿠라의 도로 길이, 폭, 표고, "침수 예측 구역", "지정 대피소" 정보를 네트워크 데이터로 통합하여 정확한 대피 공간을 구축합니다.</span><span class="lang-es">La longitud, ancho, elevación de carreteras, "zonas de inundación previstas" y "refugios designados" de Kamakura se integran como datos de red para construir un espacio de evacuación preciso.</span><span class="lang-fr">La longueur, largeur, altitude des routes, les "zones d'inondation prévues" et "abris désignés" de Kamakura sont intégrés en données réseau pour construire un espace d'évacuation précis.</span></p>
+                        </div>
+                    </li>
+                    <li class="rule-item orange">
+                        <div class="rule-emoji"><img src="../pic/AZ2HpdZDxeHs7JOYUW_7sw-AZ2HpdZDxzDC7cBzF5-gNg-removebg-preview.png" class="deco-img"></div>
+                        <div class="rule-text">
+                            <h4><span class="lang-ja">統計データに基づく人口配置</span><span class="lang-en">Statistical Population Placement</span><span class="lang-zh">基于统计数据的人口配置</span><span class="lang-ko">통계 데이터에 기반한 인구 배치</span><span class="lang-es">Distribución Poblacional Estadística</span><span class="lang-fr">Placement Statistique de la Population</span></h4>
+                            <p><span class="lang-ja">国勢調査などの客観的な統計データに基づき、観光客や地域住民など数万人を、実際の地理に合わせて正確な位置へ初期配置します。</span><span class="lang-en">Based on objective statistical data like census records, tens of thousands of tourists and residents are initially placed at geographically accurate positions.</span><span class="lang-zh">基于国势调查等客观统计数据，将游客和地区居民等数万人精确配置到符合实际地理位置的初始位置。</span><span class="lang-ko">국세 조사 등 객관적 통계 데이터를 기반으로 관광객·지역 주민 등 수만 명을 실제 지리에 맞게 정확한 위치에 초기 배치합니다.</span><span class="lang-es">Basándose en datos estadísticos objetivos como censos, decenas de miles de turistas y residentes son inicialmente ubicados en posiciones geográficamente precisas.</span><span class="lang-fr">Sur la base de données statistiques objectives comme le recensement, des dizaines de milliers de touristes et résidents sont placés à des positions géographiquement précises.</span></p>
+                        </div>
+                    </li>
+                    <li class="rule-item purple">
+                        <div class="rule-emoji"><img src="../pic/AZ2HqpszUIzmBtCQkqs41w-AZ2HqpszP4Orlnqgz5UPpw-removebg-preview.png" class="deco-img"></div>
+                        <div class="rule-text">
+                            <h4><span class="lang-ja">高圧縮ログと描画データ</span><span class="lang-en">Compressed Logs &amp; Rendering Data</span><span class="lang-zh">高压缩日志与渲染数据</span><span class="lang-ko">고압축 로그와 렌더링 데이터</span><span class="lang-es">Registros Comprimidos y Datos de Renderizado</span><span class="lang-fr">Journaux Compressés et Données de Rendu</span></h4>
+                            <p><span class="lang-ja">計算された膨大な履歴は、分析に適した高圧縮フォーマットで保存されます。ブラウザでの動画再生用には、極限まで軽量化された数値データへと変換されて配信されます。</span><span class="lang-en">Computed histories are stored in a highly compressed format optimized for analysis. For browser playback, they are converted into maximally lightweight numerical data.</span><span class="lang-zh">计算所得的庞大历史记录以适合分析的高压缩格式保存。用于浏览器视频播放时，会转换为极度轻量化的数值数据进行配送。</span><span class="lang-ko">계산된 방대한 이력은 분석에 적합한 고압축 포맷으로 저장됩니다. 브라우저 동영상 재생용으로는 극한까지 경량화된 수치 데이터로 변환되어 배포됩니다.</span><span class="lang-es">Los historiales computados se almacenan en formato altamente comprimido optimizado para análisis. Para reproducción en navegador, se convierten en datos numéricos máximamente ligeros.</span><span class="lang-fr">Les historiques calculés sont stockés dans un format hautement compressé optimisé pour l'analyse. Pour la lecture dans le navigateur, ils sont convertis en données numériques maximalement légères.</span></p>
+                        </div>
+                    </li>
+                    <li class="rule-item">
+                        <div class="rule-emoji"><img src="../pic/unnamed_design_1-removebg-preview.png" class="deco-img"></div>
+                        <div class="rule-text">
+                            <h4><span class="lang-ja">沿岸監視インフラとの連携</span><span class="lang-en">Coastal Monitoring Integration</span><span class="lang-zh">与沿海监控基础设施的联动</span><span class="lang-ko">연안 감시 인프라와의 연계</span><span class="lang-es">Integración con Vigilancia Costera</span><span class="lang-fr">Intégration de la Surveillance Côtière</span></h4>
+                            <p><span class="lang-ja">海岸沿いに設置された監視塔・観測機器のデータは、津波到達時刻の予測精度に直結します。シミュレーションはこれらのセンサー情報を初期条件として取り込み、よりリアルな避難タイムラインを再現します。</span><span class="lang-en">Data from coastal monitoring towers and instruments directly improves tsunami arrival time prediction accuracy. The simulation incorporates this sensor data as initial conditions to reproduce a more realistic evacuation timeline.</span><span class="lang-zh">沿海设置的监控塔和观测仪器数据直接关系到海啸到达时刻的预测精度。模拟将这些传感器信息作为初始条件引入，再现更真实的避难时间线。</span><span class="lang-ko">해안을 따라 설치된 감시탑·관측 기기의 데이터는 쓰나미 도달 시각 예측 정밀도에 직결됩니다. 시뮬레이션은 이 센서 정보를 초기 조건으로 취입하여 더 현실적인 대피 타임라인을 재현합니다.</span><span class="lang-es">Los datos de torres de vigilancia costeras mejoran directamente la precisión de predicción de llegada del tsunami. La simulación incorpora esta información como condiciones iniciales para reproducir una línea de tiempo de evacuación más realista.</span><span class="lang-fr">Les données des tours de surveillance côtière améliorent directement la précision de prédiction d'arrivée du tsunami. La simulation incorpore ces informations capteurs comme conditions initiales pour reproduire un calendrier d'évacuation plus réaliste.</span></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 3. エージェント属性 -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">3. 登場人物の特性と行動仕様</span><span class="lang-en">3. Agent Profiles</span><span class="lang-zh">3. 角色特性与行动规范</span><span class="lang-ko">3. 등장인물 특성과 행동 사양</span><span class="lang-es">3. Perfiles de Agentes</span><span class="lang-fr">3. Profils des Agents</span></h2>
+                    <p>Agent Profiles</p>
+                </div>
+                <div class="card-grid">
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G6q37JiZMqb3p2_yx5Q-AZ2G6q37JoNvgTNgeeDeKg-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">全10種類の属性</span><span class="lang-en">10 Agent Types</span><span class="lang-zh">共10种属性</span><span class="lang-ko">총 10가지 속성</span><span class="lang-es">10 Tipos de Agentes</span><span class="lang-fr">10 Types d'Agents</span></h3>
+                        <p><span class="lang-ja">国勢調査と推計に基づき、一般観光客や地域住民、ライフガードなどの属性が割り当てられます。「海沿いの属性」は津波フラッグ等の視覚的情報に反応しやすくなります。</span><span class="lang-en">Based on census data and estimates, attributes like general tourists, local residents, and lifeguards are assigned. "Coastal" agents respond more readily to visual cues like tsunami flags.</span><span class="lang-zh">基于国势调查和推算，分配一般游客、地区居民、救生员等属性。"海边属性"对海啸旗帜等视觉信息的反应更为灵敏。</span><span class="lang-ko">국세 조사와 추계를 바탕으로 일반 관광객, 지역 주민, 라이프가드 등의 속성이 부여됩니다. "해변 속성"은 쓰나미 깃발 등 시각적 정보에 반응하기 쉽습니다.</span><span class="lang-es">Basándose en datos censales, se asignan atributos como turistas generales, residentes locales y socorristas. Los agentes "costeros" responden más fácilmente a señales visuales como banderas de tsunami.</span><span class="lang-fr">Basés sur des données de recensement, des attributs comme touristes généraux, résidents locaux et sauveteurs sont assignés. Les agents "côtiers" répondent plus facilement aux signaux visuels comme les drapeaux de tsunami.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G7FfdCN63p20EVBIMXQ-AZ2G7Ffd5mnsweyQJVh2kA-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">避難の「遅れ」設定</span><span class="lang-en">Evacuation Delay Settings</span><span class="lang-zh">避难"延迟"设置</span><span class="lang-ko">대피 "지연" 설정</span><span class="lang-es">Configuración del Retraso de Evacuación</span><span class="lang-fr">Paramétrage du Délai d'Évacuation</span></h3>
+                        <p><span class="lang-ja">地震発生から逃げ始めるまでの待機時間を、即時避難（平均2.5分）、準備避難（平均4.0分）、同調避難（平均5.0分）など、現実的な確率分布で設定しています。</span><span class="lang-en">Wait times from earthquake onset to evacuation start are set with realistic probability distributions: immediate (avg 2.5 min), preparatory (avg 4.0 min), and herd evacuation (avg 5.0 min).</span><span class="lang-zh">从地震发生到开始逃跑的等待时间，以现实的概率分布设定，分为立即避难（平均2.5分钟）、准备避难（平均4.0分钟）、从众避难（平均5.0分钟）等。</span><span class="lang-ko">지진 발생부터 도망 시작까지의 대기 시간을 즉시 대피(평균 2.5분), 준비 대피(평균 4.0분), 동조 대피(평균 5.0분) 등 현실적인 확률 분포로 설정합니다.</span><span class="lang-es">Los tiempos de espera desde el inicio del sismo hasta la evacuación se establecen con distribuciones de probabilidad realistas: inmediata (prom. 2.5 min), preparatoria (prom. 4.0 min) y gregaria (prom. 5.0 min).</span><span class="lang-fr">Les temps d'attente entre le séisme et le début de l'évacuation sont définis avec des distributions probabilistes réalistes : immédiate (moy. 2,5 min), préparatoire (moy. 4,0 min) et grégaire (moy. 5,0 min).</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G7lV8X-F_bE85-dT09g-AZ2G7lV80nBfmN1AtMjZSw-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">ベースとなる歩行速度</span><span class="lang-en">Base Walking Speed</span><span class="lang-zh">基础步行速度</span><span class="lang-ko">기본 보행 속도</span><span class="lang-es">Velocidad Base de Marcha</span><span class="lang-fr">Vitesse de Marche de Base</span></h3>
+                        <p><span class="lang-ja">各エージェントには確率で、基本となる身体的スピード（児童ペース、成人ペース、高齢者ペース）が個別に割り当てられます。</span><span class="lang-en">Each agent is probabilistically assigned a base physical speed: child pace, adult pace, or elderly pace.</span><span class="lang-zh">每个智能体以概率分配基本的身体速度（儿童速度、成人速度、老年人速度）。</span><span class="lang-ko">각 에이전트에는 확률적으로 기본이 되는 신체적 속도(어린이 속도, 성인 속도, 노인 속도)가 개별 부여됩니다.</span><span class="lang-es">A cada agente se le asigna probabilísticamente una velocidad física base: paso de niño, paso de adulto o paso de anciano.</span><span class="lang-fr">Chaque agent se voit attribuer probabilistiquement une vitesse physique de base : allure enfant, allure adulte ou allure personne âgée.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G89VYcZADUZG7SUDktw-AZ2G89VYYVJ6zDJwsri5jQ-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">プロの警告（声掛け）機能</span><span class="lang-en">Professional Warning Function</span><span class="lang-zh">专业人员警告（呼喊）功能</span><span class="lang-ko">전문가 경고(알림) 기능</span><span class="lang-es">Función de Alerta Profesional</span><span class="lang-fr">Fonction d'Alerte Professionnelle</span></h3>
+                        <p><span class="lang-ja">ライフガードや警察官は自身が逃げながら定期的に声掛けを行い、声を聞いた周囲の一般人の危機感を強制的に引き上げて早期避難を促します。</span><span class="lang-en">Lifeguards and police officers periodically alert bystanders while evacuating themselves, forcibly raising crisis levels of nearby civilians to encourage early evacuation.</span><span class="lang-zh">救生员和警察在自己逃跑的同时定期呼喊，强制提升听到声音的周围普通人的危机感，促进早期避难。</span><span class="lang-ko">라이프가드와 경찰관은 스스로 도망치면서도 정기적으로 주변에 경고를 하여, 이를 들은 주변 일반인의 위기감을 강제로 높여 조기 대피를 촉진합니다.</span><span class="lang-es">Los socorristas y policías alertan periódicamente a los civiles mientras evacuan, elevando forzosamente los niveles de crisis de los civiles cercanos para promover la evacuación temprana.</span><span class="lang-fr">Les sauveteurs et policiers alertent périodiquement les civils tout en évacuant eux-mêmes, élevant de force les niveaux de crise des civils proches pour encourager l'évacuation précoce.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 物理的制約 (クリッカブル) -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">4. 現実世界の物理的な移動制約</span><span class="lang-en">4. Physical Movement Constraints</span><span class="lang-zh">4. 现实世界的物理移动约束</span><span class="lang-ko">4. 현실 세계의 물리적 이동 제약</span><span class="lang-es">4. Restricciones Físicas de Movimiento</span><span class="lang-fr">4. Contraintes Physiques de Déplacement</span></h2>
+                    <p>Physical Constraints Models</p>
+                </div>
+                <p class="lead-text"><span class="lang-ja">避難時の歩行速度は、基本速度に対し、「混雑」と「地形」による2つの速度低下モデルを掛け合わせて毎秒算出されます。<strong>（カードをクリックしてアニメーションを確認👇）</strong></span><span class="lang-en">Evacuation walking speed is calculated every second by multiplying the base speed by two reduction models: "congestion" and "terrain." <strong>(Click cards to view animations 👇)</strong></span><span class="lang-zh">避难时的步行速度，通过将基本速度与"拥堵"和"地形"两种速度下降模型相乘，每秒计算一次。<strong>（点击卡片查看动画👇）</strong></span><span class="lang-ko">대피 시 보행 속도는 기본 속도에 "혼잡"과 "지형"에 의한 두 가지 속도 저하 모델을 곱하여 매초 산출됩니다. <strong>（카드를 클릭하여 애니메이션 확인👇）</strong></span><span class="lang-es">La velocidad de marcha durante la evacuación se calcula cada segundo multiplicando la velocidad base por dos modelos de reducción: "congestión" y "terreno." <strong>(Haz clic en las tarjetas para ver animaciones 👇)</strong></span><span class="lang-fr">La vitesse de marche pendant l'évacuation est calculée chaque seconde en multipliant la vitesse de base par deux modèles de réduction : "congestion" et "terrain." <strong>(Cliquez sur les cartes pour voir les animations 👇)</strong></span></p>
+                <ul class="rule-list">
+                    <li class="rule-item orange clickable" onclick="openModal('modal-klupfel')">
+                        <span class="click-badge">▶ <span class="lang-ja">クリックで図解</span><span class="lang-en">Click to Animate</span><span class="lang-zh">点击查看</span><span class="lang-ko">클릭하여 확인</span><span class="lang-es">Clic para Ver</span><span class="lang-fr">Cliquer pour Voir</span></span>
+                        <div class="rule-emoji"><img src="../pic/AZ2Hpo9bn_Co-1muHWR6RA-AZ2Hpo9b4yN767Ce_In7aw-removebg-preview (1).png" class="deco-img"></div>
+                        <div class="rule-text">
+                            <h4><span class="lang-ja">渋滞による歩行速度低下の数理モデル</span><span class="lang-en">Traffic Congestion Speed Reduction Model</span><span class="lang-zh">拥堵导致步行速度下降的数理模型</span><span class="lang-ko">정체로 인한 보행 속도 저하 수리 모델</span><span class="lang-es">Modelo Matemático de Reducción por Congestión</span><span class="lang-fr">Modèle Mathématique de Réduction par Congestion</span></h4>
+                            <p><span class="lang-ja">道路の面積に対して人が集中しすぎると歩行速度が低下します。限界密度に達すると進行速度がゼロになる「デッドロック」が発生する様子をモデル化しています。</span><span class="lang-en">When people concentrate beyond a road's capacity, walking speed drops. The model reproduces "deadlock" where movement hits zero at critical density.</span><span class="lang-zh">当人员过度集中于道路面积时，步行速度下降。模型再现了密度达到极限时移动速度归零的"死锁"现象。</span><span class="lang-ko">도로 면적에 비해 사람이 지나치게 집중되면 보행 속도가 저하됩니다. 한계 밀도에 달하면 진행 속도가 제로가 되는 "데드락" 발생을 모델화합니다.</span><span class="lang-es">Cuando las personas se concentran más allá de la capacidad de la carretera, la velocidad disminuye. El modelo reproduce el "deadlock" donde el movimiento llega a cero en densidad crítica.</span><span class="lang-fr">Quand les personnes se concentrent au-delà de la capacité d'une route, la vitesse chute. Le modèle reproduit le "deadlock" où le mouvement atteint zéro à la densité critique.</span></p>
+                            <div class="math-box">
+                                \( 速度乗数 = \max\left(0,\; 1 - \dfrac{\rho}{\rho_{limit}}\right) \)
+                            </div>
+                        </div>
+                    </li>
+                    <li class="rule-item green clickable" onclick="openModal('modal-tobler')">
+                        <span class="click-badge" style="background:#4cd137">▶ <span class="lang-ja">クリックで図解</span><span class="lang-en">Click to Animate</span><span class="lang-zh">点击查看</span><span class="lang-ko">클릭하여 확인</span><span class="lang-es">Clic para Ver</span><span class="lang-fr">Cliquer pour Voir</span></span>
+                        <div class="rule-emoji"><img src="../pic/AZ2Hq2hzcwcHGM5UI4S_NQ-AZ2Hq2hzIvKvxdzzwKINzg-removebg-preview.png" class="deco-img"></div>
+                        <div class="rule-text">
+                            <h4><span class="lang-ja">地形（勾配）に伴う歩行速度変化モデル</span><span class="lang-en">Terrain Gradient Speed Change Model</span><span class="lang-zh">地形（坡度）导致步行速度变化的模型</span><span class="lang-ko">지형(경사)에 따른 보행 속도 변화 모델</span><span class="lang-es">Modelo de Cambio de Velocidad por Gradiente Topográfico</span><span class="lang-fr">Modèle de Variation de Vitesse par Gradient Topographique</span></h4>
+                            <p><span class="lang-ja">急な上り坂では進行スピードが物理的に落ち、緩やかな下り坂では最速で移動できるという、重力と人間の生体力学に基づいた速度補正を行っています。</span><span class="lang-en">Speed drops physically on steep ascents, while gradual descents allow maximum movement — a gravity and biomechanics-based correction.</span><span class="lang-zh">在陡峭的上坡上，前进速度会物理性下降，而在缓坡下坡上可以最快速度移动——这是基于重力和人体生物力学的速度补正。</span><span class="lang-ko">가파른 오르막에서는 진행 속도가 물리적으로 떨어지고, 완만한 내리막에서는 최고 속도로 이동할 수 있다는 중력과 생체역학에 기반한 속도 보정을 수행합니다.</span><span class="lang-es">La velocidad cae físicamente en subidas pronunciadas, mientras los descensos suaves permiten movimiento máximo — corrección basada en gravedad y biomecánica.</span><span class="lang-fr">La vitesse chute physiquement dans les montées prononcées, tandis que les descentes douces permettent le mouvement maximal — correction basée sur la gravité et la biomécanique.</span></p>
+                            <div class="math-box">
+                                \( 速度乗数 = \exp(-3.5 \cdot |S + 0.05| + 0.175) \)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 5. 心理・同調行動 (クリッカブル) -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">5. 心理状態と情報の伝播</span><span class="lang-en">5. Psychological Models</span><span class="lang-zh">5. 心理状态与信息传播</span><span class="lang-ko">5. 심리 상태와 정보 전파</span><span class="lang-es">5. Modelos Psicológicos</span><span class="lang-fr">5. Modèles Psychologiques</span></h2>
+                    <p>Psychological Models</p>
+                </div>
+                <p class="lead-text"><span class="lang-ja">各個人は <code>0.0</code>〜<code>1.0</code> の間で変動する<strong>危機感（Crisis Level）</strong>を持ち、これによって歩くペースや行動パターンが大きく変化します。</span><span class="lang-en">Each individual has a <strong>Crisis Level</strong> fluctuating between <code>0.0</code> and <code>1.0</code>, which dramatically affects their walking pace and behavior patterns.</span><span class="lang-zh">每个人拥有在<code>0.0</code>到<code>1.0</code>之间变动的<strong>危机感（Crisis Level）</strong>，这会极大地影响其步行节奏和行动模式。</span><span class="lang-ko">각 개인은 <code>0.0</code>~<code>1.0</code> 사이에서 변동하는 <strong>위기감(Crisis Level)</strong>을 가지며, 이것이 보행 속도와 행동 패턴을 크게 변화시킵니다.</span><span class="lang-es">Cada individuo tiene un <strong>Nivel de Crisis</strong> que fluctúa entre <code>0.0</code> y <code>1.0</code>, afectando dramáticamente su ritmo de marcha y patrones de comportamiento.</span><span class="lang-fr">Chaque individu a un <strong>Niveau de Crise</strong> fluctuant entre <code>0.0</code> et <code>1.0</code>, affectant dramatiquement son rythme de marche et ses patterns de comportement.</span></p>
+                <div class="card-grid">
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G7lV8X-F_bE85-dT09g-AZ2G7lV80nBfmN1AtMjZSw-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">危機感と速度のギアチェンジ</span><span class="lang-en">Crisis Level &amp; Speed Gear Change</span><span class="lang-zh">危机感与速度的档位变化</span><span class="lang-ko">위기감과 속도의 기어 체인지</span><span class="lang-es">Nivel de Crisis y Cambio de Marcha</span><span class="lang-fr">Niveau de Crise et Changement de Vitesse</span></h3>
+                        <p><span class="lang-ja">危険の認識が低い時は歩幅が遅く、危機感が高まるにつれて早歩きになり、パニック状態（0.8以上）に達すると全速力で走って逃げます。</span><span class="lang-en">Low danger awareness means slow walking; as crisis level rises agents walk faster; at panic state (0.8+) they run at full speed.</span><span class="lang-zh">危险认知低时步速缓慢，随着危机感升高逐渐加快步伐，达到恐慌状态（0.8以上）时全速奔跑逃离。</span><span class="lang-ko">위험 인식이 낮을 때는 걸음이 느리고, 위기감이 높아질수록 빠른 걸음이 되며, 패닉 상태(0.8 이상)에 달하면 전력으로 뛰어 도망칩니다.</span><span class="lang-es">Con baja percepción de peligro el agente camina lento; al aumentar la crisis acelera; en pánico (0.8+) corre a máxima velocidad.</span><span class="lang-fr">Faible perception du danger = marche lente ; à mesure que la crise monte, marche rapide ; en état de panique (0,8+) course à pleine vitesse.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G3EKFvDVNyc_1m-LbXg-AZ2G3EKFTkevtc1C2oZjMA-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">外部情報の受け取り</span><span class="lang-en">Receiving External Information</span><span class="lang-zh">外部信息的接收</span><span class="lang-ko">외부 정보 수신</span><span class="lang-es">Recepción de Información Externa</span><span class="lang-fr">Réception d'Informations Externes</span></h3>
+                        <p><span class="lang-ja">スマホの緊急速報の受信や、海岸での津波フラッグの視認、パニックで走る人を見ることで、人々の危機感は即座に引き上げられます。</span><span class="lang-en">Receiving emergency alerts on smartphones, spotting tsunami flags, or seeing panicking runners immediately raises people's crisis levels.</span><span class="lang-zh">收到手机紧急速报、在海岸看到海啸旗帜、看到因恐慌奔跑的人，都会立即提升人们的危机感。</span><span class="lang-ko">스마트폰 긴급 경보 수신, 해안의 쓰나미 깃발 시인, 패닉으로 달리는 사람을 보는 것으로 사람들의 위기감은 즉시 높아집니다.</span><span class="lang-es">Recibir alertas de emergencia, ver banderas de tsunami o ver personas corriendo en pánico eleva inmediatamente los niveles de crisis.</span><span class="lang-fr">Recevoir des alertes d'urgence, apercevoir des drapeaux tsunami ou voir des gens courir en panique élève immédiatement les niveaux de crise.</span></p>
+                    </div>
+                    <div class="icard clickable" style="border-color:#e84118" onclick="openModal('modal-herd')">
+                        <span class="click-badge" style="background:#e84118">▶ <span class="lang-ja">クリックで図解</span><span class="lang-en">Click to Animate</span><span class="lang-zh">点击查看</span><span class="lang-ko">클릭하여 확인</span><span class="lang-es">Clic para Ver</span><span class="lang-fr">Cliquer pour Voir</span></span>
+                        <div class="icon"><img src="../pic/AZ2HqNWUge6XEllVGcziNQ-AZ2HqNWU1RCvZsIwYRc1uw-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#e84118"><span class="lang-ja">群集心理と「同調行動」</span><span class="lang-en">Crowd Psychology &amp; "Herd Behavior"</span><span class="lang-zh">群体心理与"从众行动"</span><span class="lang-ko">군중 심리와 "동조 행동"</span><span class="lang-es">Psicología de Masas y "Comportamiento de Manada"</span><span class="lang-fr">Psychologie des Foules et "Comportement Grégaire"</span></h3>
+                        <p><span class="lang-ja">視野内の多くの人が焦って走っているのを見ると、論理的で安全な道を捨て、無意識に<strong>「すでに混雑している人の流れ」</strong>に引き込まれてしまうという危険な現象を再現しています。</span><span class="lang-en">Seeing many people run in one's field of view causes agents to abandon safe logical routes and be unconsciously drawn into <strong>already-congested flows</strong>.</span><span class="lang-zh">当看到视野内许多人焦急地奔跑时，会抛弃逻辑上安全的道路，被无意识地卷入<strong>"已经拥挤的人流"</strong>——这种危险现象被再现出来。</span><span class="lang-ko">시야 내 많은 사람이 초조하게 달리는 것을 보면, 논리적으로 안전한 길을 버리고 무의식적으로 <strong>"이미 혼잡한 인파의 흐름"</strong>에 끌려드는 위험한 현상을 재현합니다.</span><span class="lang-es">Ver a muchas personas correr hace que los agentes abandonen rutas seguras y sean arrastrados inconscientemente hacia <strong>flujos ya congestionados</strong>.</span><span class="lang-fr">Voir de nombreuses personnes courir pousse les agents à abandonner les routes sûres et à être inconsciemment attirés vers des <strong>flux déjà encombrés</strong>.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2K064bkLVTUBWOGpeTaA-AZ2K064bKiUmYehJMT-7gA-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#fbc531"><span class="lang-ja">防災放送・警報システム</span><span class="lang-en">Emergency Broadcast &amp; Warning System</span><span class="lang-zh">防灾广播·警报系统</span><span class="lang-ko">방재 방송·경보 시스템</span><span class="lang-es">Sistema de Alerta y Radiodifusión de Emergencia</span><span class="lang-fr">Système de Diffusion d'Urgence et d'Alertes</span></h3>
+                        <p><span class="lang-ja">防災スピーカーや緊急放送は、特定エリアにいる全エージェントの危機感を即座に引き上げる「強制イベント」として処理されます。警報の届く範囲・タイミングが生存率に与える影響をシミュレートします。</span><span class="lang-en">Emergency speakers and broadcasts are processed as "forced events" that instantly raise crisis levels of all agents in a given area. The simulation tests how warning range and timing affect survival rates.</span><span class="lang-zh">防灾扬声器和紧急广播作为"强制事件"处理，即时提升特定区域内所有智能体的危机感。模拟警报覆盖范围和时机对生存率的影响。</span><span class="lang-ko">방재 스피커와 긴급 방송은 특정 구역의 모든 에이전트의 위기감을 즉시 높이는 "강제 이벤트"로 처리됩니다. 경보가 닿는 범위·타이밍이 생존율에 미치는 영향을 시뮬레이션합니다.</span><span class="lang-es">Los altavoces y emisiones de emergencia se procesan como "eventos forzados" que elevan instantáneamente los niveles de crisis de todos los agentes en un área. Se simula cómo el alcance y timing de las alertas afectan las tasas de supervivencia.</span><span class="lang-fr">Les haut-parleurs et diffusions d'urgence sont traités comme des "événements forcés" qui élèvent instantanément les niveaux de crise de tous les agents d'une zone. On simule l'impact de la portée et du timing des alertes sur les taux de survie.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. エンジン -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">6. 避難アルゴリズムと高速計算</span><span class="lang-en">6. Evacuation Algorithm &amp; High-Speed Computation</span><span class="lang-zh">6. 避难算法与高速计算</span><span class="lang-ko">6. 대피 알고리즘과 고속 계산</span><span class="lang-es">6. Algoritmo de Evacuación y Cálculo</span><span class="lang-fr">6. Algorithme d'Évacuation et Calcul Rapide</span></h2>
+                    <p>Core Engine Architecture</p>
+                </div>
+                <div class="card-grid">
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2HpdZDxeHs7JOYUW_7sw-AZ2HpdZDxzDC7cBzF5-gNg-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">4つの行動モード</span><span class="lang-en">4 Behavioral Modes</span><span class="lang-zh">4种行动模式</span><span class="lang-ko">4가지 행동 모드</span><span class="lang-es">4 Modos de Comportamiento</span><span class="lang-fr">4 Modes de Comportement</span></h3>
+                        <p><span class="lang-ja">エージェントは状況に応じて、「最短経路」「自律的探索」「避難所直行」「同調追従」の4つのアルゴリズムを切り替えながら避難経路を選択します。</span><span class="lang-en">Agents switch between 4 algorithms based on situation: "shortest path," "autonomous search," "direct to shelter," and "herd following."</span><span class="lang-zh">智能体根据情况切换"最短路径"、"自律探索"、"直奔避难所"、"从众追随"4种算法来选择避难路线。</span><span class="lang-ko">에이전트는 상황에 따라 "최단 경로", "자율적 탐색", "대피소 직행", "동조 추종"의 4가지 알고리즘을 전환하면서 대피 경로를 선택합니다.</span><span class="lang-es">Los agentes alternan entre 4 algoritmos según la situación: "ruta más corta," "búsqueda autónoma," "directo al refugio" y "seguimiento gregario."</span><span class="lang-fr">Les agents alternent entre 4 algorithmes selon la situation : "chemin le plus court," "recherche autonome," "direct vers l'abri" et "suivi grégaire."</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2HqpszUIzmBtCQkqs41w-AZ2HqpszP4Orlnqgz5UPpw-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">空間レーダー技術</span><span class="lang-en">Spatial Radar Technology</span><span class="lang-zh">空间雷达技术</span><span class="lang-ko">공간 레이더 기술</span><span class="lang-es">Tecnología de Radar Espacial</span><span class="lang-fr">Technologie Radar Spatial</span></h3>
+                        <p><span class="lang-ja">数万人が「自身の視界に誰がいるか」を毎秒計算するため、空間を効率的に探索するインデックス技術を採用し、処理を高速化しています。</span><span class="lang-en">To compute "who is in each agent's field of view" every second for tens of thousands, a spatial indexing technology is used to accelerate processing.</span><span class="lang-zh">为了让数万人每秒计算"自己视野内有谁"，采用了高效探索空间的索引技术，加速处理速度。</span><span class="lang-ko">수만 명이 매초 "자신의 시야에 누가 있는지"를 계산하기 위해, 공간을 효율적으로 탐색하는 인덱스 기술을 채용하여 처리를 고속화합니다.</span><span class="lang-es">Para calcular cada segundo "quién está en el campo de visión de cada agente" para decenas de miles, se usa indexación espacial para acelerar el procesamiento.</span><span class="lang-fr">Pour calculer chaque seconde "qui est dans le champ de vision" de chaque agent parmi des dizaines de milliers, une technologie d'indexation spatiale accélère le traitement.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G6q37JiZMqb3p2_yx5Q-AZ2G6q37JoNvgTNgeeDeKg-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">自動連続実験（What-If分析）</span><span class="lang-en">Automated Experiments (What-If Analysis)</span><span class="lang-zh">自动连续实验（What-If分析）</span><span class="lang-ko">자동 연속 실험 (What-If 분석)</span><span class="lang-es">Experimentos Automatizados (Análisis What-If)</span><span class="lang-fr">Expériences Automatisées (Analyse What-If)</span></h3>
+                        <p><span class="lang-ja">「スマホ所持率を100%にする」等の設定を複数登録でき、コンピュータが自動で何度もシミュレーションを連続実行し、データを保存します。</span><span class="lang-en">Multiple configurations like "set smartphone ownership to 100%" can be registered, and the computer automatically runs simulations repeatedly, saving all data.</span><span class="lang-zh">可以登录多项设置（如"将手机持有率设为100%"），电脑自动反复连续运行模拟并保存数据。</span><span class="lang-ko">"스마트폰 소지율을 100%로 설정" 등 복수의 설정을 등록하면, 컴퓨터가 자동으로 반복해서 시뮬레이션을 연속 실행하고 데이터를 저장합니다.</span><span class="lang-es">Se pueden registrar múltiples configuraciones como "establecer posesión de smartphones al 100%," y el ordenador ejecuta automáticamente simulaciones repetidamente guardando todos los datos.</span><span class="lang-fr">Plusieurs configurations comme "définir la possession de smartphones à 100%" peuvent être enregistrées, et l'ordinateur exécute automatiquement les simulations en boucle en sauvegardant toutes les données.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. UI・可視化 -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">7. UI・可視化ダッシュボード</span><span class="lang-en">7. UI &amp; Visualization Dashboard</span><span class="lang-zh">7. UI·可视化仪表板</span><span class="lang-ko">7. UI·시각화 대시보드</span><span class="lang-es">7. Interfaz y Panel de Visualización</span><span class="lang-fr">7. Interface et Tableau de Bord de Visualisation</span></h2>
+                    <p>User Interface &amp; Visualization</p>
+                </div>
+                <div class="card-grid">
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G7FfdCN63p20EVBIMXQ-AZ2G7Ffd5mnsweyQJVh2kA-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">コントロールパネル</span><span class="lang-en">Control Panel</span><span class="lang-zh">控制面板</span><span class="lang-ko">컨트롤 패널</span><span class="lang-es">Panel de Control</span><span class="lang-fr">Panneau de Contrôle</span></h3>
+                        <p><span class="lang-ja">Webブラウザの画面から、人数割合や初期の行動モードなど、多数のパラメータを直感的なスライダー操作で調整し、シミュレーションへ反映させることができます。</span><span class="lang-en">From the web browser, numerous parameters like population ratios and initial behavior modes can be adjusted with intuitive sliders and reflected in the simulation.</span><span class="lang-zh">可以从网络浏览器界面，通过直观的滑块操作调整人数比例、初始行动模式等众多参数，并反映到模拟中。</span><span class="lang-ko">웹 브라우저 화면에서 인원 비율, 초기 행동 모드 등 다수의 파라미터를 직관적인 슬라이더 조작으로 조정하여 시뮬레이션에 반영할 수 있습니다.</span><span class="lang-es">Desde el navegador web, numerosos parámetros como proporciones de población y modos de comportamiento inicial pueden ajustarse con controles deslizantes intuitivos y reflejarse en la simulación.</span><span class="lang-fr">Depuis le navigateur web, de nombreux paramètres comme les ratios de population et les modes de comportement initiaux peuvent être ajustés avec des curseurs intuitifs et reflétés dans la simulation.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G7lV8X-F_bE85-dT09g-AZ2G7lV80nBfmN1AtMjZSw-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">3Dタイムラプス動画</span><span class="lang-en">3D Time-Lapse Video</span><span class="lang-zh">3D延时视频</span><span class="lang-ko">3D 타임랩스 영상</span><span class="lang-es">Vídeo Time-Lapse 3D</span><span class="lang-fr">Vidéo Timelapse 3D</span></h3>
+                        <p><span class="lang-ja">結果は滑らかな3Dマップ上で再生されます。人々の「危機感」を円の大きさで表し、「同調行動」を起こしている人を黄色の枠線でハイライトします。</span><span class="lang-en">Results play on a smooth 3D map. People's "crisis level" is shown by circle size; those exhibiting "herd behavior" are highlighted with yellow outlines.</span><span class="lang-zh">结果在流畅的3D地图上播放。用圆圈大小表示人们的"危机感"，用黄色边框高亮显示发生"从众行为"的人。</span><span class="lang-ko">결과는 부드러운 3D 맵 위에서 재생됩니다. 사람들의 "위기감"을 원의 크기로 표현하고, "동조 행동"을 일으키고 있는 사람을 노란 테두리로 하이라이트합니다.</span><span class="lang-es">Los resultados se reproducen en un mapa 3D fluido. El "nivel de crisis" se muestra por tamaño de círculo; los que exhiben "comportamiento gregario" se resaltan con contornos amarillos.</span><span class="lang-fr">Les résultats se jouent sur une carte 3D fluide. Le "niveau de crise" est représenté par la taille des cercles ; ceux montrant un "comportement grégaire" sont mis en évidence par des contours jaunes.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G89VYcZADUZG7SUDktw-AZ2G89VYYVJ6zDJwsri5jQ-removebg-preview.png" class="deco-img"></div>
+                        <h3><span class="lang-ja">自動集計分析グラフ</span><span class="lang-en">Automated Analytics Graphs</span><span class="lang-zh">自动统计分析图表</span><span class="lang-ko">자동 집계 분석 그래프</span><span class="lang-es">Gráficos Analíticos Automáticos</span><span class="lang-fr">Graphiques Analytiques Automatisés</span></h3>
+                        <p><span class="lang-ja">時間の経過に伴う「フェーズ推移」、全体の「同調率の相関」、属性ごとの「生存率」などが美しいグラフとして自動で生成されます。</span><span class="lang-en">Phase transitions over time, overall herd rate correlations, and survival rates by agent type are automatically generated as elegant graphs.</span><span class="lang-zh">随时间推移的"阶段推移"、整体"从众率相关性"、各属性的"生存率"等自动生成为精美的图表。</span><span class="lang-ko">시간 경과에 따른 "페이즈 추이", 전체 "동조율 상관관계", 속성별 "생존율" 등이 아름다운 그래프로 자동 생성됩니다.</span><span class="lang-es">Las transiciones de fase temporales, correlaciones de tasa gregaria global y tasas de supervivencia por tipo se generan automáticamente como gráficos elegantes.</span><span class="lang-fr">Les transitions de phase temporelles, les corrélations de taux grégaire global et les taux de survie par type sont automatiquement générés sous forme de graphiques élégants.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. 結論と展望 -->
+            <div class="isec">
+                <div class="isec-title">
+                    <h2><span class="lang-ja">8. 結論と今後の展望</span><span class="lang-en">8. Findings &amp; Future Directions</span><span class="lang-zh">8. 结论与未来展望</span><span class="lang-ko">8. 결론과 향후 전망</span><span class="lang-es">8. Conclusiones y Perspectivas</span><span class="lang-fr">8. Conclusions et Perspectives</span></h2>
+                    <p>Findings &amp; Future Directions</p>
+                </div>
+                <p class="lead-text"><span class="lang-ja">シミュレーションで得られた最も重要な知見は、<strong>「情報格差が生存率格差を生む」</strong>という事実です。適切な情報を与えられた観光客の生存率は、地元住民に近い水準まで向上します。</span><span class="lang-en">The most important finding from the simulation is that <strong>"information disparity creates survival rate disparity."</strong> Tourists given appropriate information see survival rates rise to near local resident levels.</span><span class="lang-zh">模拟得出的最重要知见是<strong>"信息差距产生生存率差距"</strong>这一事实。获得适当信息的游客，生存率可提升到接近当地居民的水平。</span><span class="lang-ko">시뮬레이션에서 얻은 가장 중요한 지견은 <strong>"정보 격차가 생존율 격차를 낳는다"</strong>는 사실입니다. 적절한 정보를 받은 관광객의 생존율은 지역 주민에 가까운 수준까지 향상됩니다.</span><span class="lang-es">El hallazgo más importante de la simulación es que <strong>"la disparidad de información crea disparidad en la tasa de supervivencia."</strong> Los turistas con información adecuada ven sus tasas de supervivencia elevarse al nivel de los residentes locales.</span><span class="lang-fr">Le résultat le plus important de la simulation est que <strong>"la disparité d'information crée une disparité de taux de survie."</strong> Les touristes bien informés voient leurs taux de survie s'élever au niveau des résidents locaux.</span></p>
+                <div class="card-grid">
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2Hpo9bn_Co-1muHWR6RA-AZ2Hpo9b4yN767Ce_In7aw-removebg-preview (1).png" class="deco-img"></div>
+                        <h3 style="color:#0097e6"><span class="lang-ja">最適経路アプリの開発</span><span class="lang-en">Optimal Route App Development</span><span class="lang-zh">最优路径应用开发</span><span class="lang-ko">최적 경로 앱 개발</span><span class="lang-es">Desarrollo de App de Ruta Óptima</span><span class="lang-fr">Développement d'App d'Itinéraire Optimal</span></h3>
+                        <p><span class="lang-ja">避難者に最適な経路を提案できるスマートフォンアプリの開発へ。誰もが持っているスマートフォンが、命を救うインフラになれます。</span><span class="lang-en">Toward developing a smartphone app that suggests optimal evacuation routes. The smartphone everyone carries can become life-saving infrastructure.</span><span class="lang-zh">致力于开发能向避难者提供最优路线的智能手机应用。人人都有的智能手机可以成为拯救生命的基础设施。</span><span class="lang-ko">대피자에게 최적 경로를 제안할 수 있는 스마트폰 앱 개발로. 누구나 가지고 있는 스마트폰이 생명을 구하는 인프라가 될 수 있습니다.</span><span class="lang-es">Hacia el desarrollo de una app de smartphone que sugiera rutas de evacuación óptimas. El smartphone que todos tienen puede convertirse en infraestructura que salva vidas.</span><span class="lang-fr">Vers le développement d'une app smartphone suggérant des itinéraires d'évacuation optimaux. Le smartphone que tous possèdent peut devenir une infrastructure qui sauve des vies.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2Hq2hzcwcHGM5UI4S_NQ-AZ2Hq2hzIvKvxdzzwKINzg-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#4cd137"><span class="lang-ja">観光客の命を守る</span><span class="lang-en">Protecting Tourists' Lives</span><span class="lang-zh">守护游客的生命</span><span class="lang-ko">관광객의 생명을 지키다</span><span class="lang-es">Proteger las Vidas de los Turistas</span><span class="lang-fr">Protéger les Vies des Touristes</span></h3>
+                        <p><span class="lang-ja">シミュレーションで得られた知見から、観光客が地元民と同等の避難をできる情報提供アプリの開発を通じて、減災に取り組みます。</span><span class="lang-en">Leveraging simulation insights to develop an information app enabling tourists to evacuate as effectively as locals, contributing to disaster risk reduction.</span><span class="lang-zh">利用模拟获得的知见，通过开发能使游客与当地居民同等避难的信息提供应用，致力于减灾工作。</span><span class="lang-ko">시뮬레이션에서 얻은 지견을 바탕으로, 관광객이 지역민과 동등하게 대피할 수 있는 정보 제공 앱 개발을 통해 감재에 임합니다.</span><span class="lang-es">Aprovechando los conocimientos de la simulación para desarrollar una app que permita a los turistas evacuar tan eficazmente como los locales, contribuyendo a la reducción del riesgo de desastres.</span><span class="lang-fr">En exploitant les résultats de la simulation pour développer une app permettant aux touristes d'évacuer aussi efficacement que les locaux, contribuant à la réduction des risques de catastrophes.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2G2pkwuKwAAfAkYyntyg-AZ2G2pkw3-dGKCSomrQklQ-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#8c7ae6"><span class="lang-ja">政策立案への貢献</span><span class="lang-en">Contributing to Policy-Making</span><span class="lang-zh">对政策制定的贡献</span><span class="lang-ko">정책 수립에의 공헌</span><span class="lang-es">Contribución a la Formulación de Políticas</span><span class="lang-fr">Contribution à l'Élaboration de Politiques</span></h3>
+                        <p><span class="lang-ja">避難路のボトルネック特定、避難誘導員の最適配置、警報タイミングの検証など、行政の意思決定を支援するデータ基盤を提供します。</span><span class="lang-en">Providing a data foundation supporting administrative decision-making: identifying evacuation bottlenecks, optimally placing guides, and verifying warning timings.</span><span class="lang-zh">提供支援行政决策的数据基础：识别避难路瓶颈、最优配置避难引导员、验证警报时机等。</span><span class="lang-ko">대피로 병목 특정, 대피 유도원 최적 배치, 경보 타이밍 검증 등 행정 의사결정을 지원하는 데이터 기반을 제공합니다.</span><span class="lang-es">Proporcionando una base de datos que apoya la toma de decisiones administrativas: identificar cuellos de botella, ubicar guías óptimamente y verificar tiempos de alerta.</span><span class="lang-fr">Fournissant une base de données soutenant la prise de décision administrative : identifier les goulots d'étranglement, placer les guides de façon optimale, vérifier les timings d'alerte.</span></p>
+                    </div>
+                    <div class="icard">
+                        <div class="icon"><img src="../pic/AZ2K-MN5KEazbTCoqWTBmA-AZ2K-MN5u8BCpBVXzgNuhw-removebg-preview.png" class="deco-img"></div>
+                        <h3 style="color:#0097e6"><span class="lang-ja">救助・レスキュー活動の最適化</span><span class="lang-en">Optimizing Rescue Operations</span><span class="lang-zh">救援·搜救活动的优化</span><span class="lang-ko">구조·레스큐 활동 최적화</span><span class="lang-es">Optimización de Operaciones de Rescate</span><span class="lang-fr">Optimisation des Opérations de Secours</span></h3>
+                        <p><span class="lang-ja">ヘリコプターや救助隊の活動エリアと、シミュレーション上の「取り残されたエージェント分布」を重ね合わせることで、救助リソースの最適な配置計画を導き出す研究への応用を目指します。</span><span class="lang-en">By overlaying helicopter and rescue team operation areas with simulated "stranded agent distributions," the goal is to derive optimal rescue resource deployment plans.</span><span class="lang-zh">通过将直升机和救援队的活动区域与模拟上的"被遗留智能体分布"叠加，旨在推导出救援资源最优配置计划的研究应用。</span><span class="lang-ko">헬리콥터와 구조대의 활동 구역과 시뮬레이션 상의 "남겨진 에이전트 분포"를 중첩시킴으로써, 구조 자원의 최적 배치 계획을 도출하는 연구에 응용하는 것을 목표로 합니다.</span><span class="lang-es">Superponiendo las áreas de operación de helicópteros y equipos de rescate con las "distribuciones de agentes varados" simuladas, el objetivo es derivar planes óptimos de despliegue de recursos de rescate.</span><span class="lang-fr">En superposant les zones d'opération des hélicoptères et équipes de secours avec les "distributions d'agents bloqués" simulées, l'objectif est de dériver des plans de déploiement optimaux des ressources de secours.</span></p>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.container -->
+    </div><!-- /.intro-wrap -->
+
+    <!-- ===== CTA ===== -->
+    <section class="pad-panel" data-theme="theme-dark" style="text-align:center">
+        <h2 class="huge-title gsap-reveal">
+            <span class="lang-ja">データを<span class="accent">見る</span>。</span>
+            <span class="lang-en">SEE THE <span class="accent">DATA</span>.</span>
+            <span class="lang-zh">查看<span class="accent">数据</span>。</span>
+            <span class="lang-ko">데이터를 <span class="accent">보다</span>.</span>
+            <span class="lang-es">VER LOS <span class="accent">DATOS</span>.</span>
+            <span class="lang-fr">VOIR LES <span class="accent">DONNÉES</span>.</span>
+        </h2>
+        <p class="summary-text gsap-reveal" style="transition-delay:0.1s; margin:2rem auto 0; text-align:center; max-width:44ch;">
+            <span class="lang-ja">シミュレーション結果を分析ビューアで詳細に探索する。</span>
+            <span class="lang-en">Explore simulation results in the full analytics dashboard.</span>
+            <span class="lang-zh">在分析查看器中详细探索模拟结果。</span>
+            <span class="lang-ko">분석 뷰어에서 시뮬레이션 결과를 상세히 탐색하세요.</span>
+            <span class="lang-es">Explora los resultados de la simulación en detalle en el visor de análisis.</span>
+            <span class="lang-fr">Explorez les résultats de la simulation en détail dans le visualiseur d'analyse.</span>
+        </p>
+        <div class="gsap-reveal" style="margin-top:3rem; transition-delay:0.2s;">
+            <a href="dist/index.html" class="btn-massive" id="launch-btn">
+                <span>
+                    <span class="lang-ja">ダッシュボードを起動</span>
+                    <span class="lang-en">LAUNCH DASHBOARD</span>
+                    <span class="lang-zh">启动仪表板</span>
+                    <span class="lang-ko">대시보드 시작</span>
+                    <span class="lang-es">INICIAR PANEL</span>
+                    <span class="lang-fr">LANCER LE TABLEAU</span>
+                </span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== MODALS ===== -->
+    <div class="modal-overlay" id="main-modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <div class="close-btn" onclick="closeModal(event)">&times;</div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Modal Templates — from 入門.html (detailed versions) -->
+    <template id="tmpl-klupfel">
+        <h3 class="modal-title" style="color:#e1b12c"><img src="../pic/AZ2Hpo9bn_Co-1muHWR6RA-AZ2Hpo9b4yN767Ce_In7aw-removebg-preview (1).png" class="deco-img"> 渋滞による歩行速度低下の数理モデル</h3>
+        <p class="modal-desc">人が狭い通路に殺到すると、密度が上がり個人の歩行速度が低下します。ボトルネックに人が詰まることで全員の移動スピードが著しく低下（赤色に変化）する様子を示しています。</p>
+        <div class="modal-canvas-container">
+            <canvas class="sim-canvas" id="canvas-klupfel"></canvas>
+        </div>
+        <p style="font-size:0.82rem;color:#888;text-align:center;margin-top:8px">青 = スムーズ移動　黄→赤 = 密度上昇により速度が低下している状態</p>
+    </template>
+
+    <template id="tmpl-tobler">
+        <h3 class="modal-title" style="color:#4cd137"><img src="../pic/AZ2Hq2hzcwcHGM5UI4S_NQ-AZ2Hq2hzIvKvxdzzwKINzg-removebg-preview.png" class="deco-img"> 地形（勾配）に伴う歩行速度変化モデル</h3>
+        <p class="modal-desc">上り坂（左側）では物理的に速度が落ち、緩やかな下り坂（右側）では平地よりわずかに速くなるという、人間の生体力学的な挙動を再現しています。</p>
+        <div class="modal-canvas-container">
+            <canvas class="sim-canvas" id="canvas-tobler"></canvas>
+        </div>
+        <p style="font-size:0.82rem;color:#888;text-align:center;margin-top:8px">地形のカーブに沿って移動するスピードメーターの変化にご注目ください</p>
+    </template>
+
+    <template id="tmpl-herd">
+        <h3 class="modal-title" style="color:#e84118"><img src="../pic/AZ2HqNWUge6XEllVGcziNQ-AZ2HqNWU1RCvZsIwYRc1uw-removebg-preview.png" class="deco-img"> 群集心理と「同調行動」の伝播</h3>
+        <p class="modal-desc">平常時（青）は各自が自由に動いていますが、極度のパニック状態の人（赤色）が接近すると、その不安が周囲に伝染します。伝染した人々は元の目的地を捨て、他人の後を追うように密集し始めます。</p>
+        <div class="modal-canvas-container">
+            <canvas class="sim-canvas" id="canvas-herd"></canvas>
+        </div>
+        <p style="font-size:0.82rem;color:#888;text-align:center;margin-top:8px">赤 = パニック発信源　黄色枠 = 「同調」して群れに加わった状態</p>
+    </template>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div>
+            <div style="font-size:0.8rem;letter-spacing:0.1em;color:var(--color-accent);margin-bottom:0.5rem">CONTACT</div>
+            <a href="mailto:determined.masato@gmail.com" style="color:#aaa; text-decoration:none;">determined.masato@gmail.com</a><br>
+            <span class="lang-ja">Maruyama Masato — 東京都立国分寺高等学校</span><span class="lang-en">Maruyama Masato — Tokyo Metropolitan Kokubunji High School</span><span class="lang-zh">Maruyama Masato — 东京都立国分寺高中</span><span class="lang-ko">Maruyama Masato — 도쿄도립 고쿠분지 고등학교</span><span class="lang-es">Maruyama Masato — Esc. Secundaria Metropolitana de Kokubunji, Tokio</span><span class="lang-fr">Maruyama Masato — Lycée Métropolitain de Kokubunji, Tokyo</span>
+        </div>
+        <div>&copy; 2026 KAMAKURA MAS PROJECT</div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+    /* Intro-wrap section reveal — independent of gsap-reveal system */
+    (function () {
+        'use strict';
+        var secs = document.querySelectorAll('.intro-wrap .isec');
+        if (!secs.length) return;
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('show');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.07, rootMargin: '0px 0px -4% 0px' });
+        secs.forEach(function (s) { obs.observe(s); });
+        /* Immediate reveal for any already-in-view section */
+        setTimeout(function () {
+            secs.forEach(function (s) {
+                if (s.getBoundingClientRect().top < window.innerHeight * 0.95) {
+                    s.classList.add('show');
+                }
+            });
+        }, 80);
+    })();
+    </script>
+</body>
+</html>

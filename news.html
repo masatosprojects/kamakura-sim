@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ニュース / Updates — KAMAKURA SIM</title>
+  <meta name="description" content="KAMAKURA SIM. プロジェクトの開発履歴とアップデート情報。/ Development history and project milestones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body class="lang-ja">
+
+  <nav class="nav">
+    <a href="./index.html" class="nav-brand">KAMAKURA SIM.</a>
+    <ul class="nav-links">
+      <li><a href="./manifesto.html"><span class="lang-ja">思想</span><span class="lang-en">Philosophy</span><span class="lang-zh">理念</span><span class="lang-ko">철학</span><span class="lang-es">Filosofía</span><span class="lang-fr">Philosophie</span></a></li>
+      <li><a href="./news.html" class="active"><span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
+      <li><a href="./profile.html"><span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
+      <li><a href="./simulator/portal.html"><span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
+      <li><a href="./simulator/dist/index.html"><span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+      <li><a href="./contact.html" style="color:var(--accent);">CONTACT</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
+      <span class="sep">/</span>
+      <span data-lang="en" onclick="setLang('en')">EN</span>
+      <span class="sep">/</span>
+      <span data-lang="zh" onclick="setLang('zh')">中文</span>
+      <span class="sep">/</span>
+      <span data-lang="ko" onclick="setLang('ko')">한국</span>
+      <span class="sep">/</span>
+      <span data-lang="es" onclick="setLang('es')">ES</span>
+      <span class="sep">/</span>
+      <span data-lang="fr" onclick="setLang('fr')">FR</span>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <div class="page-header">
+      <p class="eyebrow reveal"><span class="lang-ja">開発履歴</span><span class="lang-en">Project Milestones</span><span class="lang-zh">开发历程</span><span class="lang-ko">개발 이력</span><span class="lang-es">Hitos del Proyecto</span><span class="lang-fr">Jalons du Projet</span></p>
+      <h1 class="title reveal reveal-delay-1"><span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></h1>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Featured image -->
+    <div style="width:100%; margin: 0 0 60px; overflow:hidden; position:relative; height: 380px;">
+      <img src="pic/AZ2HogOUNAUTNzbFaDcOvQ-AZ2HogOUu9yjZBawc73YSg-removebg-preview.png"
+           alt="Project development visualization"
+           style="width:100%; height:100%; object-fit:cover; object-position:center top; animation: newsDrift 22s ease-in-out infinite alternate;">
+      <div style="position:absolute; inset:0; background: linear-gradient(to bottom, transparent 40%, rgba(5,7,10,0.9) 100%);"></div>
+      <div style="position:absolute; bottom:30px; left:40px; font-family:'Inter',sans-serif; font-weight:900; font-size:4rem; color:rgba(255,77,0,0.8); letter-spacing:-0.03em; line-height:1;">89,000</div>
+    </div>
+    <style>
+    @keyframes newsDrift { 0% { transform: scale(1); } 100% { transform: scale(1.05) translate(1%,0); } }
+    </style>
+
+    <div class="timeline">
+
+      <!-- 2026 -->
+      <div class="timeline-year reveal">2026</div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">04</div>
+        <div class="timeline-content">
+          <span class="timeline-tag">RELEASE</span>
+          <h3><span class="lang-ja">本ポータルサイト公開</span><span class="lang-en">Portal Site Launch</span><span class="lang-zh">门户网站正式上线</span><span class="lang-ko">포털 사이트 공개</span><span class="lang-es">Lanzamiento del Portal</span><span class="lang-fr">Lancement du Portail</span></h3>
+          <p>
+            <span class="lang-ja">「学術的威厳」と「圧倒的UI」を融合したサイバー・ブルータリズムデザインのポータルを開設。</span>
+            <span class="lang-en">Launched a cyber-brutalist portal merging academic gravitas with overwhelming visual impact.</span>
+            <span class="lang-zh">开设了融合"学术威严"与"压倒性UI"的赛博粗野主义设计门户网站。</span>
+            <span class="lang-ko">"학술적 위엄"과 "압도적 UI"를 융합한 사이버 브루탈리즘 디자인의 포털을 개설.</span>
+            <span class="lang-es">Se abrió un portal de diseño cyber-brutalista que fusiona gravitas académica con impacto visual abrumador.</span>
+            <span class="lang-fr">Ouverture d'un portail cyber-brutaliste fusionnant la rigueur académique et un impact visuel écrasant.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">01</div>
+        <div class="timeline-content">
+          <span class="timeline-tag">UPDATE</span>
+          <h3><span class="lang-ja">同調行動モデルの高度化</span><span class="lang-en">Advanced Herd Behavior Modeling</span><span class="lang-zh">从众行为模型高度化</span><span class="lang-ko">동조 행동 모델 고도화</span><span class="lang-es">Modelado Avanzado de Comportamiento de Manada</span><span class="lang-fr">Modélisation Avancée du Comportement de Meute</span></h3>
+          <p>
+            <span class="lang-ja">Social Force Model の拡張として、群集心理によるパニック伝染と危険な同調行動を正確に表現するシミュレーションに到達。</span>
+            <span class="lang-en">Extended the Social Force Model to accurately reproduce panic contagion and dangerous herd behavior in crowd psychology.</span>
+            <span class="lang-zh">作为Social Force Model的扩展，实现了精确再现群体心理引发的恐慌传染和危险从众行为的模拟。</span>
+            <span class="lang-ko">Social Force Model의 확장으로서, 군중 심리에 의한 패닉 전염과 위험한 동조 행동을 정확히 재현하는 시뮬레이션에 도달.</span>
+            <span class="lang-es">Como extensión del Social Force Model, se logró reproducir con precisión el contagio de pánico y el peligroso comportamiento de manada en psicología de masas.</span>
+            <span class="lang-fr">En extension du Social Force Model, on a atteint une simulation reproduisant précisément la contagion de panique et les comportements grégaires dangereux.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 2025 -->
+      <div class="timeline-year reveal" style="margin-top: 4rem;">2025</div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">09</div>
+        <div class="timeline-content">
+          <span class="timeline-tag warn">MAJOR</span>
+          <h3><span class="lang-ja">89,000人のマルチエージェント化成功</span><span class="lang-en">89,000-Agent Simulation Achieved</span><span class="lang-zh">89,000人多智能体化成功</span><span class="lang-ko">89,000명 멀티에이전트화 성공</span><span class="lang-es">Simulación de 89,000 Agentes Lograda</span><span class="lang-fr">Simulation de 89 000 Agents Réussie</span></h3>
+          <p>
+            <span class="lang-ja">鎌倉の想定避難者である89,000もの独立したエージェントをブラウザ上で並列計算させることに成功。</span>
+            <span class="lang-en">Successfully achieved parallel computation of 89,000 independent agents — Kamakura's estimated evacuation population — rendered live in the browser.</span>
+            <span class="lang-zh">成功在浏览器上实现了对89,000名独立智能体（镰仓假定避难人数）的并列计算。</span>
+            <span class="lang-ko">가마쿠라의 예상 대피 인원인 89,000명의 독립 에이전트를 브라우저 상에서 병렬 계산하는 데 성공.</span>
+            <span class="lang-es">Se logró la computación paralela de 89,000 agentes independientes — la población estimada de evacuación de Kamakura — renderizados en vivo en el navegador.</span>
+            <span class="lang-fr">Réalisation du calcul parallèle de 89 000 agents indépendants — la population d'évacuation estimée de Kamakura — rendus en direct dans le navigateur.</span>
+          </p>
+          <!-- Elderly evacuee: represents the vulnerable population this milestone must serve -->
+          <img src="pic/AZ2K2bG_gQiryh675KQFTg-AZ2K2bG_3PgMHUX3nwfbEA-removebg-preview.png"
+               alt="Elderly person evacuating"
+               loading="lazy"
+               style="display:block; margin-top:24px; max-height:180px; opacity:0.85; filter:brightness(0.9);">
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">06</div>
+        <div class="timeline-content">
+          <span class="timeline-tag">PROJECT START</span>
+          <h3><span class="lang-ja">プロジェクト始動。計算機の中の鎌倉の誕生。</span><span class="lang-en">Project Launch. Kamakura Born Inside a Computer.</span><span class="lang-zh">项目启动。计算机中的镰仓诞生。</span><span class="lang-ko">프로젝트 시작. 컴퓨터 속 가마쿠라 탄생.</span><span class="lang-es">Inicio del Proyecto. Kamakura Nace en un Ordenador.</span><span class="lang-fr">Lancement du Projet. Kamakura Naît dans un Ordinateur.</span></h3>
+          <p>
+            <span class="lang-ja">「なぜ次の大地震での鎌倉は救われないのか？」という個人的な切迫感から、オープンなシミュレーション構築を決意。</span>
+            <span class="lang-en">Driven by the urgent personal question "Why won't Kamakura be saved in the next major earthquake?" — committed to building an open simulation.</span>
+            <span class="lang-zh">出于"为何下一次大地震时镰仓无法得救？"这一个人紧迫感，决心构建开放的模拟器。</span>
+            <span class="lang-ko">"다음 대지진에서 가마쿠라는 왜 구해지지 않는가?"라는 개인적 절박감으로부터, 오픈 시뮬레이션 구축을 결의.</span>
+            <span class="lang-es">Impulsado por la urgente pregunta personal "¿Por qué Kamakura no se salvará en el próximo gran terremoto?" — comprometido a construir una simulación abierta.</span>
+            <span class="lang-fr">Poussé par la question personnelle urgente "Pourquoi Kamakura ne sera-t-elle pas sauvée lors du prochain grand séisme ?" — engagement à construire une simulation ouverte.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <span class="footer-copy">© 2026 Kamakura MAS Project.</span>
+    <a href="./profile.html" class="footer-link"><span class="lang-ja">開発者について →</span><span class="lang-en">About the Developer →</span><span class="lang-zh">关于开发者 →</span><span class="lang-ko">개발자 소개 →</span><span class="lang-es">Sobre el Desarrollador →</span><span class="lang-fr">À propos du Développeur →</span></a>
+  </footer>
+
+  <script src="./js/script.js"></script>
+  <script>
+  var LANGS = ['ja','en','zh','ko','es','fr'];
+  function setLang(lang) {
+    document.body.classList.remove.apply(document.body.classList, LANGS.map(function(l){ return 'lang-' + l; }));
+    document.body.classList.add('lang-' + lang);
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    try { localStorage.setItem('kamakura_lang', lang); } catch(e){}
+  }
+  try { var saved = localStorage.getItem('kamakura_lang'); if (saved && LANGS.indexOf(saved) !== -1) setLang(saved); } catch(e){}
+  </script>
+</body>
+</html>
