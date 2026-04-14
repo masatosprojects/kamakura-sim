@@ -48,8 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Restore saved language
     try {
         const saved = localStorage.getItem('kamakura_lang');
-        if (saved && LANGS.includes(saved)) window.setLang(saved);
-    } catch(e) {}
+        if (saved && LANGS.includes(saved)) {
+            window.setLang(saved);
+        } else {
+            // Default to Japanese explicitly to sync UI states
+            window.setLang('ja');
+        }
+    } catch(e) {
+        window.setLang('ja');
+    }
 
     /* Global Hamburger Nav Logic */
     const hamburger = document.getElementById('hamburger');
