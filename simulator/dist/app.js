@@ -98,12 +98,15 @@ function categorize(item) {
 // =====================================================================
 // 初期化
 // =====================================================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   setupNavigation();
   setupFileInputs();
   setupAutoLoad();
   setupModal();
   showEmptyState();
+  
+  // Trigger auto-load on start
+  await runAutoLoad();
 });
 
 function setupNavigation() {
@@ -135,24 +138,27 @@ function setupFileInputs() {
 }
 
 function setupAutoLoad() {
-  document.getElementById('btn-auto-load').addEventListener('click', async () => {
-    setLoadStatus('loading', '⚡ 自動読み込み中…');
-    let ok = 0;
-    try {
-      const r = await fetch('./data/analysis_data.json');
-      if (r.ok) { State.analysis = await r.json(); onAnalysisLoaded(); ok++; }
-    } catch (_) {}
-    try {
-      const r = await fetch('./data/timelapse_data.json');
-      if (r.ok) { State.timelapse = await r.json(); onTimelapseLoaded(); ok++; }
-    } catch (_) {}
-    if (ok === 0)
-      setLoadStatus('error', '❌ JSONファイルが見つかりません（index.htmlと同フォルダに配置してください）');
-    else if (ok === 1)
-      setLoadStatus('', '⚠️ 一方のファイルのみ読み込まれました');
-    else
-      setLoadStatus('', '✅ 両ファイルの読み込み完了');
-  });
+  document.getElementById('btn-auto-load').addEventListener('click', runAutoLoad);
+}
+
+async function runAutoLoad() {
+  setLoadStatus('loading', '⚡ 自動読み込み中…');
+  let ok = 0;
+  try {
+    const r = await fetch('./data/analysis_data.json');
+    if (r.ok) { State.analysis = await r.json(); onAnalysisLoaded(); ok++; }
+  } catch (_) {}
+  try {
+    const r = await fetch('./data/timelapse_data.json');
+    if (r.ok) { State.timelapse = await r.json(); onTimelapseLoaded(); ok++; }
+  } catch (_) {}
+  
+  if (ok === 0)
+    setLoadStatus('error', '❌ JSONファイルが見つかりません（data/フォルダに配置してください）');
+  else if (ok === 1)
+    setLoadStatus('', '⚠️ 一方のファイルのみ読み込まれました');
+  else
+    setLoadStatus('', '✅ 両ファイルの読み込み完了');
 }
 
 // =====================================================================
