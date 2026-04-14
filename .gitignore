@@ -1,2 +1,1 @@
-dist/data/timelapse_data.json
-simulator/dist/data/timelapse_data.json
+# No large file exclusions needed after compression
