@@ -33,6 +33,7 @@ if(hamburger && overlayNav) {
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     overlayNav.classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
   });
 
   navLinks.forEach(link => {
@@ -43,6 +44,7 @@ if(hamburger && overlayNav) {
         e.preventDefault();
         hamburger.classList.remove('open');
         overlayNav.classList.remove('active');
+        document.body.classList.remove('no-scroll');
         
         const targetEl = document.querySelector(targetId);
         if(targetEl) {
@@ -87,6 +89,8 @@ const TOTAL_DURATION   = FLASH_DURATION + BREATHE_DURATION;
 if (sessionStorage.getItem('KAMAKURA_RITUAL_DONE') === 'true') {
   ritualComplete = true;
   if (ritualScreen) ritualScreen.style.display = 'none';
+  const video = document.querySelector('.hero-video-bg');
+  if(video) video.play().catch(e => console.log('Autoplay blocked:', e));
   setTimeout(initExperience, 50);
 }
 
@@ -203,6 +207,10 @@ function endRitual() {
   if (ritualComplete) return;
   ritualComplete = true;
   sessionStorage.setItem('KAMAKURA_RITUAL_DONE', 'true');
+  
+  const video = document.querySelector('.hero-video-bg');
+  if(video) video.play().catch(e => console.log('Autoplay blocked:', e));
+
   if (ritualScreen) gsap.to(ritualScreen, {
     opacity: 0, duration: 1.2, ease: 'power2.in',
     onComplete: () => ritualScreen.remove()
@@ -404,4 +412,3 @@ window.closePanel = function(id) {
   const panel = document.getElementById(id);
   if(panel) panel.classList.remove('open');
 };
-
