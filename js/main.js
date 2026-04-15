@@ -396,6 +396,9 @@ function initExperience() {
       }
     });
   }
+  
+  // Activate Ghost Cursor
+  initGhostCursor();
 }
 
 // Global Panel Logic
