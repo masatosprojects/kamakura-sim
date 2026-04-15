@@ -348,9 +348,26 @@ body { cursor: none; }
 .gate-btn {
   font-size: 8vw; font-weight: 900; color: var(--bg);
   text-decoration: none; cursor: none; position: relative; z-index: 10;
-  transition: letter-spacing 0.3s;
+  transition: letter-spacing 0.3s, transform 0.3s;
+  animation: gate-btn-pulse 2s ease-in-out infinite;
 }
-.gate-btn:hover { letter-spacing: 0.05em; }
+.gate-btn:hover { letter-spacing: 0.05em; transform: scale(1.05); }
+
+@keyframes gate-btn-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,77,0,0)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(5,7,10,0.4)); }
+}
+
+#video-promo {
+  background: #000;
+}
+.video-container {
+  width: 80vw;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
 
 /* Responsive adjustments */
 @media (max-width: 900px) {

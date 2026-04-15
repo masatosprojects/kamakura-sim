@@ -375,7 +375,7 @@ function initExperience() {
       e.preventDefault();
       document.body.classList.add('glitch-flash');
       setTimeout(() => {
-        window.location.href = './simulator/dist/index.html';
+        window.location.href = 'https://masatosprojects.github.io/kamakura-sim/simulator/portal.html';
       }, 500);
     });
   }
