@@ -134,6 +134,16 @@
         .intro-wrap .icard { padding: 30px 20px; }
         .deco-img { height: 180px; }
     }
+    
+    /* Fix Navbar & Hamburger Overlap */
+    @media (min-width: 901px) {
+        .navbar.desktop-nav {
+            padding-right: 120px; /* Make room for hamburger */
+        }
+        .nav-meta .lang-switcher {
+            margin-right: 20px;
+        }
+    }
     </style>
 
 
@@ -317,11 +327,6 @@
                             <p><span class="lang-ja">計算された膨大な履歴は、分析に適した高圧縮フォーマットで保存されます。ブラウザでの動画再生用には、極限まで軽量化された数値データへと変換されて配信されます。</span><span class="lang-en">Computed histories are stored in a highly compressed format optimized for analysis. For browser playback, they are converted into maximally lightweight numerical data.</span><span class="lang-zh">计算所得的庞大历史记录以适合分析的高压缩格式保存。用于浏览器视频播放时，会转换为极度轻量化的数值数据进行配送。</span><span class="lang-ko">계산된 방대한 이력은 분석에 적합한 고압축 포맷으로 저장됩니다. 브라우저 동영상 재생용으로는 극한까지 경량화된 수치 데이터로 변환되어 배포됩니다.</span><span class="lang-es">Los historiales computados se almacenan en formato altamente comprimido optimizado para análisis. Para reproducción en navegador, se convierten en datos numéricos máximamente ligeros.</span><span class="lang-fr">Les historiques calculés sont stockés dans un format hautement compressé optimisé pour l'analyse. Pour la lecture dans le navigateur, ils sont convertis en données numériques maximalement légères.</span></p>
                         </div>
                     </li>
-                    <li class="rule-item">
-                        <div class="rule-emoji"><img src="../pic/unnamed_design_1-removebg-preview.png" class="deco-img"></div>
-                        <div class="rule-text">
-                            <h4><span class="lang-ja">沿岸監視インフラとの連携</span><span class="lang-en">Coastal Monitoring Integration</span><span class="lang-zh">与沿海监控基础设施的联动</span><span class="lang-ko">연안 감시 인프라와의 연계</span><span class="lang-es">Integración con Vigilancia Costera</span><span class="lang-fr">Intégration de la Surveillance Côtière</span></h4>
-                            <p><span class="lang-ja">海岸沿いに設置された監視塔・観測機器のデータは、津波到達時刻の予測精度に直結します。シミュレーションはこれらのセンサー情報を初期条件として取り込み、よりリアルな避難タイムラインを再現します。</span><span class="lang-en">Data from coastal monitoring towers and instruments directly improves tsunami arrival time prediction accuracy. The simulation incorporates this sensor data as initial conditions to reproduce a more realistic evacuation timeline.</span><span class="lang-zh">沿海设置的监控塔和观测仪器数据直接关系到海啸到达时刻的预测精度。模拟将这些传感器信息作为初始条件引入，再现更真实的避难时间线。</span><span class="lang-ko">해안을 따라 설치된 감시탑·관측 기기의 데이터는 쓰나미 도달 시각 예측 정밀도에 직결됩니다. 시뮬레이션은 이 센서 정보를 초기 조건으로 취입하여 더 현실적인 대피 타임라인을 재현합니다.</span><span class="lang-es">Los datos de torres de vigilancia costeras mejoran directamente la precisión de predicción de llegada del tsunami. La simulación incorpora esta información como condiciones iniciales para reproducir una línea de tiempo de evacuación más realista.</span><span class="lang-fr">Les données des tours de surveillance côtière améliorent directement la précision de prédiction d'arrivée du tsunami. La simulation incorpore ces informations capteurs comme conditions initiales pour reproduire un calendrier d'évacuation plus réaliste.</span></p>
                         </div>
                     </li>
                 </ul>
@@ -414,11 +419,7 @@
                         <h3 style="color:#e84118"><span class="lang-ja">群集心理と「同調行動」</span><span class="lang-en">Crowd Psychology &amp; "Herd Behavior"</span><span class="lang-zh">群体心理与"从众行动"</span><span class="lang-ko">군중 심리와 "동조 행동"</span><span class="lang-es">Psicología de Masas y "Comportamiento de Manada"</span><span class="lang-fr">Psychologie des Foules et "Comportement Grégaire"</span></h3>
                         <p><span class="lang-ja">視野内の多くの人が焦って走っているのを見ると、論理的で安全な道を捨て、無意識に<strong>「すでに混雑している人の流れ」</strong>に引き込まれてしまうという危険な現象を再現しています。</span><span class="lang-en">Seeing many people run in one's field of view causes agents to abandon safe logical routes and be unconsciously drawn into <strong>already-congested flows</strong>.</span><span class="lang-zh">当看到视野内许多人焦急地奔跑时，会抛弃逻辑上安全的道路，被无意识地卷入<strong>"已经拥挤的人流"</strong>——这种危险现象被再现出来。</span><span class="lang-ko">시야 내 많은 사람이 초조하게 달리는 것을 보면, 논리적으로 안전한 길을 버리고 무의식적으로 <strong>"이미 혼잡한 인파의 흐름"</strong>에 끌려드는 위험한 현상을 재현합니다.</span><span class="lang-es">Ver a muchas personas correr hace que los agentes abandonen rutas seguras y sean arrastrados inconscientemente hacia <strong>flujos ya congestionados</strong>.</span><span class="lang-fr">Voir de nombreuses personnes courir pousse les agents à abandonner les routes sûres et à être inconsciemment attirés vers des <strong>flux déjà encombrés</strong>.</span></p>
                     </div>
-                    <div class="icard">
-                        <div class="icon"><img src="../pic/AZ2K064bkLVTUBWOGpeTaA-AZ2K064bKiUmYehJMT-7gA-removebg-preview.png" class="deco-img"></div>
-                        <h3 style="color:#fbc531"><span class="lang-ja">防災放送・警報システム</span><span class="lang-en">Emergency Broadcast &amp; Warning System</span><span class="lang-zh">防灾广播·警报系统</span><span class="lang-ko">방재 방송·경보 시스템</span><span class="lang-es">Sistema de Alerta y Radiodifusión de Emergencia</span><span class="lang-fr">Système de Diffusion d'Urgence et d'Alertes</span></h3>
-                        <p><span class="lang-ja">防災スピーカーや緊急放送は、特定エリアにいる全エージェントの危機感を即座に引き上げる「強制イベント」として処理されます。警報の届く範囲・タイミングが生存率に与える影響をシミュレートします。</span><span class="lang-en">Emergency speakers and broadcasts are processed as "forced events" that instantly raise crisis levels of all agents in a given area. The simulation tests how warning range and timing affect survival rates.</span><span class="lang-zh">防灾扬声器和紧急广播作为"强制事件"处理，即时提升特定区域内所有智能体的危机感。模拟警报覆盖范围和时机对生存率的影响。</span><span class="lang-ko">방재 스피커와 긴급 방송은 특정 구역의 모든 에이전트의 위기감을 즉시 높이는 "강제 이벤트"로 처리됩니다. 경보가 닿는 범위·타이밍이 생존율에 미치는 영향을 시뮬레이션합니다.</span><span class="lang-es">Los altavoces y emisiones de emergencia se procesan como "eventos forzados" que elevan instantáneamente los niveles de crisis de todos los agentes en un área. Se simula cómo el alcance y timing de las alertas afectan las tasas de supervivencia.</span><span class="lang-fr">Les haut-parleurs et diffusions d'urgence sont traités comme des "événements forcés" qui élèvent instantanément les niveaux de crise de tous les agents d'une zone. On simule l'impact de la portée et du timing des alertes sur les taux de survie.</span></p>
-                    </div>
+
                 </div>
             </div>
 

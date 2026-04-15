@@ -408,7 +408,59 @@ window.openPanel = function(id) {
   if(id === 'panel-tobler' && window.startTobler) window.startTobler();
   if(id === 'panel-herd' && window.startHerd) window.startHerd();
 };
-window.closePanel = function(id) {
-  const panel = document.getElementById(id);
-  if(panel) panel.classList.remove('open');
 };
+
+// --- GHOST CURSOR ANIMATION ---
+function initGhostCursor() {
+  const gateBtn = document.getElementById('gate-btn');
+  if (!gateBtn) return;
+
+  const ghost = document.createElement('div');
+  ghost.className = 'ghost-cursor';
+  gateBtn.parentElement.appendChild(ghost);
+
+  function runAnimation() {
+    // Reset position
+    gsap.set(ghost, { opacity: 0, x: -100, y: 100 });
+
+    const tl = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 5,
+      delay: 2
+    });
+
+    tl.to(ghost, {
+      opacity: 1,
+      duration: 0.5
+    })
+    .to(ghost, {
+      x: gateBtn.offsetLeft + gateBtn.offsetWidth / 2,
+      y: gateBtn.offsetTop + gateBtn.offsetHeight / 2,
+      duration: 1.5,
+      ease: "power2.inOut"
+    })
+    .add(() => {
+      ghost.classList.add('clicking');
+      // Trigger the CSS animation
+      ghost.style.animation = 'ghost-click 1s ease-in-out';
+    })
+    .to(ghost, {
+      duration: 1
+    })
+    .to(ghost, {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => {
+        ghost.style.animation = 'none';
+      }
+    });
+  }
+
+  // Only run if the gate is in view or after a delay
+  runAnimation();
+}
+
+// Ensure initGhostCursor is called after everything is ready
+window.addEventListener('load', () => {
+  initGhostCursor();
+});
