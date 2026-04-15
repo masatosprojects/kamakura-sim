@@ -407,7 +407,9 @@ window.openPanel = function(id) {
   if(id === 'panel-klupfel' && window.startKlupfel) window.startKlupfel();
   if(id === 'panel-tobler' && window.startTobler) window.startTobler();
   if(id === 'panel-herd' && window.startHerd) window.startHerd();
-};
+window.closePanel = function(id) {
+  const panel = document.getElementById(id);
+  if(panel) panel.classList.remove('open');
 };
 
 // --- GHOST CURSOR ANIMATION ---
