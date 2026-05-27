@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAST RESEARCH · KAMAKURA SIM.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+  /* ============================================================
+     ARCHIVE PAGE — fixed layout (vertical scroll, no GSAP)
+     ============================================================ */
+
+  /* override horizontal-scroll body styles */
+  body { overflow: auto !important; }
+  .archive-page { min-height: 100vh; background: var(--bg); color: var(--text); }
+
+  /* Page header */
+  .arc-header {
+    padding: 10vh 8vw 6vh;
+    border-bottom: 1px solid rgba(255,77,0,.15);
+    position: relative;
+  }
+  .arc-back {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-family: monospace; font-size: .72rem; font-weight: 900;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
+    text-decoration: none; opacity: .75; transition: opacity .2s;
+    margin-bottom: 2.5rem;
+  }
+  .arc-back:hover { opacity: 1; }
+  .arc-kicker {
+    font-family: 'Inter', monospace; font-size: .6rem; font-weight: 900;
+    letter-spacing: .35em; text-transform: uppercase; color: var(--accent);
+    opacity: .55; margin-bottom: .8rem;
+  }
+  .arc-title {
+    font-size: clamp(2.2rem,6vw,5rem); font-weight: 900;
+    line-height: 1.05; letter-spacing: -.04em; margin-bottom: 1rem;
+  }
+  .arc-subtitle {
+    font-size: .92rem; opacity: .45; max-width: 55ch; line-height: 1.75;
+  }
+
+  /* Section divider */
+  .arc-section {
+    padding: 8vh 8vw;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .arc-section-label {
+    font-family: monospace; font-size: .6rem; font-weight: 900;
+    letter-spacing: .3em; text-transform: uppercase; color: var(--accent);
+    opacity: .6; margin-bottom: 1.4rem;
+  }
+  .arc-section-title {
+    font-size: clamp(1.6rem,4vw,3rem); font-weight: 900;
+    letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.2rem;
+  }
+  .arc-section-desc {
+    font-size: .88rem; opacity: .45; max-width: 60ch; line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  /* ── V1.0 stats grid ── */
+  .arc-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(255,77,0,.1); border: 1px solid rgba(255,77,0,.5);
+    padding: .3rem .9rem; width: fit-content;
+    font-family: 'Inter', monospace; font-size: .68rem; font-weight: 900;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .arc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.07);
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 900px) {
+    .arc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 500px) {
+    .arc-grid { grid-template-columns: 1fr; }
+  }
+  .arc-cell { background: #05070a; padding: 1.3rem 1.5rem; }
+  .arc-cell-tag {
+    font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--accent); opacity: .7; margin-bottom: .45rem;
+  }
+  .arc-cell-val {
+    font-family: 'Space Grotesk','Inter',monospace;
+    font-size: clamp(1.4rem,2.5vw,2.2rem); font-weight: 700;
+    letter-spacing: -.04em; line-height: 1;
+  }
+  .arc-cell-desc {
+    font-size: .7rem; opacity: .4; margin-top: .35rem; line-height: 1.55;
+  }
+  .arc-chips { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .6rem; }
+  .arc-chip {
+    font-family: monospace; font-size: .6rem; padding: .18rem .48rem;
+    border: 1px solid rgba(255,255,255,.14); opacity: .55;
+    background: rgba(255,255,255,.03);
+  }
+
+  /* Evolution bar */
+  .arc-evo-bar {
+    display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;
+    gap: 1.5rem; padding: 1.4rem 2rem;
+    background: linear-gradient(90deg,rgba(255,77,0,.04),rgba(255,77,0,.1),rgba(255,77,0,.04));
+    border-top: 1px solid rgba(255,77,0,.25); border-bottom: 1px solid rgba(255,77,0,.25);
+    margin-bottom: 3rem;
+  }
+  .arc-evo-col { text-align: center; }
+  .arc-evo-num {
+    font-family: 'Space Grotesk',monospace;
+    font-size: clamp(1rem,2.5vw,1.6rem); font-weight: 700; letter-spacing: -.03em;
+  }
+  .arc-evo-num.old { opacity: .35; text-decoration: line-through; text-decoration-color: var(--accent); }
+  .arc-evo-num.now { color: var(--accent); }
+  .arc-evo-lbl { font-size: .6rem; opacity: .45; letter-spacing: .1em; text-transform: uppercase; margin-top: .25rem; }
+  .arc-evo-arrow { font-size: 1.4rem; opacity: .35; color: var(--accent); }
+
+  /* Videos: side-by-side on desktop */
+  .arc-videos {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  }
+  @media (max-width: 900px) {
+    .arc-videos { grid-template-columns: 1fr; }
+  }
+  .arc-video-block { display: flex; flex-direction: column; gap: .6rem; }
+  .arc-video-tag {
+    font-family: monospace; font-size: .58rem; font-weight: 900;
+    letter-spacing: .25em; text-transform: uppercase; color: var(--accent); opacity: .7;
+  }
+  .arc-video-wrap {
+    width: 100%; aspect-ratio: 16/9; background: #000;
+    border: 1px solid rgba(255,77,0,.2); position: relative; overflow: hidden;
+  }
+  .arc-video-wrap video {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(.6) contrast(1.1);
+  }
+  .arc-video-wrap iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  }
+  .arc-video-caption {
+    font-size: .7rem; opacity: .38; line-height: 1.6; margin-top: .3rem;
+  }
+
+  /* ── Timeline ── */
+  .arc-tl { display: flex; flex-direction: column; gap: 0; }
+  .arc-tl-item {
+    display: flex; gap: 3vw; padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    position: relative;
+  }
+  .arc-tl-item::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: rgba(255,77,0,.18);
+  }
+  .arc-tl-item:first-child::before { top: 50%; }
+  .arc-tl-item:last-child::before  { bottom: 50%; }
+  .arc-tl-date {
+    flex: 0 0 100px; font-size: clamp(1.4rem,3vw,2.4rem); font-weight: 900;
+    color: var(--accent); letter-spacing: -.04em; line-height: 1; padding-left: 2rem;
+  }
+  .arc-tl-body { flex: 1; padding-right: 2vw; }
+  .arc-tl-body p {
+    font-size: clamp(.85rem,1.4vw,1rem); line-height: 1.8; opacity: .65;
+  }
+  .arc-tl-dot {
+    position: absolute; left: -6px; top: 50%; transform: translateY(-50%);
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+  }
+
+  /* Footer */
+  .arc-footer {
+    padding: 6vh 8vw; text-align: center;
+    font-family: monospace; font-size: .68rem; letter-spacing: .2em;
+    text-transform: uppercase; opacity: .25;
+  }
+  .arc-footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body class="lang-ja">
+
+  <div class="film-grain"></div>
+  <div class="scanlines"></div>
+
+  <!-- HAMBURGER NAV (same as main) -->
+  <div class="hamburger" id="hamburger">
+    <div class="h-lines"><span></span><span></span></div>
+    <span class="h-text">MENU</span>
+  </div>
+  <nav class="overlay-nav" id="overlay-nav">
+    <div class="overlay-nav-inner">
+      <div class="menu-col">
+        <h3>THIS PAGE</h3>
+        <ul>
+          <li><a href="#v1archive" class="nav-link">01. VERSION 1.0</a></li>
+          <li><a href="#timeline"  class="nav-link">02. THE HISTORY</a></li>
+        </ul>
+      </div>
+      <div class="menu-col">
+        <h3>MAIN SITE</h3>
+        <ul>
+          <li><a href="index.html" class="nav-link">← <span class="lang-ja">最新の研究へ戻る</span><span class="lang-en">Back to Current Research</span><span class="lang-zh">返回最新研究</span><span class="lang-ko">최신 연구로 돌아가기</span><span class="lang-es">Volver a la investigación</span><span class="lang-fr">Retour à la recherche</span></a></li>
+          <li><a href="https://masatosprojects.github.io/tenden-app/" target="_blank" rel="noopener" class="nav-link">&#9632; TENDEN App (PWA)</a></li>
+          <li><a href="https://masatosprojects.github.io/tenden-promo/" target="_blank" rel="noopener" class="nav-link">&#9632; TENDEN Promo Site</a></li>
+          <li><a href="https://github.com/masatosprojects/kamakura-sim" target="_blank" rel="noopener" class="nav-link">&#9632; Research Paper</a></li>
+        </ul>
+      </div>
+      <div class="menu-col" style="align-self:flex-end;">
+        <div class="lang-switcher" style="font-size:1rem;gap:10px;">
+          <button data-lang="ja">JA</button>
+          <button data-lang="en">EN</button>
+          <button data-lang="zh">ZH</button>
+          <button data-lang="ko">KO</button>
+          <button data-lang="es">ES</button>
+          <button data-lang="fr">FR</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="archive-page">
+
+    <!-- ── Page Header ── -->
+    <header class="arc-header">
+      <a href="index.html" class="arc-back">← <span class="lang-ja">最新の研究に戻る</span><span class="lang-en">Back to Current Research</span><span class="lang-zh">返回最新研究</span><span class="lang-ko">최신 연구로 돌아가기</span><span class="lang-es">Volver a la investigación</span><span class="lang-fr">Retour à la recherche</span></a>
+      <div class="arc-kicker">PAST RESEARCH &nbsp;·&nbsp; ARCHIVE</div>
+      <h1 class="arc-title">
+        <span class="lang-ja">研究の変遷</span>
+        <span class="lang-en">Research History</span>
+        <span class="lang-zh">研究历程</span>
+        <span class="lang-ko">연구 변천</span>
+        <span class="lang-es">Historia de la Investigación</span>
+        <span class="lang-fr">Historique de la Recherche</span>
+      </h1>
+      <p class="arc-subtitle">
+        <span class="lang-ja">v1.0 から v2.0 への進化の記録。試行錯誤の跡が、現在の研究の価値を物語る。</span>
+        <span class="lang-en">The evolution from v1.0 to v2.0 — the trail of trial and error that defines the value of this research.</span>
+        <span class="lang-zh">从 v1.0 到 v2.0 的进化记录。反复探索的痕迹，诉说着当前研究的价值。</span>
+        <span class="lang-ko">v1.0에서 v2.0으로의 진화 기록. 시행착오의 흔적이 현재 연구의 가치를 말해준다.</span>
+        <span class="lang-es">El camino de v1.0 a v2.0 — el rastro de ensayo y error que define el valor de esta investigación.</span>
+        <span class="lang-fr">L'évolution de v1.0 à v2.0 — la trace des essais et erreurs qui définit la valeur de cette recherche.</span>
+      </p>
+    </header>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 1: VERSION 1.0 ARCHIVE
+         ══════════════════════════════════════════════════════ -->
+    <section class="arc-section" id="v1archive">
+      <div class="arc-section-label">ARCHIVE · VERSION 1.0 · 2025.06 – 2025.12</div>
+      <h2 class="arc-section-title">
+        <span class="lang-ja">出発点：89,000人の世界</span>
+        <span class="lang-en">Where It Started: 89,000 Agents</span>
+        <span class="lang-zh">起点：89,000人的世界</span>
+        <span class="lang-ko">출발점：89,000명의 세계</span>
+        <span class="lang-es">El punto de partida: 89,000 agentes</span>
+        <span class="lang-fr">Le point de départ : 89 000 agents</span>
+      </h2>
+      <p class="arc-section-desc">
+        <span class="lang-ja">現在の v2.0 に至る前の初期システム。10種のエージェント、静的浸水域、Kepler.gl 可視化。感度分析なし。このシステムの限界が v2.0 の設計を駆動した。</span>
+        <span class="lang-en">The initial system before v2.0. 10 agent types, static inundation, Kepler.gl visualization. No sensitivity analysis. The limitations of this system drove the design of v2.0.</span>
+        <span class="lang-zh">v2.0 之前的初期系统。10种智能体，静态淹水范围，Kepler.gl 可视化，无灵敏度分析。该系统的局限性驱动了 v2.0 的设计。</span>
+        <span class="lang-ko">v2.0 이전의 초기 시스템. 10종 에이전트, 정적 침수 범위, Kepler.gl 시각화. 감도 분석 없음. 이 시스템의 한계가 v2.0 설계를 이끌었다.</span>
+        <span class="lang-es">El sistema inicial anterior a v2.0. 10 tipos de agentes, inundación estática, visualización Kepler.gl. Sin análisis de sensibilidad. Las limitaciones de este sistema impulsaron el diseño de v2.0.</span>
+        <span class="lang-fr">Le système initial avant v2.0. 10 types d'agents, inondation statique, visualisation Kepler.gl. Pas d'analyse de sensibilité. Les limites de ce système ont conduit à la conception de v2.0.</span>
+      </p>
+
+      <!-- Stats grid -->
+      <div class="arc-badge">ARCHIVE &nbsp;·&nbsp; VERSION 1.0 &nbsp;·&nbsp; 2025</div>
+      <div class="arc-grid">
+        <div class="arc-cell">
+          <div class="arc-cell-tag">最大エージェント数</div>
+          <div class="arc-cell-val">89,000</div>
+          <div class="arc-cell-desc">
+            <span class="lang-ja">一般観光客45,000・地域住民30,000を中心に10属性を配置</span>
+            <span class="lang-en">10 types incl. 45,000 tourists, 30,000 residents</span>
+          </div>
+        </div>
+        <div class="arc-cell">
+          <div class="arc-cell-tag">エージェント種別</div>
+          <div class="arc-cell-val">10種</div>
+          <div class="arc-chips">
+            <span class="arc-chip">一般観光客</span><span class="arc-chip">地域住民</span>
+            <span class="arc-chip">海水浴客</span><span class="arc-chip">飲食・小売</span>
+            <span class="arc-chip">海の家</span><span class="arc-chip">ライフガード</span>
+            <span class="arc-chip">消防隊員</span><span class="arc-chip">消防団員</span>
+            <span class="arc-chip">警察官</span><span class="arc-chip">マリンスポーツ</span>
+          </div>
+        </div>
+        <div class="arc-cell">
+          <div class="arc-cell-tag">危機感モデル</div>
+          <div class="arc-cell-val">3段階</div>
+          <div class="arc-cell-desc" style="font-family:monospace;line-height:1.7;opacity:.4;font-size:.65rem;">
+            C &lt; 0.4 → ×0.8<br>
+            0.4 ≤ C &lt; 0.8 → ×1.3<br>
+            C ≥ 0.8 → ×1.8
+          </div>
+        </div>
+        <div class="arc-cell">
+          <div class="arc-cell-tag">津波モデル</div>
+          <div class="arc-cell-val">静的</div>
+          <div class="arc-cell-desc">
+            <span class="lang-ja">最終浸水域の判定のみ。波前線の到達時刻情報なし。</span>
+            <span class="lang-en">Final inundation area only. No dynamic wave timing.</span>
+          </div>
+        </div>
+        <div class="arc-cell">
+          <div class="arc-cell-tag">可視化</div>
+          <div class="arc-cell-val">Kepler.gl</div>
+          <div class="arc-cell-desc">
+            <span class="lang-ja">Uberの地理空間ビジュアライザ。属性別カラーで軌跡を描画。</span>
+            <span class="lang-en">Uber's geospatial visualizer for trajectory replay.</span>
+          </div>
+        </div>
+        <div class="arc-cell">
+          <div class="arc-cell-tag">感度分析</div>
+          <div class="arc-cell-val">なし</div>
+          <div class="arc-cell-desc">
+            <span class="lang-ja">単一条件での実行のみ。比較実験は未実施。</span>
+            <span class="lang-en">Single-run only. No comparative experiments.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evolution bar -->
+      <div class="arc-evo-bar">
+        <div class="arc-evo-col">
+          <div class="arc-evo-num old">89,000</div>
+          <div class="arc-evo-lbl">v1.0 最大規模</div>
+        </div>
+        <div class="arc-evo-arrow">→</div>
+        <div class="arc-evo-col">
+          <div class="arc-evo-num now">62,299</div>
+          <div class="arc-evo-lbl">現行 BASE 平均</div>
+        </div>
+        <div class="arc-evo-arrow">→</div>
+        <div class="arc-evo-col">
+          <div class="arc-evo-num now" style="font-size:1.1rem;">Tobler · Klüpfel · SFM</div>
+          <div class="arc-evo-lbl">新物理モデル群</div>
+        </div>
+        <div class="arc-evo-arrow">→</div>
+        <div class="arc-evo-col">
+          <div class="arc-evo-num now">242 Runs</div>
+          <div class="arc-evo-lbl">25シナリオ × 反復試行</div>
+        </div>
+      </div>
+
+      <!-- Videos -->
+      <div class="arc-videos">
+        <div class="arc-video-block">
+          <div class="arc-video-tag">▶ V1.0 SIMULATION DEMO · ARCHIVE 2025</div>
+          <div class="arc-video-wrap">
+            <video src="pic/KAMAKURASIM.mp4" autoplay loop muted playsinline></video>
+          </div>
+          <p class="arc-video-caption">
+            <span class="lang-ja">v1.0 における Kepler.gl 可視化。89,000人・10属性の軌跡を属性色で描画。このシステムの限界が v2.0 の設計を駆動した。</span>
+            <span class="lang-en">Kepler.gl visualization from v1.0. 89,000 agents / 10 types rendered by category color. The limitations of this system drove the design of v2.0.</span>
+          </p>
+        </div>
+        <div class="arc-video-block">
+          <div class="arc-video-tag">▶ ANNOUNCEMENT VIDEO · 2025</div>
+          <div class="arc-video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/AnkAhn1zTl0?mute=1&rel=0&modestbranding=1"
+              title="KAMAKURA SIM. Announcement"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 2: DEVELOPMENT TIMELINE
+         ══════════════════════════════════════════════════════ -->
+    <section class="arc-section" id="timeline">
+      <div class="arc-section-label">DEVELOPMENT HISTORY · 2025.06 → 2026.04</div>
+      <h2 class="arc-section-title">
+        <span class="lang-ja">開発の歩み</span>
+        <span class="lang-en">The Timeline</span>
+        <span class="lang-zh">开发历程</span>
+        <span class="lang-ko">개발 여정</span>
+        <span class="lang-es">La Línea de Tiempo</span>
+        <span class="lang-fr">La Chronologie</span>
+      </h2>
+      <p class="arc-section-desc">
+        <span class="lang-ja">10ヶ月間の試行錯誤。問いを深めるごとに、モデルは進化した。</span>
+        <span class="lang-en">10 months of iteration. The deeper the question, the more the model evolved.</span>
+        <span class="lang-zh">10个月的反复探索。问题越深入，模型就越进化。</span>
+        <span class="lang-ko">10개월간의 시행착오. 질문이 깊어질수록 모델도 진화했다.</span>
+        <span class="lang-es">10 meses de iteración. Cuanto más profunda la pregunta, más evolucionó el modelo.</span>
+        <span class="lang-fr">10 mois d'itération. Plus la question s'approfondissait, plus le modèle évoluait.</span>
+      </p>
+
+      <div class="arc-tl">
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2025.06</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">プロジェクト始動。鎌倉市の道路・標高・避難所データを統合したマスターグラフ（18,580ノード・90,068エッジ）を構築。</span>
+              <span class="lang-en">Project launch. Master graph built: 18,580 nodes · 90,068 edges integrating road, elevation, and shelter data.</span>
+              <span class="lang-zh">项目启动。构建融合道路、高程、避难所数据的主图（18,580节点 · 90,068条边）。</span>
+              <span class="lang-ko">프로젝트 시작. 도로·표고·대피소 데이터를 통합한 마스터 그래프(18,580노드 · 90,068엣지) 구축.</span>
+              <span class="lang-es">Lanzamiento del proyecto. Grafo maestro: 18,580 nodos · 90,068 aristas integrando vías, altimetría y refugios.</span>
+              <span class="lang-fr">Lancement du projet. Graphe maître : 18 580 nœuds · 90 068 arêtes intégrant routes, altitudes et abris.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2025.09</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">v1.0 達成：89,000人・10属性のマルチエージェントシミュレーション初成功。Kepler.gl で可視化。</span>
+              <span class="lang-en">v1.0 milestone: 89,000 agents / 10 types successfully simulated. Kepler.gl visualization.</span>
+              <span class="lang-zh">达成 v1.0：89,000人/10种属性的多智能体仿真首次成功，Kepler.gl 可视化。</span>
+              <span class="lang-ko">v1.0 달성: 89,000명 / 10속성 멀티에이전트 시뮬레이션 초기 성공. Kepler.gl 시각화.</span>
+              <span class="lang-es">Hito v1.0: 89,000 agentes / 10 tipos simulados con éxito. Visualización Kepler.gl.</span>
+              <span class="lang-fr">Jalon v1.0 : 89 000 agents / 10 types simulés avec succès. Visualisation Kepler.gl.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2025.12</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">v2.0 へ移行開始。4属性・62,299人モデルに再設計。Tobler・Klüpfel モデル導入、動的津波伝播モデル構築。</span>
+              <span class="lang-en">Transition to v2.0. Redesigned to 4 types / 62,299 agents. Tobler &amp; Klüpfel models + dynamic tsunami propagation introduced.</span>
+              <span class="lang-zh">开始迁移至 v2.0。重新设计为4种属性/62,299人模型。引入 Tobler &amp; Klüpfel 模型，构建动态海啸传播模型。</span>
+              <span class="lang-ko">v2.0으로 전환 시작. 4속성 / 62,299명 모델로 재설계. Tobler &amp; Klüpfel 모델 도입, 동적 쓰나미 전파 모델 구축.</span>
+              <span class="lang-es">Transición a v2.0. Rediseñado a 4 tipos / 62,299 agentes. Modelos Tobler &amp; Klüpfel + propagación dinámica del tsunami.</span>
+              <span class="lang-fr">Transition vers v2.0. Repensé à 4 types / 62 299 agents. Modèles Tobler &amp; Klüpfel + propagation dynamique du tsunami.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2026.01</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">同調行動（Herd Behavior）モデルの高度化。BASE 50試行・SD=0.164pp の高再現性を確認。</span>
+              <span class="lang-en">Advanced Herd Behavior modeling. BASE 50-run SD=0.164pp — high reproducibility confirmed.</span>
+              <span class="lang-zh">同调行为（Herd Behavior）模型升级。BASE 50次试验 SD=0.164pp，确认高可重复性。</span>
+              <span class="lang-ko">동조 행동(Herd Behavior) 모델 고도화. BASE 50회 SD=0.164pp 높은 재현성 확인.</span>
+              <span class="lang-es">Modelo de comportamiento de manada avanzado. SD BASE=0.164pp en 50 ejecuciones — alta reproducibilidad confirmada.</span>
+              <span class="lang-fr">Modèle de comportement de masse avancé. SD BASE=0,164pp sur 50 exécutions — haute reproductibilité confirmée.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2026.03</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">25シナリオ・計 242 試行の感度分析完了。B群±32.1pp・A群±31.4pp が支配的、ハザードマップ逆説を発見。</span>
+              <span class="lang-en">25-scenario sensitivity analysis complete (242 total runs). Group B ±32.1pp, A ±31.4pp dominant. Hazard-map paradox discovered.</span>
+              <span class="lang-zh">完成25个情景共242次试验的灵敏度分析。B组±32.1pp、A组±31.4pp 为主导因素，发现灾害地图悖论。</span>
+              <span class="lang-ko">25개 시나리오 총 242회 감도 분석 완료. B그룹 ±32.1pp, A그룹 ±31.4pp가 지배적. 위험 지도 역설 발견.</span>
+              <span class="lang-es">Análisis de sensibilidad completo: 25 escenarios, 242 ejecuciones. Grupo B ±32.1pp, A ±31.4pp dominantes. Descubrimiento de la paradoja del mapa de peligros.</span>
+              <span class="lang-fr">Analyse de sensibilité complète : 25 scénarios, 242 exécutions. Groupe B ±32,1pp, A ±31,4pp dominants. Paradoxe de la carte des risques découvert.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2026.04</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">減災アプリ「TENDEN」公開。本ポータルサイト・分析ビューア公開。研究論文執筆完了。</span>
+              <span class="lang-en">TENDEN app launched. Portal site &amp; analytics viewer published. Research paper completed.</span>
+              <span class="lang-zh">减灾应用「TENDEN」发布。门户网站及分析视图公开。研究论文撰写完成。</span>
+              <span class="lang-ko">감재 앱 「TENDEN」 공개. 포털 사이트·분석 뷰어 공개. 연구 논문 집필 완료.</span>
+              <span class="lang-es">Lanzamiento de la app TENDEN. Portal y visor analítico publicados. Artículo de investigación completado.</span>
+              <span class="lang-fr">Lancement de l'app TENDEN. Portail et visualiseur analytique publiés. Article de recherche finalisé.</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="arc-footer">
+      <a href="index.html">← <span class="lang-ja">最新の研究に戻る</span><span class="lang-en">Back to Current Research</span></a>
+      &nbsp;&nbsp;·&nbsp;&nbsp;
+      KAMAKURA SIM. · MARUYAMA MASATO · 2026
+    </footer>
+
+  </div><!-- /archive-page -->
+
+  <!-- PANELS (READ MORE) are not included here — link to main portal for technical docs -->
+
+  <script>
+  // ── Custom cursor ──
+  const cursor = document.createElement('div');
+  cursor.classList.add('custom-cursor');
+  document.body.appendChild(cursor);
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .clickable').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // ── Hamburger nav ──
+  const hamburger = document.getElementById('hamburger');
+  const overlayNav = document.getElementById('overlay-nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+  if (hamburger && overlayNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      overlayNav.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    });
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          hamburger.classList.remove('open');
+          overlayNav.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+      link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  }
+
+  // ── Language switcher ──
+  function setLang(lang) {
+    document.body.className = document.body.className
+      .replace(/\blang-\w+\b/g, '').trim() + ' lang-' + lang;
+    localStorage.setItem('KAMAKURA_LANG', lang);
+  }
+  document.querySelectorAll('.lang-switcher button').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+  const savedLang = localStorage.getItem('KAMAKURA_LANG');
+  if (savedLang) setLang(savedLang);
+  </script>
+</body>
+</html>
