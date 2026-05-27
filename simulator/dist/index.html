@@ -41,8 +41,8 @@
   <div class="header-left">
     <span class="header-icon">🌊</span>
     <div>
-      <h1>鎌倉市 津波避難シミュレーター</h1>
-      <p class="header-sub">静的分析ビューア — Flask不要・ブラウザ単体で動作</p>
+      <h1>鎌倉市 津波避難シミュレーター <span style="font-size:0.55em;font-weight:500;opacity:0.7;letter-spacing:0.08em;">v2.0</span></h1>
+      <p class="header-sub">分析ビューア — 62,299エージェント・4属性・25シナリオ・計242試行 | Flask不要・ブラウザ単体で動作</p>
     </div>
   </div>
   <div class="header-right">
@@ -124,6 +124,17 @@
       <p class="empty-hint">
         ファイルの生成方法：<code>python export_static_data.py</code>
       </p>
+      <div style="margin-top:32px; padding:20px 24px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:8px; text-align:left; max-width:520px; margin-left:auto; margin-right:auto;">
+        <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.12em; color:rgba(255,255,255,0.4); text-transform:uppercase; margin:0 0 12px;">v2.0 データ概要</p>
+        <table style="width:100%; border-collapse:collapse; font-size:0.82rem; color:rgba(255,255,255,0.75);">
+          <tr><td style="padding:4px 0; color:rgba(255,255,255,0.45); width:44%;">総エージェント数</td><td style="padding:4px 0; font-weight:600;">62,299人（4属性）</td></tr>
+          <tr><td style="padding:4px 0; color:rgba(255,255,255,0.45);">シナリオ数</td><td style="padding:4px 0; font-weight:600;">25シナリオ（Group A–E）</td></tr>
+          <tr><td style="padding:4px 0; color:rgba(255,255,255,0.45);">総試行回数</td><td style="padding:4px 0; font-weight:600;">計242回（BASE 50 + 24×8）</td></tr>
+          <tr><td style="padding:4px 0; color:rgba(255,255,255,0.45);">BASE生存率</td><td style="padding:4px 0; font-weight:600; color:#ff4d00;">36.8%</td></tr>
+          <tr><td style="padding:4px 0; color:rgba(255,255,255,0.45);">津波モデル</td><td style="padding:4px 0; font-weight:600;">後藤・村上式（動的伝播）</td></tr>
+          <tr><td style="padding:4px 0; color:rgba(255,255,255,0.45);">運動モデル</td><td style="padding:4px 0; font-weight:600;">Tobler + Klüpfel + SFM</td></tr>
+        </table>
+      </div>
     </div>
 
     <!-- タブ: 時系列分析 -->
@@ -139,7 +150,7 @@
     <div id="tab-attribute" class="tab-content" hidden>
       <div class="tab-header">
         <h2>👥 属性別比較</h2>
-        <p>エージェント属性・年齢層・行動モード別の生存率・死亡要因の比較</p>
+        <p>4属性別の生存率・死亡要因の比較 — 一般来訪客(83.9%) / 地域住民(10.0%) / 現地就業者(3.2%) / プロ誘導員(0.5%)</p>
       </div>
       <div class="chart-grid" id="grid-attribute"></div>
     </div>
@@ -269,7 +280,7 @@
             </div>
 
             <div class="param-scenario-btns">
-              <button class="btn-scenario" data-scenario="baseline">ベースライン</button>
+              <button class="btn-scenario" data-scenario="baseline">BASE (Group A)</button>
               <button class="btn-scenario" data-scenario="early">早期到達 (-3分)</button>
               <button class="btn-scenario" data-scenario="late">遅延到達 (+5分)</button>
               <button class="btn-scenario" data-scenario="fast">高速伝播 ×2</button>
