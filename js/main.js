@@ -81,8 +81,8 @@ const ritualImgEl  = document.getElementById('ritual-img');
 let ritualComplete = false;
 let ritualPhase    = 1; // 1 = coord flood, 2 = particles
 
-const FLASH_DURATION   = 3500;
-const BREATHE_DURATION = 7500;
+const FLASH_DURATION   = 800;
+const BREATHE_DURATION = 1600;
 const TOTAL_DURATION   = FLASH_DURATION + BREATHE_DURATION;
 
 // SessionStorage: skip if seen this session

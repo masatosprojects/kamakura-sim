@@ -4,19 +4,134 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KAMAKURA SIM. | UNYIELDING FATE</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="css/main.css">
-  
-  <!-- MathJax -->
+
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <!-- GSAP & Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+  <style>
+  /* =============================================
+     追加スタイル：新規シーン用
+     ============================================= */
+
+  /* ── 旧システム v1.0 ── */
+  .v1-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(255,77,0,.1); border: 1px solid rgba(255,77,0,.5);
+    padding: .3rem .9rem; width: fit-content;
+    font-family: 'Inter', monospace; font-size: .68rem; font-weight: 900;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
+  }
+  .v1-headline {
+    font-size: clamp(2rem,5vw,3.8rem); font-weight: 900;
+    letter-spacing: -.03em; line-height: 1.1; margin: .8rem 0;
+  }
+  .v1-sub {
+    font-size: .82rem; opacity: .45; letter-spacing: .06em; margin-bottom: 1.8rem;
+  }
+  .v1-grid {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 1px; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.07); margin-bottom: 1.6rem;
+  }
+  .v1-cell {
+    background: #05070a; padding: 1.4rem 1.6rem;
+  }
+  .v1-cell-tag {
+    font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--accent); opacity: .7; margin-bottom: .5rem;
+  }
+  .v1-cell-val {
+    font-family: 'Space Grotesk','Inter',monospace;
+    font-size: clamp(1.4rem,3vw,2.2rem); font-weight: 700;
+    letter-spacing: -.04em; line-height: 1;
+  }
+  .v1-cell-desc {
+    font-size: .72rem; opacity: .4; margin-top: .35rem; line-height: 1.5;
+  }
+  .v1-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .8rem; }
+  .v1-chip {
+    font-family: monospace; font-size: .64rem; padding: .2rem .55rem;
+    border: 1px solid rgba(255,255,255,.14); opacity: .55;
+    background: rgba(255,255,255,.03);
+  }
+  .v1-evo-bar {
+    display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;
+    gap: 1.5rem; padding: 1.5rem 2rem;
+    background: linear-gradient(90deg,rgba(255,77,0,.04) 0%,rgba(255,77,0,.1) 50%,rgba(255,77,0,.04) 100%);
+    border-top: 1px solid rgba(255,77,0,.25); border-bottom: 1px solid rgba(255,77,0,.25);
+  }
+  .v1-evo-col { text-align: center; }
+  .v1-evo-num {
+    font-family: 'Space Grotesk',monospace;
+    font-size: clamp(1.2rem,3vw,2rem); font-weight: 700; letter-spacing: -.03em;
+  }
+  .v1-evo-num.old { opacity: .35; text-decoration: line-through; text-decoration-color: var(--accent); }
+  .v1-evo-num.now { color: var(--accent); }
+  .v1-evo-lbl { font-size: .6rem; opacity: .45; letter-spacing: .1em; text-transform: uppercase; margin-top: .25rem; }
+  .v1-evo-arrow { font-size: 1.6rem; opacity: .4; color: var(--accent); }
+
+  /* ── 感度分析・主要結果 ── */
+  .results-kicker {
+    font-size: .62rem; font-weight: 900; letter-spacing: .3em;
+    text-transform: uppercase; color: var(--accent); opacity: .8; margin-bottom: .6rem;
+  }
+  .results-headline {
+    font-size: clamp(1.8rem,4.5vw,3.5rem); font-weight: 900;
+    letter-spacing: -.02em; line-height: 1.1; margin-bottom: 1.5rem;
+  }
+  .results-grid {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+    gap: 1px; background: rgba(255,255,255,.06); margin-bottom: 1.5rem;
+  }
+  .rc {
+    background: #05070a; padding: 1.8rem; position: relative; overflow: hidden;
+    transition: background .25s ease;
+  }
+  .rc:hover { background: #0a0d12; }
+  .rc::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .rc:hover::after { transform: scaleX(1); }
+  .rc-tag {
+    font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--accent); opacity: .65; margin-bottom: .9rem;
+  }
+  .rc-num {
+    font-family: 'Space Grotesk','Inter',monospace;
+    font-size: clamp(2rem,4.5vw,3.2rem); font-weight: 700;
+    letter-spacing: -.05em; line-height: 1; margin-bottom: .45rem;
+  }
+  .rc-num.danger { color: var(--accent); }
+  .rc-desc { font-size: .75rem; opacity: .5; line-height: 1.65; }
+  .paradox-box {
+    padding: 1.8rem 2rem; border: 1px solid rgba(255,77,0,.22);
+    background: rgba(255,77,0,.05);
+  }
+  .paradox-title {
+    font-size: clamp(.95rem,2vw,1.4rem); font-weight: 900;
+    margin-bottom: .6rem; letter-spacing: -.01em;
+  }
+  .paradox-body {
+    font-size: .8rem; opacity: .55; line-height: 1.85; max-width: 640px;
+  }
+  .paradox-nums { display: flex; gap: 2.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .pn-val {
+    font-family: 'Space Grotesk',monospace;
+    font-size: 1.5rem; font-weight: 700; letter-spacing: -.03em;
+  }
+  .pn-val.d { color: var(--accent); }
+  .pn-lbl { font-size: .6rem; opacity: .45; letter-spacing: .08em; }
+  </style>
 </head>
 <body class="lang-ja">
 
@@ -26,7 +141,14 @@
 
   <!-- UI PROGRESS -->
   <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
-  <a href="simulator/portal.html" class="quick-access-btn"><span class="lang-ja">シミュレーションの詳細を確認する ⚡</span><span class="lang-en">Explore the Simulation ⚡</span><span class="lang-zh">探索模拟 ⚡</span><span class="lang-ko">시뮬레이션 탐색 ⚡</span><span class="lang-es">Explorar la Simulación ⚡</span><span class="lang-fr">Explorer la Simulation ⚡</span></a>
+  <a href="simulator/portal.html" class="quick-access-btn">
+    <span class="lang-ja">シミュレーターの解説を見る ⚡</span>
+    <span class="lang-en">Explore the Simulation ⚡</span>
+    <span class="lang-zh">探索模拟 ⚡</span>
+    <span class="lang-ko">시뮬레이션 탐색 ⚡</span>
+    <span class="lang-es">Explorar la Simulación ⚡</span>
+    <span class="lang-fr">Explorer la Simulation ⚡</span>
+  </a>
 
   <!-- HAMBURGER NAV -->
   <div class="hamburger" id="hamburger">
@@ -38,12 +160,14 @@
       <div class="menu-col">
         <h3>PAGE SCENES</h3>
         <ul>
-          <li><a href="#hero" class="nav-link">01. THE BEGINNING</a></li>
-          <li><a href="#pulse" class="nav-link">02. 89,000 SOULS</a></li>
-          <li><a href="#manifesto" class="nav-link">03. MANIFESTO</a></li>
-          <li><a href="#portal" class="nav-link">04. PORTAL GRID</a></li>
-          <li><a href="#timeline" class="nav-link">05. THE HISTORY</a></li>
-          <li><a href="#gate" class="nav-link">06. SIMULATION</a></li>
+          <li><a href="#hero"     class="nav-link">01. THE BEGINNING</a></li>
+          <li><a href="#pulse"    class="nav-link">02. 62,299 AGENTS</a></li>
+          <li><a href="#manifesto"class="nav-link">03. MANIFESTO</a></li>
+          <li><a href="#v1sim"    class="nav-link">04. VERSION 1.0</a></li>
+          <li><a href="#portal"   class="nav-link">05. MODEL ENGINE</a></li>
+          <li><a href="#findings" class="nav-link">06. KEY FINDINGS</a></li>
+          <li><a href="#timeline" class="nav-link">07. THE HISTORY</a></li>
+          <li><a href="#gate"     class="nav-link">08. SIMULATION</a></li>
         </ul>
       </div>
       <div class="menu-col">
@@ -53,12 +177,12 @@
           <li><a href="news.html" class="nav-link">&#9632; <span class="lang-ja">ニュース</span><span class="lang-en">Updates</span><span class="lang-zh">最新动态</span><span class="lang-ko">업데이트</span><span class="lang-es">Noticias</span><span class="lang-fr">Actualités</span></a></li>
           <li><a href="profile.html" class="nav-link">&#9632; <span class="lang-ja">開発者</span><span class="lang-en">Developer</span><span class="lang-zh">开发者</span><span class="lang-ko">개발자</span><span class="lang-es">Desarrollador</span><span class="lang-fr">Développeur</span></a></li>
           <li><a href="simulator/portal.html" class="nav-link">&#9632; <span class="lang-ja">仕組みを解説</span><span class="lang-en">How It Works</span><span class="lang-zh">原理解析</span><span class="lang-ko">작동 원리</span><span class="lang-es">Cómo funciona</span><span class="lang-fr">Comment ça marche</span></a></li>
-          <li><a href="simulator/dist/index.html" class="nav-link">&#9632; <span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
+          <li><a href="simulator/dist/index.html" class="nav-link">&#9632; <span class="lang-ja">分析ビューア</span><span class="lang-en">Analytics Viewer</span><span class="lang-zh">分析视图</span><span class="lang-ko">분석 뷰어</span><span class="lang-es">Análisis</span><span class="lang-fr">Analytique</span></a></li>
           <li><a href="contact.html" class="nav-link">&#9632; CONTACT</a></li>
         </ul>
       </div>
       <div class="menu-col" style="align-self:flex-end;">
-        <div class="lang-switcher" style="font-size:1rem; gap:10px;">
+        <div class="lang-switcher" style="font-size:1rem;gap:10px;">
           <span data-lang="ja" class="active" onclick="setLang('ja')">JP</span>
           <span class="sep">/</span>
           <span data-lang="en" onclick="setLang('en')">EN</span>
@@ -86,120 +210,64 @@
   <!-- HORIZONTAL SCROLL WRAPPER -->
   <div class="scroll-container">
 
-    <!-- SCENE 1: HERO -->
+    <!-- ═══ SCENE 1: HERO ═══════════════════════════════════════════ -->
     <section class="scene" id="hero">
-      <!-- HERO BACKGROUND VIDEO -->
       <video src="pic/KAMAKURASIM.mp4" class="hero-video-bg" autoplay loop muted playsinline></video>
       <div class="hero-video-overlay"></div>
-      
+
       <h1 class="hero-title">
         <span class="lang-ja">
-          <span class="glitch-word">
-            <span class="glitch-char">運</span><span class="glitch-char">命</span><span class="glitch-char">に</span><span class="glitch-char">、</span>
-          </span><br>
-          <span class="glitch-word">
-            <span class="glitch-char">沈</span><span class="glitch-char">ま</span><span class="glitch-char">な</span><span class="glitch-char">い</span><span class="glitch-char dot">。</span>
-          </span>
+          <span class="glitch-word"><span class="glitch-char">運</span><span class="glitch-char">命</span><span class="glitch-char">に</span><span class="glitch-char">、</span></span><br>
+          <span class="glitch-word"><span class="glitch-char">沈</span><span class="glitch-char">ま</span><span class="glitch-char">な</span><span class="glitch-char">い</span><span class="glitch-char dot">。</span></span>
         </span>
         <span class="lang-en">
-          <span class="glitch-word">
-            <span class="glitch-char">U</span><span class="glitch-char">n</span><span class="glitch-char">y</span><span class="glitch-char">i</span><span class="glitch-char">e</span><span class="glitch-char">l</span><span class="glitch-char">d</span><span class="glitch-char">i</span><span class="glitch-char">n</span><span class="glitch-char">g</span>
-          </span><br>
-          <span class="glitch-word">
-            <span class="glitch-char">t</span><span class="glitch-char">o</span>
-          </span> 
-          <span class="glitch-word">
-            <span class="glitch-char">F</span><span class="glitch-char">a</span><span class="glitch-char">t</span><span class="glitch-char">e</span><span class="glitch-char dot">.</span>
-          </span>
+          <span class="glitch-word"><span class="glitch-char">U</span><span class="glitch-char">n</span><span class="glitch-char">y</span><span class="glitch-char">i</span><span class="glitch-char">e</span><span class="glitch-char">l</span><span class="glitch-char">d</span><span class="glitch-char">i</span><span class="glitch-char">n</span><span class="glitch-char">g</span></span><br>
+          <span class="glitch-word"><span class="glitch-char">t</span><span class="glitch-char">o</span></span> <span class="glitch-word"><span class="glitch-char">F</span><span class="glitch-char">a</span><span class="glitch-char">t</span><span class="glitch-char">e</span><span class="glitch-char dot">.</span></span>
         </span>
-        <span class="lang-zh">
-          <span class="glitch-word">
-            <span class="glitch-char">命</span><span class="glitch-char">運</span><span class="glitch-char">，</span>
-          </span><br>
-          <span class="glitch-word">
-            <span class="glitch-char">不</span><span class="glitch-char">言</span><span class="glitch-char">沉</span><span class="glitch-char">淪</span><span class="glitch-char dot">。</span>
-          </span>
-        </span>
-        <span class="lang-ko">
-          <span class="glitch-word">
-            <span class="glitch-char">운</span><span class="glitch-char">명</span><span class="glitch-char">에</span><span class="glitch-char">，</span>
-          </span><br>
-          <span class="glitch-word">
-            <span class="glitch-char">가</span><span class="glitch-char">라</span><span class="glitch-char">앉</span><span class="glitch-char">지</span>
-          </span> 
-          <span class="glitch-word">
-            <span class="glitch-char">않</span><span class="glitch-char">는</span><span class="glitch-char">다</span><span class="glitch-char dot">。</span>
-          </span>
-        </span>
-        <span class="lang-es">
-          <span class="glitch-word">
-            <span class="glitch-char">I</span><span class="glitch-char">n</span><span class="glitch-char">s</span><span class="glitch-char">u</span><span class="glitch-char">m</span><span class="glitch-char">i</span><span class="glitch-char">s</span><span class="glitch-char">o</span><span class="glitch-char">s</span>
-          </span><br>
-          <span class="glitch-word">
-            <span class="glitch-char">a</span><span class="glitch-char">n</span><span class="glitch-char">t</span><span class="glitch-char">e</span>
-          </span> 
-          <span class="glitch-word">
-            <span class="glitch-char">e</span><span class="glitch-char">l</span>
-          </span> 
-          <span class="glitch-word">
-            <span class="glitch-char">d</span><span class="glitch-char">e</span><span class="glitch-char">s</span><span class="glitch-char">t</span><span class="glitch-char">i</span><span class="glitch-char">n</span><span class="glitch-char">o</span><span class="glitch-char dot">。</span>
-          </span>
-        </span>
-        <span class="lang-fr">
-          <span class="glitch-word">
-            <span class="glitch-char">I</span><span class="glitch-char">n</span><span class="glitch-char">s</span><span class="glitch-char">u</span><span class="glitch-char">b</span><span class="glitch-char">m</span><span class="glitch-char">e</span><span class="glitch-char">r</span><span class="glitch-char">s</span><span class="glitch-char">i</span><span class="glitch-char">b</span><span class="glitch-char">l</span><span class="glitch-char">e</span>
-          </span><br>
-          <span class="glitch-word">
-            <span class="glitch-char">f</span><span class="glitch-char">a</span><span class="glitch-char">c</span><span class="glitch-char">e</span>
-          </span> 
-          <span class="glitch-word">
-            <span class="glitch-char">a</span><span class="glitch-char">u</span>
-          </span> 
-          <span class="glitch-word">
-            <span class="glitch-char">d</span><span class="glitch-char">e</span><span class="glitch-char">s</span><span class="glitch-char">t</span><span class="glitch-char">i</span><span class="glitch-char">n</span><span class="glitch-char dot">。</span>
-          </span>
-        </span>
+        <span class="lang-zh"><span class="glitch-word"><span class="glitch-char">命</span><span class="glitch-char">運</span><span class="glitch-char">，</span></span><br><span class="glitch-word"><span class="glitch-char">不</span><span class="glitch-char">言</span><span class="glitch-char">沉</span><span class="glitch-char">淪</span><span class="glitch-char dot">。</span></span></span>
+        <span class="lang-ko"><span class="glitch-word"><span class="glitch-char">운</span><span class="glitch-char">명</span><span class="glitch-char">에</span><span class="glitch-char">，</span></span><br><span class="glitch-word"><span class="glitch-char">가</span><span class="glitch-char">라</span><span class="glitch-char">앉</span><span class="glitch-char">지</span></span> <span class="glitch-word"><span class="glitch-char">않</span><span class="glitch-char">는</span><span class="glitch-char">다</span><span class="glitch-char dot">。</span></span></span>
+        <span class="lang-es"><span class="glitch-word"><span class="glitch-char">I</span><span class="glitch-char">n</span><span class="glitch-char">s</span><span class="glitch-char">u</span><span class="glitch-char">m</span><span class="glitch-char">i</span><span class="glitch-char">s</span><span class="glitch-char">o</span><span class="glitch-char">s</span></span><br><span class="glitch-word"><span class="glitch-char">a</span><span class="glitch-char">n</span><span class="glitch-char">t</span><span class="glitch-char">e</span></span> <span class="glitch-word"><span class="glitch-char">e</span><span class="glitch-char">l</span></span> <span class="glitch-word"><span class="glitch-char">d</span><span class="glitch-char">e</span><span class="glitch-char">s</span><span class="glitch-char">t</span><span class="glitch-char">i</span><span class="glitch-char">n</span><span class="glitch-char">o</span><span class="glitch-char dot">。</span></span></span>
+        <span class="lang-fr"><span class="glitch-word"><span class="glitch-char">I</span><span class="glitch-char">n</span><span class="glitch-char">s</span><span class="glitch-char">u</span><span class="glitch-char">b</span><span class="glitch-char">m</span><span class="glitch-char">e</span><span class="glitch-char">r</span><span class="glitch-char">s</span><span class="glitch-char">i</span><span class="glitch-char">b</span><span class="glitch-char">l</span><span class="glitch-char">e</span></span><br><span class="glitch-word"><span class="glitch-char">f</span><span class="glitch-char">a</span><span class="glitch-char">c</span><span class="glitch-char">e</span></span> <span class="glitch-word"><span class="glitch-char">a</span><span class="glitch-char">u</span></span> <span class="glitch-word"><span class="glitch-char">d</span><span class="glitch-char">e</span><span class="glitch-char">s</span><span class="glitch-char">t</span><span class="glitch-char">i</span><span class="glitch-char">n</span><span class="glitch-char dot">。</span></span></span>
       </h1>
 
-      <!-- HERO LANGUAGE SWITCHER -->
       <div class="hero-lang-switcher lang-switcher">
-        <span data-lang="ja" onclick="setLang('ja')">JP</span>
-        <span class="sep">/</span>
-        <span data-lang="en" onclick="setLang('en')">EN</span>
-        <span class="sep">/</span>
-        <span data-lang="zh" onclick="setLang('zh')">中文</span>
-        <span class="sep">/</span>
-        <span data-lang="ko" onclick="setLang('ko')">한국</span>
-        <span class="sep">/</span>
-        <span data-lang="es" onclick="setLang('es')">ES</span>
-        <span class="sep">/</span>
+        <span data-lang="ja" onclick="setLang('ja')">JP</span><span class="sep">/</span>
+        <span data-lang="en" onclick="setLang('en')">EN</span><span class="sep">/</span>
+        <span data-lang="zh" onclick="setLang('zh')">中文</span><span class="sep">/</span>
+        <span data-lang="ko" onclick="setLang('ko')">한국</span><span class="sep">/</span>
+        <span data-lang="es" onclick="setLang('es')">ES</span><span class="sep">/</span>
         <span data-lang="fr" onclick="setLang('fr')">FR</span>
       </div>
 
-      <!-- SCROLL ARROW INDICATOR -->
-      <div style="position:absolute; bottom:40px; right:50px; z-index:10; display:flex; flex-direction:column; align-items:center; gap:8px; animation: scrollBounce 2s ease-in-out infinite;">
-        <span style="font-family:'Inter',sans-serif; font-size:0.75rem; font-weight:900; letter-spacing:0.3em; color:rgba(255,255,255,0.5); text-transform:uppercase;">SCROLL</span>
+      <div style="position:absolute;bottom:40px;right:50px;z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;animation:scrollBounce 2s ease-in-out infinite;">
+        <span style="font-family:'Inter',sans-serif;font-size:.75rem;font-weight:900;letter-spacing:.3em;color:rgba(255,255,255,.5);text-transform:uppercase;">SCROLL</span>
         <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="22" height="36" rx="11" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-          <circle cx="12" cy="10" r="3" fill="#FF4D00" style="animation: scrollDot 2s ease-in-out infinite;"/>
+          <circle cx="12" cy="10" r="3" fill="#FF4D00" style="animation:scrollDot 2s ease-in-out infinite;"/>
         </svg>
       </div>
     </section>
 
-    <!-- SCENE 2: 89,000 PULSATING -->
+    <!-- ═══ SCENE 2: 62,299 AGENTS ══════════════════════════════════ -->
     <section class="scene scene-wide" id="pulse">
-      <!-- Crowd silhouette: 89,000 souls visualized -->
       <img src="pic/AZ2K3B7ld8hc6c10im6L8w-AZ2K3B7lgs048wQYh_xcAQ-removebg-preview.png"
            aria-hidden="true" loading="lazy"
-           style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center bottom; opacity:0.13; pointer-events:none;">
-      <div class="huge-num-wrap">
-        <div id="main-huge-num" class="huge-number">89,000</div>
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;opacity:.11;pointer-events:none;">
+      <div class="huge-num-wrap" style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+        <div id="main-huge-num" class="huge-number">62,299</div>
+        <div style="font-size:.72rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;opacity:.4;color:#fff;text-align:center;font-family:'Inter',sans-serif;">
+          BASE SCENARIO &nbsp;·&nbsp; 25 SCENARIOS &nbsp;·&nbsp; 242 RUNS
+        </div>
+        <div style="font-size:.62rem;letter-spacing:.12em;opacity:.22;color:#ff4d00;font-family:monospace;text-align:center;margin-top:.2rem;">
+          <span class="lang-ja">現行研究における平均エージェント配置数 ／ 旧v1.0最大: 89,000人</span>
+          <span class="lang-en">BASE avg. agent count · v1.0 legacy peak: 89,000</span>
+        </div>
       </div>
     </section>
 
-    <!-- SCENE 3: MANIFESTO -->
+    <!-- ═══ SCENE 3: MANIFESTO ══════════════════════════════════════ -->
     <section class="scene scene-wide" id="manifesto">
-      <img src="pic/Gemini_Generated_Image_3jm5vn3jm5vn3jm5-removebg-preview.png" class="manifesto-bg" alt="Seismic cross section node model" loading="lazy">
+      <img src="pic/Gemini_Generated_Image_3jm5vn3jm5vn3jm5-removebg-preview.png" class="manifesto-bg" alt="" loading="lazy">
       <div class="manifesto-text-wrap">
         <div class="border-line"></div>
         <p class="manifesto-p">
@@ -208,17 +276,17 @@
           <span class="lang-zh">2011年3月11日，东日本大震灾海啸夺走了约19,000人的生命。</span>
           <span class="lang-ko">2011년 3월 11일. 동일본대지진의 쓰나미는 약 19,000명의 목숨을 앗아갔다.</span>
           <span class="lang-es">El 11 de marzo de 2011, el tsunami del Gran Terremoto del Este de Japón se cobró aproximadamente 19,000 vidas.</span>
-          <span class="lang-fr">Le 11 mars 2011, le tsunami du Grand Séisme de l’Est du Japon a coûté la vie à environ 19 000 personnes.</span>
+          <span class="lang-fr">Le 11 mars 2011, le tsunami du Grand Séisme de l'Est du Japon a coûté la vie à environ 19 000 personnes.</span>
         </p>
         <p class="manifesto-p">
           <span class="lang-ja">混雑した避難路。「まだ大丈夫だろう」という正常性バイアス。動けない高齢者を連れて走る家族。</span>
-          <span class="lang-en">Congested evacuation routes. The normalization bias of &ldquo;it will be fine.&rdquo; Families running while supporting elderly relatives who cannot move.</span>
+          <span class="lang-en">Congested evacuation routes. The normalization bias of "it will be fine." Families running while supporting elderly relatives who cannot move.</span>
           <span class="lang-zh">拥堵的避难通道。"应该没事吧"的正常化偏差。牵着无法行动的老人奔跑的家庭。</span>
           <span class="lang-ko">혼잡한 대피로. "아직 괜찮겠지"라는 정상성 편향. 거동하지 못하는 노인을 데리고 뛰는 가족.</span>
           <span class="lang-es">Rutas de evacuación congestionadas. El sesgo de normalización: "todo irá bien." Familias corriendo con ancianos que no pueden moverse.</span>
-          <span class="lang-fr">Voies d’évacuation encombrées. Le biais de normalisation : "tout ira bien." Des familles courant avec des proches âgés incapables de se déplacer.</span>
+          <span class="lang-fr">Voies d'évacuation encombrées. Le biais de normalisation : "tout ira bien." Des familles courant avec des proches âgés incapables de se déplacer.</span>
         </p>
-        <p class="manifesto-p" style="color: var(--accent);">
+        <p class="manifesto-p" style="color:var(--accent);">
           <span class="lang-ja">これらは全て、シミュレートできる。</span>
           <span class="lang-en">All of this can be simulated.</span>
           <span class="lang-zh">这一切，都可以被模拟。</span>
@@ -232,181 +300,500 @@
           <span class="lang-zh">镰仓是一座特殊的城市。三面环山，狭窄的古道成为大规模疏散的致命瓶颈。</span>
           <span class="lang-ko">가마쿠라는 특수한 도시다. 삼면이 산으로 둘러싸여 있어, 좁은 옛길이 대규모 대피의 치명적 병목이 된다.</span>
           <span class="lang-es">Kamakura es una ciudad única, rodeada de montañas por tres lados. Sus estrechos pasos ancestrales se convierten en el cuello de botella fatal de cualquier evacuación masiva.</span>
-          <span class="lang-fr">Kamakura est une ville unique, entourée de montagnes sur trois côtés. Ses étroits passages ancestraux deviennent le goulot d’étranglement fatal de toute évacuation massive.</span>
+          <span class="lang-fr">Kamakura est une ville unique, entourée de montagnes sur trois côtés. Ses étroits passages ancestraux deviennent le goulot d'étranglement fatal de toute évacuation massive.</span>
         </p>
         <p class="manifesto-p">
-          <span class="lang-ja">観光客の多くは地元の避難路を知らない。<br>彼らが89,000人の中に混在したとき、何が起きるのか。</span>
-          <span class="lang-en">Most tourists don’t know local evacuation routes. When they’re mixed into those 89,000 — what happens?</span>
-          <span class="lang-zh">大多数游客不了解当地的疏散路线。当他们混入89,000人之中——会发生什么？</span>
-          <span class="lang-ko">대부분의 관광객은 지역 대피로를 모른다. 그들이 89,000명 속에 섞였을 때, 무슨 일이 일어날까?</span>
-          <span class="lang-es">La mayoría de los turistas no conocen las rutas de evacuación locales. Cuando se mezclan entre esas 89,000 personas — ¿qué ocurre?</span>
-          <span class="lang-fr">La plupart des touristes ne connaissent pas les voies d’évacuation locales. Quand ils se mêlent à ces 89 000 personnes — que se passe-t-il ?</span>
+          <span class="lang-ja">土地勘のない観光客が62,299人の中に混在したとき、何が起きるのか。<br>それを定量化するために、このシミュレーションは生まれた。</span>
+          <span class="lang-en">When tourists with no local knowledge mix into those 62,299 — what happens?<br>That question is what this simulation was built to answer.</span>
+          <span class="lang-zh">当不熟悉当地的游客混入这62,299人中——会发生什么？<br>为了量化这一问题，这个模拟系统应运而生。</span>
+          <span class="lang-ko">지역을 모르는 관광객이 62,299명 속에 섞였을 때, 무슨 일이 일어날까?<br>그 질문에 답하기 위해 이 시뮬레이션은 탄생했다.</span>
+          <span class="lang-es">Cuando los turistas sin conocimiento local se mezclan con esas 62,299 personas — ¿qué ocurre?<br>Para cuantificarlo, nació esta simulación.</span>
+          <span class="lang-fr">Quand des touristes sans connaissance locale se mêlent à ces 62 299 personnes — que se passe-t-il?<br>Pour quantifier cela, cette simulation est née.</span>
         </p>
         <p class="manifesto-p">
-          <span class="lang-ja">だから、私はこの物理と心理の演算空間を作った。</span>
-          <span class="lang-en">So I built this computational space of physics and psychology.</span>
-          <span class="lang-zh">因此，我构建了这个物理与心理的计算空间。</span>
-          <span class="lang-ko">그래서 나는 이 물리와 심리의 연산 공간을 만들었다.</span>
-          <span class="lang-es">Por eso construí este espacio computacional de física y psicología.</span>
-          <span class="lang-fr">C’est pourquoi j’ai créé cet espace computationnel de physique et de psychologie.</span>
+          <span class="lang-ja">だが、その答えは最初から明確ではなかった。<br>問いを深めるほど、モデルは進化しなければならなかった。</span>
+          <span class="lang-en">But the answer wasn't clear from the start.<br>The deeper the question, the more the model had to evolve.</span>
+          <span class="lang-zh">但答案从一开始并不清晰。<br>问题越深入，模型就越需要进化。</span>
+          <span class="lang-ko">하지만 그 답은 처음부터 명확하지 않았다.<br>질문이 깊어질수록, 모델도 진화해야 했다.</span>
+          <span class="lang-es">Pero la respuesta no estuvo clara desde el principio.<br>Cuanto más profunda era la pregunta, más debía evolucionar el modelo.</span>
+          <span class="lang-fr">Mais la réponse n'était pas claire dès le départ.<br>Plus la question s'approfondissait, plus le modèle devait évoluer.</span>
         </p>
       </div>
     </section>
 
-    <!-- SCENE 4: PORTAL (TECH GRID) -->
-    <section class="scene scene-auto" style="padding-right: 5vw;" id="portal">
-      <!-- MATH NOISE BG -->
-      <div class="math-noise">
-        import numpy as np; import math; class Agent: def __init__(self): self.cr = 0; self.v = 1.0; 
-        def update(rho): return max(0, 1 - rho/rho_limit); v = exp(-3.5 * abs(S+0.05) + 0.175)
-        P(x) = exp(-beta * c(x)) / Z; def alert(): pass; 0x4865 0x6C6C 0x6F
+    <!-- ═══ SCENE 4: VERSION 1.0 ══════════════════════════════════════ -->
+    <section class="scene scene-auto" id="v1sim">
+      <div style="width:100%;height:100%;overflow-y:auto;padding:3rem 4vw;display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
+        <div class="v1-badge">VERSION 1.0 &nbsp;—&nbsp; 2025.06 – 2025.12</div>
+        <div>
+          <h2 class="v1-headline">
+            <span class="lang-ja">出発点：89,000人の世界</span>
+            <span class="lang-en">Where It Started: 89,000 Agents</span>
+            <span class="lang-zh">起点：89,000人的世界</span>
+            <span class="lang-ko">출발점：89,000명의 세계</span>
+            <span class="lang-es">El punto de partida: 89,000 agentes</span>
+            <span class="lang-fr">Le point de départ : 89 000 agents</span>
+          </h2>
+          <p class="v1-sub">
+            <span class="lang-ja">最初のシステムが達成した規模。10種類のエージェント、静的浸水域、Kepler.gl 可視化。</span>
+            <span class="lang-en">The scale the first system achieved. 10 agent types, static inundation, Kepler.gl visualization.</span>
+          </p>
+        </div>
+
+        <div class="v1-grid">
+          <div class="v1-cell">
+            <div class="v1-cell-tag">エージェント最大数</div>
+            <div class="v1-cell-val">89,000</div>
+            <div class="v1-cell-desc">
+              <span class="lang-ja">一般観光客45,000・地域住民30,000を中心に10属性を配置</span>
+              <span class="lang-en">10 attributes incl. 45,000 visitors, 30,000 residents</span>
+            </div>
+          </div>
+          <div class="v1-cell">
+            <div class="v1-cell-tag">エージェント種別</div>
+            <div class="v1-cell-val">10種</div>
+            <div class="v1-cell-desc">
+              <span class="lang-ja">観光客・住民・海水浴客・飲食従業員・海の家・ライフガード・消防・警察・マリンスポーツ・宿泊客</span>
+              <span class="lang-en">Tourists · Residents · Swimmers · Workers · Lifeguards · Emergency services · Marine sports · Hotel guests</span>
+            </div>
+            <div class="v1-chips">
+              <span class="v1-chip">一般観光客</span>
+              <span class="v1-chip">地域住民</span>
+              <span class="v1-chip">海水浴客</span>
+              <span class="v1-chip">飲食・小売</span>
+              <span class="v1-chip">海の家</span>
+              <span class="v1-chip">ライフガード</span>
+              <span class="v1-chip">消防隊員</span>
+              <span class="v1-chip">消防団員</span>
+              <span class="v1-chip">警察官</span>
+              <span class="v1-chip">マリンスポーツ</span>
+            </div>
+          </div>
+          <div class="v1-cell">
+            <div class="v1-cell-tag">危機感モデル</div>
+            <div class="v1-cell-val">3段階</div>
+            <div class="v1-cell-desc" style="font-family:monospace;line-height:1.7;opacity:.4;">
+              C &lt; 0.4 → ×0.8<br>
+              0.4 ≤ C &lt; 0.8 → ×1.3<br>
+              C ≥ 0.8 → ×1.8
+            </div>
+            <div class="v1-cell-desc" style="margin-top:.5rem;">
+              <span class="lang-ja">ステップ関数。連続関数・地形補正は未実装。</span>
+              <span class="lang-en">Step function. No continuous terrain correction.</span>
+            </div>
+          </div>
+          <div class="v1-cell">
+            <div class="v1-cell-tag">津波モデル</div>
+            <div class="v1-cell-val">静的</div>
+            <div class="v1-cell-desc">
+              <span class="lang-ja">最終的な浸水域の判定のみ。「いつ津波が到達するか」という動的情報は持たない。</span>
+              <span class="lang-en">Final inundation area only. No dynamic wave timing.</span>
+            </div>
+          </div>
+          <div class="v1-cell">
+            <div class="v1-cell-tag">可視化</div>
+            <div class="v1-cell-val">Kepler.gl</div>
+            <div class="v1-cell-desc">
+              <span class="lang-ja">Uberが開発した地理空間ビジュアライザ。属性別カラーで軌跡を描画。</span>
+              <span class="lang-en">Uber's geospatial visualizer for trajectory replay.</span>
+            </div>
+          </div>
+          <div class="v1-cell">
+            <div class="v1-cell-tag">シナリオ分析</div>
+            <div class="v1-cell-val">なし</div>
+            <div class="v1-cell-desc">
+              <span class="lang-ja">単一条件での実行のみ。感度分析・比較実験は未実施。</span>
+              <span class="lang-en">Single-run only. No sensitivity analysis.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evolution bar -->
+        <div class="v1-evo-bar">
+          <div class="v1-evo-col">
+            <div class="v1-evo-num old">89,000</div>
+            <div class="v1-evo-lbl">v1.0 最大規模</div>
+          </div>
+          <div class="v1-evo-arrow">→</div>
+          <div class="v1-evo-col">
+            <div class="v1-evo-num now">62,299</div>
+            <div class="v1-evo-lbl">現行 BASE 平均</div>
+          </div>
+          <div class="v1-evo-arrow">→</div>
+          <div class="v1-evo-col">
+            <div class="v1-evo-num now" style="font-size:1.4rem;">Tobler · Klüpfel · SFM</div>
+            <div class="v1-evo-lbl">新物理モデル群</div>
+          </div>
+          <div class="v1-evo-arrow">→</div>
+          <div class="v1-evo-col">
+            <div class="v1-evo-num now">242 Runs</div>
+            <div class="v1-evo-lbl">25シナリオ × 反復試行</div>
+          </div>
+        </div>
       </div>
-      
+    </section>
+
+    <!-- ═══ SCENE 5: MODEL ENGINE (PORTAL GRID) ═══════════════════════ -->
+    <section class="scene scene-auto" style="padding-right:5vw;" id="portal">
+      <div class="math-noise">
+        import numpy as np; class Agent: def __init__(self): self.cr = 0; self.v = 1.0;
+        V(z,∇z)=Vbase/((1+α·z)(1+β·|∇z|)); v=exp(-3.5*|S+0.05|+0.175)
+        F_jam=max(0,1-ρ/ρ_max); P(herd)≥thresh → follow_flow; DT=5s; T_max=1440s
+      </div>
+
       <div class="tech-grid-scene">
-        
+
         <div class="tech-card">
-          <h3><span class="lang-ja">並列・<br>独立モジュール</span><span class="lang-en">Parallel /<br>Independent Modules</span><span class="lang-zh">并行·<br>独立模块</span><span class="lang-ko">병렬·<br>독립 모듈</span><span class="lang-es">Módulos<br>Paralelos</span><span class="lang-fr">Modules<br>Parallèles</span></h3>
-          <p><span class="lang-ja">数万人の「周囲状況把握」と「経路選択」を、複数スレッドで同時並行処理。設定管理から計算実行、画面描画を分離した高い拡張性。</span><span class="lang-en">Multi-threaded simultaneous processing of "situational awareness" and "route selection" for tens of thousands. High scalability via separated config, computation, and rendering.</span><span class="lang-zh">数万人的"状况感知"与"路径选择"通过多线程同时并行处理。将配置管理、计算执行和画面渲染分离，实现高度可扩展性。</span><span class="lang-ko">수만 명의 "주변 상황 파악"과 "경로 선택"을 복수 스레드로 동시 병렬 처리. 설정 관리, 계산 실행, 화면 렌더링을 분리하여 높은 확장성 실현.</span><span class="lang-es">Procesamiento multihilo simultáneo de "percepción situacional" y "selección de rutas" para decenas de miles. Alta escalabilidad separando configuración, cálculo y renderizado.</span><span class="lang-fr">Traitement multi-thread simultané de la "conscience situationnelle" et de la "sélection de routes" pour des dizaines de milliers d'agents.</span></p>
-          <div class="tech-thumb"><img src="pic/AZ2G4w2AkRwA_RdUe3yvmA-AZ2G4w2Ailv4G48eLnL1xw-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;"></div>
+          <h3>
+            <span class="lang-ja">動的津波<br>伝播モデル</span>
+            <span class="lang-en">Dynamic Tsunami<br>Propagation</span>
+            <span class="lang-zh">动态海啸<br>传播模型</span>
+            <span class="lang-ko">동적 쓰나미<br>전파 모델</span>
+            <span class="lang-es">Propagación<br>Dinámica</span>
+            <span class="lang-fr">Propagation<br>Dynamique</span>
+          </h3>
+          <p>
+            <span class="lang-ja">静的な浸水域だけでなく「いつどこに津波が到達するか」を動的に計算。標高と傾斜で遡上速度が変化する Goto-Muhari 経験式と多始点ダイクストラ法を組み合わせ、全 2,135 ノードの到達時刻マップを一括生成する。</span>
+            <span class="lang-en">Beyond static inundation — calculates when the wave arrives at each point. Goto-Muhari empirical formula combined with multi-source Dijkstra generates arrival timestamps for all 2,135 inundated nodes.</span>
+          </p>
+          <div class="tech-thumb" style="background:#001133;display:flex;align-items:center;justify-content:center;">
+            <code style="font-size:.65rem;opacity:.5;color:#4af;font-family:monospace;padding:1rem;line-height:1.8;">
+              V(z,|∇z|) =<br>
+              &nbsp;&nbsp;V<sub>base</sub> / (<br>
+              &nbsp;&nbsp;&nbsp;(1+α·z)(1+β·|∇z|)
+              )
+            </code>
+          </div>
+          <button class="btn-readmore" onclick="openPanel('panel-tsunami')">READ MORE</button>
         </div>
 
         <div class="tech-card">
-          <h3><span class="lang-ja">渋滞<br>デッドロック</span><span class="lang-en">Traffic<br>Deadlock</span><span class="lang-zh">拥堵<br>死锁</span><span class="lang-ko">정체<br>데드락</span><span class="lang-es">Deadlock<br>de Tráfico</span><span class="lang-fr">Blocage<br>de Trafic</span></h3>
-          <p><span class="lang-ja">道路の面積に対して人が集中しすぎると限界密度に達し、完全に停止するデッドロック現象を数理的に再現。</span><span class="lang-en">When crowd density exceeds the critical threshold for road area, movement halts completely. Mathematical reproduction of the deadlock phenomenon.</span><span class="lang-zh">当道路面积上的人群密度超过极限时，达到完全停止的死锁现象，以数理方式再现。</span><span class="lang-ko">도로 면적에 비해 사람이 과도하게 집중되면 한계 밀도에 달해 완전히 멈추는 데드락 현상을 수리적으로 재현.</span><span class="lang-es">Cuando la densidad supera el umbral crítico, el movimiento cesa. Reproducción matemática del fenómeno de deadlock.</span><span class="lang-fr">Quand la densité dépasse le seuil critique, le mouvement s'arrête totalement. Reproduction mathématique du phénomène de deadlock.</span></p>
-          <div class="tech-thumb" style="background:#440000;"><img src="pic/AZ2G6q37JiZMqb3p2_yx5Q-AZ2G6q37kkFxgj6Hgx3NQQ-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;"></div>
+          <h3>
+            <span class="lang-ja">渋滞<br>デッドロック</span>
+            <span class="lang-en">Traffic<br>Deadlock</span>
+            <span class="lang-zh">拥堵<br>死锁</span>
+            <span class="lang-ko">정체<br>데드락</span>
+            <span class="lang-es">Deadlock<br>de Tráfico</span>
+            <span class="lang-fr">Blocage<br>de Trafic</span>
+          </h3>
+          <p>
+            <span class="lang-ja">道路の面積に対して人が集中しすぎると限界密度（4.0人/㎡）に達し、Klüpfel モデルが速度を最小値まで落とす。由比ヶ浜沿岸のボトルネックで最大混雑指数 131.9 を観測。これは限界密度の33倍に相当する。</span>
+            <span class="lang-en">When crowd density exceeds 4.0 ppl/m², the Klüpfel model collapses walking speed to its floor value. Peak congestion index of 131.9 observed at the Yuigahama coastal bottleneck — 33× the limit density.</span>
+          </p>
+          <div class="tech-thumb" style="background:#440000;">
+            <img src="pic/AZ2G6q37JiZMqb3p2_yx5Q-AZ2G6q37kkFxgj6Hgx3NQQ-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;">
+          </div>
           <button class="btn-readmore" onclick="openPanel('panel-klupfel')">READ MORE</button>
         </div>
 
         <div class="tech-card">
-          <h3><span class="lang-ja">群集心理・<br>同調パニック</span><span class="lang-en">Crowd Psychology /<br>Herd Panic</span><span class="lang-zh">群体心理·<br>从众恐慌</span><span class="lang-ko">군집 심리·<br>동조 패닉</span><span class="lang-es">Psicología<br>de Masas</span><span class="lang-fr">Psychologie<br>des Foules</span></h3>
-          <p><span class="lang-ja">視野内の多数の人間が走っていると、安全な避難路を捨て、無意識に「既に混雑している破滅的ルート」へ引き込まれる挙動を計算。</span><span class="lang-en">When the majority in sight are running, agents abandon safe routes and are unconsciously drawn toward already-congested, catastrophic paths.</span><span class="lang-zh">当视野内大多数人开始奔跑，个体便会抛弃安全的避难路，被无意识地引向"已经拥挤的灾难性路线"。</span><span class="lang-ko">시야 내 대다수가 뛰고 있으면, 안전한 대피로를 버리고 무의식적으로 "이미 혼잡한 파국적 루트"로 끌려드는 행동을 계산.</span><span class="lang-es">Cuando la mayoría visible corre, los agentes abandonan rutas seguras y son atraídos inconscientemente a rutas catastróficas ya congestionadas.</span><span class="lang-fr">Quand la majorité visible court, les agents abandonnent les routes sûres et sont attirés inconsciemment vers des routes déjà encombrées.</span></p>
-          <div class="tech-thumb" style="background:#001144;"><img src="pic/AZ2G559c0dGLqG14wkAQTw-AZ2G559c8XAPzHVVYuc86A-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;"></div>
+          <h3>
+            <span class="lang-ja">群衆心理・<br>同調パニック</span>
+            <span class="lang-en">Crowd Psychology /<br>Herd Panic</span>
+            <span class="lang-zh">群体心理·<br>从众恐慌</span>
+            <span class="lang-ko">군집 심리·<br>동조 패닉</span>
+            <span class="lang-es">Psicología<br>de Masas</span>
+            <span class="lang-fr">Psychologie<br>des Foules</span>
+          </h3>
+          <p>
+            <span class="lang-ja">視野内の多数が走っていると、安全な避難路を捨て混雑ルートへ引き込まれる。Social Force Model の拡張として実装。半径20m 内の走行エージェント数に応じ危機感が上昇し、同調行動が連鎖する。</span>
+            <span class="lang-en">When the majority in sight are running, agents abandon safe routes and are drawn toward congested ones. Implemented as an SFM extension — crisis level rises per nearby runner, triggering chain herding.</span>
+          </p>
+          <div class="tech-thumb" style="background:#001144;">
+            <img src="pic/AZ2G559c0dGLqG14wkAQTw-AZ2G559c8XAPzHVVYuc86A-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;">
+          </div>
           <button class="btn-readmore" onclick="openPanel('panel-herd')">READ MORE</button>
         </div>
 
         <div class="tech-card">
-          <h3><span class="lang-ja">地形勾配<br>生体力学</span><span class="lang-en">Terrain Gradient<br>Biomechanics</span><span class="lang-zh">地形坡度<br>生物力学</span><span class="lang-ko">지형 경사<br>생체역학</span><span class="lang-es">Biomecánica<br>Topográfica</span><span class="lang-fr">Biomécanique<br>Topographique</span></h3>
-          <p><span class="lang-ja">急な上り坂では速度が物理的に落ち、緩やかな下り坂では最速で移動できるという重力空間の数学的補正。</span><span class="lang-en">Mathematical correction for gravity: speed drops physically on steep ascents; gradual descents allow maximum movement speed.</span><span class="lang-zh">陡坡上速度会物理性下降，缓下坡则移动最快——重力空间的数学补正。</span><span class="lang-ko">가파른 오르막에서는 속도가 물리적으로 떨어지고, 완만한 내리막에서는 최고 속도로 이동하는 중력 공간의 수학적 보정.</span><span class="lang-es">Corrección matemática de la gravedad: la velocidad cae en subidas pronunciadas, los descensos suaves permiten velocidad máxima.</span><span class="lang-fr">Correction mathématique de la gravité : la vitesse diminue dans les montées prononcées, les descentes douces permettent la vitesse maximale.</span></p>
-          <div class="tech-thumb" style="background:#113300;"><img src="pic/AZ2HpFD9zST7umTe4qbKIA-AZ2HpFD9q0a-7gyaDeSphA-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;"></div>
+          <h3>
+            <span class="lang-ja">地形勾配<br>生体力学</span>
+            <span class="lang-en">Terrain Gradient<br>Biomechanics</span>
+            <span class="lang-zh">地形坡度<br>生物力学</span>
+            <span class="lang-ko">지형 경사<br>생체역학</span>
+            <span class="lang-es">Biomecánica<br>Topográfica</span>
+            <span class="lang-fr">Biomécanique<br>Topographique</span>
+          </h3>
+          <p>
+            <span class="lang-ja">Tobler の連続歩行速度関数 v = exp(-3.5|S+0.05|+0.175) を採用。急勾配の切通しでは高齢者・児童の速度低下が致命的になる。v1.0 のステップ関数から連続補正へ精緻化。</span>
+            <span class="lang-en">Tobler's continuous walking speed function v = exp(-3.5|S+0.05|+0.175). Steep passes become fatal for elderly and children. Upgraded from v1.0's step function to continuous correction.</span>
+          </p>
+          <div class="tech-thumb" style="background:#113300;">
+            <img src="pic/AZ2HpFD9zST7umTe4qbKIA-AZ2HpFD9q0a-7gyaDeSphA-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;">
+          </div>
           <button class="btn-readmore" onclick="openPanel('panel-tobler')">READ MORE</button>
         </div>
 
       </div>
     </section>
 
-    <!-- SCENE: TIMELINE -->
-    <section class="scene scene-auto" id="timeline" style="padding-left:0;">
-      <div class="timeline-wrap">
-        <div class="tl-line-track"><div class="tl-line-fill"></div></div>
-        
-        <div class="tl-item">
-          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3__1_-removebg-preview.png" class="tl-bg" loading="lazy">
-          <div class="tl-content">
-            <h4>2025.06</h4>
-            <p><span class="lang-ja">プロジェクト始動。<br>計算機の中の鎌倉の誕生。</span><span class="lang-en">Project launch.<br>Kamakura born inside a computer.</span><span class="lang-zh">项目启动。<br>计算机中的镰仓诞生。</span><span class="lang-ko">프로젝트 시작.<br>컴퓨터 속 가마쿠라 탄생.</span><span class="lang-es">Inicio del proyecto.<br>Nace Kamakura en un ordenador.</span><span class="lang-fr">Lancement du projet.<br>Kamakura naît dans un ordinateur.</span></p>
+    <!-- ═══ SCENE 6: KEY FINDINGS ═══════════════════════════════════ -->
+    <section class="scene scene-auto" id="findings">
+      <div style="width:100%;height:100%;overflow-y:auto;padding:3rem 4vw;display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
+        <div class="results-kicker">25 SCENARIOS · 242 RUNS · BASE n=50</div>
+        <h2 class="results-headline">
+          <span class="lang-ja">シミュレーションが<br>暴いた構造</span>
+          <span class="lang-en">What the Simulation<br>Revealed</span>
+          <span class="lang-zh">模拟揭示的<br>结构性现实</span>
+          <span class="lang-ko">시뮬레이션이<br>드러낸 구조</span>
+          <span class="lang-es">Lo que reveló<br>la simulación</span>
+          <span class="lang-fr">Ce que la simulation<br>a révélé</span>
+        </h2>
+
+        <div class="results-grid">
+          <div class="rc">
+            <div class="rc-tag">BASE 全体生存率</div>
+            <div class="rc-num">36.8<span style="font-size:.5em;opacity:.7;">%</span></div>
+            <div class="rc-desc">
+              <span class="lang-ja">BASEシナリオ（14分リードタイム・夏季ピーク）での平均。62,299人中 22,919人が避難完了。</span>
+              <span class="lang-en">BASE scenario avg. (14-min lead time, summer peak). 22,919 of 62,299 agents evacuated.</span>
+            </div>
+          </div>
+          <div class="rc">
+            <div class="rc-tag">地域住民 生存率</div>
+            <div class="rc-num">85.1<span style="font-size:.5em;opacity:.7;">%</span></div>
+            <div class="rc-desc">
+              <span class="lang-ja">土地勘・初期危機感・CaseI率 70% が高生存率を支える。</span>
+              <span class="lang-en">Local knowledge, high initial crisis, 70% Case-I rate drives survival.</span>
+            </div>
+          </div>
+          <div class="rc">
+            <div class="rc-tag">一般来訪客 生存率</div>
+            <div class="rc-num danger">31.6<span style="font-size:.5em;opacity:.7;">%</span></div>
+            <div class="rc-desc">
+              <span class="lang-ja">CaseIII率 70%（避難大遅延）、ルート誤認率 60% が生存を阻む。</span>
+              <span class="lang-en">70% Case-III (major delay), 60% route error rate undermines survival.</span>
+            </div>
+          </div>
+          <div class="rc">
+            <div class="rc-tag">住民 vs 来訪客 格差</div>
+            <div class="rc-num danger">53.5<span style="font-size:.5em;opacity:.7;">pp</span></div>
+            <div class="rc-desc">
+              <span class="lang-ja">全試行にわたり SD=0.164pp と非常に安定。確率的偶然ではなく構造的差異。</span>
+              <span class="lang-en">SD=0.164pp across all runs — structural, not stochastic.</span>
+            </div>
+          </div>
+          <div class="rc">
+            <div class="rc-tag">最高生存率（B2 オフシーズン）</div>
+            <div class="rc-num">67.8<span style="font-size:.5em;opacity:.7;">%</span></div>
+            <div class="rc-desc">
+              <span class="lang-ja">総人口をBASE比 22.2%（13,866人）に削減 → 道路混雑解消で一気に改善。</span>
+              <span class="lang-en">Reducing population to 22.2% of BASE (13,866) eliminates bottlenecks.</span>
+            </div>
+          </div>
+          <div class="rc">
+            <div class="rc-tag">最低生存率（A1 8分到達）</div>
+            <div class="rc-num danger">26.9<span style="font-size:.5em;opacity:.7;">%</span></div>
+            <div class="rc-desc">
+              <span class="lang-ja">リードタイム 8分では来訪客 20.5% まで急落。地域住民との格差は 59.0pp に拡大。</span>
+              <span class="lang-en">With 8-min lead time, visitor survival collapses to 20.5%. Gap widens to 59.0pp.</span>
+            </div>
           </div>
         </div>
-        
-        <div class="tl-item">
-          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3__2_-removebg-preview.png" class="tl-bg" loading="lazy">
-          <div class="tl-content">
-            <h4>2025.09</h4>
-            <p><span class="lang-ja">89,000人の<br>マルチエージェント化成功。</span><span class="lang-en">89,000-agent<br>simulation achieved.</span><span class="lang-zh">89,000人<br>多智能体化成功。</span><span class="lang-ko">89,000명의<br>멀티에이전트화 성공.</span><span class="lang-es">Simulación de<br>89,000 agentes lograda.</span><span class="lang-fr">Simulation de<br>89 000 agents réussie.</span></p>
+
+        <!-- ハザードマップ逆説 -->
+        <div class="paradox-box">
+          <div class="paradox-title">
+            <span class="lang-ja">⚠ ハザードマップ逆説（D群）— 情報が多いほど死亡率が上がる</span>
+            <span class="lang-en">⚠ Hazard Map Paradox (Group D) — More Information, Higher Mortality</span>
           </div>
-        </div>
-        
-        <div class="tl-item">
-          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3__3_-removebg-preview.png" class="tl-bg" loading="lazy">
-          <div class="tl-content">
-            <h4>2026.01</h4>
-            <p><span class="lang-ja">同調行動（Herd Behavior）<br>モデルの高度化。</span><span class="lang-en">Advanced<br>Herd Behavior modeling.</span><span class="lang-zh">从众行为（Herd Behavior）<br>模型高度化。</span><span class="lang-ko">동조 행동(Herd Behavior)<br>모델 고도화.</span><span class="lang-es">Modelado avanzado<br>del Comportamiento de Manada.</span><span class="lang-fr">Modélisation avancée<br>du Comportement de Meute.</span></p>
-          </div>
-        </div>
-        
-        <div class="tl-item">
-          <img src="pic/AZ2G60AFn7zXfviedIVe7Q-AZ2G60AFipJa48wz7BIsbA-removebg-preview.png" class="tl-bg" loading="lazy">
-          <div class="tl-content">
-            <h4>2026.04</h4>
-            <p><span class="lang-ja">本ポータルサイト公開。</span><span class="lang-en">Portal site launched.</span><span class="lang-zh">本门户网站正式上线。</span><span class="lang-ko">포털 사이트 공개.</span><span class="lang-es">Lanzamiento del portal.</span><span class="lang-fr">Lancement du portail.</span></p>
+          <p class="paradox-body">
+            <span class="lang-ja">ハザードマップ認知率 100%（D1）の全体生存率は 35.8% であり、認知率 0%（D5）の 41.9% を 6.1pp 下回った。全員が同一の「最適避難路」を知ることで特定ノードに混雑が集中し、結果的に誰も知らない場合より生存率が低くなる。Braess 逆説と類似するこの「情報過多による混雑の罠」こそ、TENDEN が3ルート同時提示という設計を採用した根拠である。</span>
+            <span class="lang-en">D1 (100% hazard-map awareness): 35.8% survival — 6.1pp below D5 (0% awareness: 41.9%). When everyone converges on the same "optimal" route, bottlenecks worsen and overall survival falls. This Braess-like "congestion trap" is exactly why TENDEN presents 3 simultaneous routes.</span>
+          </p>
+          <div class="paradox-nums">
+            <div>
+              <div class="pn-val">35.8<span style="font-size:.6em;opacity:.7;">%</span></div>
+              <div class="pn-lbl">D1 (認知率100%)</div>
+            </div>
+            <div style="font-size:1.4rem;opacity:.3;align-self:center;">&lt;</div>
+            <div>
+              <div class="pn-val d">41.9<span style="font-size:.6em;opacity:.7;">%</span></div>
+              <div class="pn-lbl">D5 (認知率0%)</div>
+            </div>
+            <div style="margin-left:1rem;">
+              <div class="pn-val d">−6.1<span style="font-size:.6em;opacity:.7;">pp</span></div>
+              <div class="pn-lbl">完全普及の代償</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ═══ SCENE 7: TIMELINE ════════════════════════════════════════ -->
+    <section class="scene scene-auto" id="timeline" style="padding-left:0;">
+      <div class="timeline-wrap">
+        <div class="tl-line-track"><div class="tl-line-fill"></div></div>
 
-    <!-- SCENE: PROFILE -->
+        <div class="tl-item">
+          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3__1_-removebg-preview.png" class="tl-bg" loading="lazy">
+          <div class="tl-content">
+            <h4>2025.06</h4>
+            <p>
+              <span class="lang-ja">プロジェクト始動。<br>鎌倉市の道路・標高・避難所データを統合したマスターグラフ（18,580ノード・90,068エッジ）を構築。</span>
+              <span class="lang-en">Project launch.<br>Master graph built: 18,580 nodes · 90,068 edges integrating road, elevation, and shelter data.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3__2_-removebg-preview.png" class="tl-bg" loading="lazy">
+          <div class="tl-content">
+            <h4>2025.09</h4>
+            <p>
+              <span class="lang-ja">v1.0 達成：89,000人・10属性のマルチエージェントシミュレーション初成功。Kepler.gl で可視化。</span>
+              <span class="lang-en">v1.0 milestone: 89,000 agents / 10 types successfully simulated. Kepler.gl visualization.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3__3_-removebg-preview.png" class="tl-bg" loading="lazy">
+          <div class="tl-content">
+            <h4>2025.12</h4>
+            <p>
+              <span class="lang-ja">v2.0 へ移行開始。4属性・62,299人モデルに再設計。Tobler・Klüpfel モデル導入、動的津波伝播モデル構築。</span>
+              <span class="lang-en">Transition to v2.0. Redesigned to 4 types / 62,299 agents. Tobler & Klüpfel models + dynamic tsunami propagation introduced.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <img src="pic/AZ2G60AFn7zXfviedIVe7Q-AZ2G60AFipJa48wz7BIsbA-removebg-preview.png" class="tl-bg" loading="lazy">
+          <div class="tl-content">
+            <h4>2026.01</h4>
+            <p>
+              <span class="lang-ja">同調行動（Herd Behavior）モデルの高度化。BASE 50試行・SD=0.164pp の高再現性を確認。</span>
+              <span class="lang-en">Advanced Herd Behavior modeling. BASE 50-run SD=0.164pp — high reproducibility confirmed.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <img src="pic/AZ2K20UsF88jTGaUcnATJg-AZ2K20UsUw2mN3yCsJXmow-removebg-preview.png" class="tl-bg" loading="lazy">
+          <div class="tl-content">
+            <h4>2026.03</h4>
+            <p>
+              <span class="lang-ja">25シナリオ・計 242 試行の感度分析完了。B群±32.1pp・A群±31.4pp が支配的、ハザードマップ逆説を発見。</span>
+              <span class="lang-en">25-scenario sensitivity analysis complete (242 total runs). Group B ±32.1pp, Group A ±31.4pp dominant. Hazard-map paradox discovered.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3-removebg-preview.png" class="tl-bg" loading="lazy">
+          <div class="tl-content">
+            <h4>2026.04</h4>
+            <p>
+              <span class="lang-ja">減災アプリ「TENDEN」公開。本ポータルサイト・分析ビューア公開。研究論文執筆。</span>
+              <span class="lang-en">TENDEN app launched. Portal site &amp; analytics viewer published. Research paper submitted.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SCENE 8: PROFILE ══════════════════════════════════════════ -->
     <section class="scene" id="profile">
       <div class="profile-wrap">
         <div class="profile-img-wrap">
           <img src="pic/Gemini_Generated_Image_10s3tf10s3tf10s3-removebg-preview.png" class="profile-img" alt="Creator code form" loading="lazy">
         </div>
         <div class="tech-stream">
-          <span>> DEV_ID: MARUYAMA MASATO</span>
-          <span>> ORG: TOKYOTORITSU KOKUBUNJI HIGH SCHOOL</span>
-          <span>> <a href="https://github.com/masatosprojects" target="_blank" style="color:inherit; text-decoration:underline;">GITHUB: masatosprojects</a></span>
-          <span>> <a href="https://x.com/masatosprojects" target="_blank" style="color:inherit; text-decoration:underline;">X: @masatosprojects</a></span>
-          <span>> <a href="https://www.youtube.com/@masatosprojects-c6e" target="_blank" style="color:inherit; text-decoration:underline;">YOUTUBE: masatosprojects-c6e</a></span>
-          <span>> <a href="mailto:determined.masato@gmail.com" style="color:inherit; text-decoration:underline;">EMAIL: determined.masato@gmail.com</a></span>
-          <span style="color: var(--accent); margin-top:2rem;">><span class="lang-ja"> MISSION: 問いの解像度を上げる。</span><span class="lang-en"> MISSION: RAISE THE RESOLUTION OF THE QUESTION.</span><span class="lang-zh"> MISSION: 提升问题的分辨率。</span><span class="lang-ko"> MISSION: 질문의 해상도를 높인다.</span><span class="lang-es"> MISSION: ELEVAR LA RESOLUCIÓN DE LA PREGUNTA.</span><span class="lang-fr"> MISSION: ÉLEVER LA RÉSOLUTION DE LA QUESTION.</span></span>
+          <span>&gt; DEV_ID: MARUYAMA MASATO</span>
+          <span>&gt; ORG: TOKYOTORITSU KOKUBUNJI HIGH SCHOOL</span>
+          <span>&gt; <a href="https://github.com/masatosprojects" target="_blank" style="color:inherit;text-decoration:underline;">GITHUB: masatosprojects</a></span>
+          <span>&gt; <a href="https://x.com/masatosprojects" target="_blank" style="color:inherit;text-decoration:underline;">X: @masatosprojects</a></span>
+          <span>&gt; <a href="https://www.youtube.com/@masatosprojects-c6e" target="_blank" style="color:inherit;text-decoration:underline;">YOUTUBE: masatosprojects-c6e</a></span>
+          <span>&gt; <a href="mailto:determined.masato@gmail.com" style="color:inherit;text-decoration:underline;">EMAIL: determined.masato@gmail.com</a></span>
+          <span style="color:var(--accent);margin-top:2rem;">&gt;<span class="lang-ja"> MISSION: 問いの解像度を上げる。</span><span class="lang-en"> MISSION: RAISE THE RESOLUTION OF THE QUESTION.</span><span class="lang-zh"> MISSION: 提升问题的分辨率。</span><span class="lang-ko"> MISSION: 질문의 해상도를 높인다.</span><span class="lang-es"> MISSION: ELEVAR LA RESOLUCIÓN DE LA PREGUNTA.</span><span class="lang-fr"> MISSION: ÉLEVER LA RÉSOLUTION DE LA QUESTION.</span></span>
         </div>
       </div>
     </section>
 
-    <!-- SCENE: PROMO VIDEO (MOVED HERE) -->
-    <section class="scene" id="video-promo-final" style="flex-direction:column; justify-content:center; align-items:center; gap:0;">
-      <div class="video-container" style="width: 100%; max-width: 900px; aspect-ratio: 16/9; position: relative;">
+    <!-- ═══ SCENE 9: PROMO VIDEO ═════════════════════════════════════ -->
+    <section class="scene" id="video-promo-final" style="flex-direction:column;justify-content:center;align-items:center;gap:0;">
+      <div class="video-container" style="width:100%;max-width:900px;aspect-ratio:16/9;position:relative;">
         <iframe
           src="https://www.youtube.com/embed/AnkAhn1zTl0?autoplay=1&mute=1&rel=0&modestbranding=1"
           title="KAMAKURA SIM. Promotion"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-          style="position:absolute; inset:0; width:100%; height:100%; border:none;"
+          style="position:absolute;inset:0;width:100%;height:100%;border:none;"
         ></iframe>
       </div>
     </section>
 
-    <!-- SCENE 6: FINAL GATE -->
+    <!-- ═══ SCENE 10: FINAL GATE ═════════════════════════════════════ -->
     <section class="scene gate-scene" id="gate">
       <a href="https://masatosprojects.github.io/kamakura-sim/simulator/portal.html" id="gate-btn" class="gate-btn clickable">EXPLORE<br>SIMULATION</a>
-      <div class="click-guide-text"><span class="lang-ja">！ここをクリック！</span><span class="lang-en">! CLICK HERE !</span><span class="lang-zh">！点击此处！</span><span class="lang-ko">! 여기를 클릭 !</span><span class="lang-es">! HAGA CLIC AQUÍ !</span><span class="lang-fr">! CLIQUEZ ICI !</span></div>
+      <div class="click-guide-text">
+        <span class="lang-ja">！ここをクリック！</span>
+        <span class="lang-en">! CLICK HERE !</span>
+        <span class="lang-zh">！点击此处！</span>
+        <span class="lang-ko">! 여기를 클릭 !</span>
+        <span class="lang-es">! HAGA CLIC AQUÍ !</span>
+        <span class="lang-fr">! CLIQUEZ ICI !</span>
+      </div>
     </section>
 
   </div> <!-- End Scroll Container -->
 
-  <!-- SLIDE IN PANELS -->
+  <!-- ═══ SLIDE-IN PANELS ══════════════════════════════════════════ -->
+
+  <!-- 動的津波伝播 panel (NEW) -->
+  <div class="slide-panel" id="panel-tsunami">
+    <div class="panel-close" onclick="closePanel('panel-tsunami')">&times;</div>
+    <div class="panel-content">
+      <h2>動的津波伝播モデル</h2>
+      <p>従来の静的浸水域モデルは「どのノードが最終的に浸水するか」を示すが、「いつ到達するか」という時間的情報を持たない。本研究では Goto ら（1997）・Muhari ら（2012）の経験式を用いた動的モデルを構築した。</p>
+      <h3>伝播速度計算式</h3>
+      <p style="font-family:monospace;opacity:.65;">V(z, |∇z|) = V<sub>base</sub> / ( (1 + α·z)(1 + β·|∇z|) )</p>
+      <p>V<sub>base</sub> = 3.0 m/s（海面・平坦地における遡上初速）<br>
+         α = 0.15 m⁻¹（標高による減衰）<br>
+         β = 1.5（傾斜による減衰）<br>
+         V_floor = 0.05 m/s（速度下限）</p>
+      <p>多始点ダイクストラ法（O((E+V)log V)）により浸水域2,135ノード全体の到達時刻マップを一括算出。シミュレーション中に「現在時刻 ≥ T(現在ノード)」となったエージェントを死亡と判定することで、波前線とエージェントの動的競争を再現する。</p>
+    </div>
+  </div>
+
+  <!-- Klüpfel panel -->
   <div class="slide-panel" id="panel-klupfel">
     <div class="panel-close" onclick="closePanel('panel-klupfel')">&times;</div>
     <div class="panel-content">
-      <h2>渋滞デッドロック</h2>
+      <h2>渋滞デッドロック（Klüpfelモデル）</h2>
       <p>道の面積に対して人が殺到すると、密度が限界に達し群衆全体が停止します。</p>
       <canvas id="canvas-klupfel" class="sim-canvas"></canvas>
       <h3>物理演算モデル</h3>
-      <p>速度乗数 = max(0, 1 - ρ / ρ_limit)</p>
-      <p>シミュレーション内では、特定領域にエージェントが重なりすぎると個人の速度が落ち、後続がさらに詰まるという「デッドロック現象」を意図的に引き起こすことで、鎌倉の狭い路地での危険性を浮き彫りにしています。</p>
+      <p>速度乗数 F_jam = max(0, 1 − ρ / ρ_limit)<br>ρ_limit = 4.0 人/m²</p>
+      <p>BASEシミュレーション50試行の平均で、ボトルネック上位5地点の最大混雑指数は 131.9 / 99.4 / 96.5 / 69.1 / 64.9 に達した。これらは限界密度の33〜16倍に相当し、事実上の歩行停止状態が持続した。上位4地点が東部（由比ヶ浜・材木座）に集中しており、沿岸から内陸への出口ノード不足が生存率低下の構造的要因であることが示された。</p>
     </div>
   </div>
 
+  <!-- Tobler panel -->
   <div class="slide-panel" id="panel-tobler">
     <div class="panel-close" onclick="closePanel('panel-tobler')">&times;</div>
     <div class="panel-content">
-      <h2>地形勾配（Tobler）モデル</h2>
-      <p>鎌倉は「切通し」と呼ばれる坂に囲まれており、これが避難速度に甚大な影響を与えます。</p>
+      <h2>地形勾配（Toblerモデル）</h2>
+      <p>鎌倉は「切通し」と呼ばれる急勾配の坂に囲まれており、これが避難速度に甚大な影響を与えます。</p>
       <canvas id="canvas-tobler" class="sim-canvas"></canvas>
-      <h3>生体力学補正</h3>
-      <p>速度乗数 = exp(-3.5 * |S + 0.05| + 0.175)</p>
-      <p>この関数により、高齢者や子供といった「ベース歩行速度」が低いエージェントの場合、上り坂での速度低下が致命的な避難遅れへと繋がる様子を正確に再現しています。</p>
+      <h3>Tobler 歩行速度関数</h3>
+      <p>v = exp(−3.5 × |S + 0.05| + 0.175)　（Sは傾斜角 rad）</p>
+      <p>v1.0 のステップ関数（上り坂のみ F_slope = max(0.4, 1−3.0×slope) の3段階）から、Tobler の連続関数へ精緻化。年齢グループ別の基本速度（児童1.15 m/s・成人1.37 m/s・高齢者1.00 m/s）との乗算で、急勾配の切通しにおける高齢者の致命的な速度低下を正確に再現する。</p>
     </div>
   </div>
 
+  <!-- Herd panel -->
   <div class="slide-panel" id="panel-herd">
     <div class="panel-close" onclick="closePanel('panel-herd')">&times;</div>
     <div class="panel-content">
       <h2>群集心理と同調パニック</h2>
-      <p>パニックは伝染します。視野内（空間レーダー）に走っている人がいると、自分の状況に関わらず同調して走り出してしまう危険な習性です。</p>
+      <p>パニックは伝染します。視野内に走っている人がいると、自分の状況に関わらず同調して走り出してしまう危険な習性です。</p>
       <canvas id="canvas-herd" class="sim-canvas"></canvas>
-      <h3>心理的引力モデル</h3>
-      <p>Social Force Model の拡張として、不安状態の強いエージェント（赤い点）に向かって仮想的な引力が発生し、本来の安全ルートを外れて混雑に飛び込んでしまう「群集心理」を再現しています。</p>
+      <h3>Social Force Model 拡張</h3>
+      <p>半径20m以内の走行エージェント（危機感≥0.70）1人あたり危機感 +0.10 を加算。これにより「警告者の叫び声 → 危機感上昇 → 走行開始 → 周囲の同調 → 細路での群衆形成 → デッドロック」という連鎖を再現する。</p>
+      <p>E群の感度分析では、率先避難者（CaseI）の割合を10%→90%に変化させても生存率改善は +1.5pp にとどまった。道路ボトルネックが律速段階となり、行動介入だけでは物理的上限を突破できないことを示している。</p>
     </div>
   </div>
 
