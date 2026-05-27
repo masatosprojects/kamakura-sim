@@ -148,15 +148,14 @@
     border-color: rgba(255,77,0,.5); background: rgba(255,77,0,.08);
   }
   .ov-cta-link.primary::before { transform: scaleY(1); }
-  .ov-cta-icon { font-size: 1.8rem; flex-shrink: 0; width: 2.8rem; text-align: center; }
   .ov-cta-tag {
-    font-family: 'Inter', monospace; font-size: .55rem; font-weight: 900;
+    font-family: 'Inter', monospace; font-size: .6rem; font-weight: 900;
     letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
-    opacity: .75; margin-bottom: .25rem;
+    opacity: .75; margin-bottom: .4rem;
   }
-  .ov-cta-name { font-size: 1.2rem; font-weight: 900; letter-spacing: -.02em; }
-  .ov-cta-desc { font-size: .78rem; opacity: .45; margin-top: .2rem; line-height: 1.5; }
-  .ov-cta-arrow { font-size: 1.5rem; color: var(--accent); margin-left: auto; flex-shrink: 0; }
+  .ov-cta-name { font-size: clamp(1.3rem,2vw,1.9rem); font-weight: 900; letter-spacing: -.02em; }
+  .ov-cta-desc { font-size: .88rem; opacity: .5; margin-top: .3rem; line-height: 1.55; }
+  .ov-cta-arrow { font-size: 1.8rem; color: var(--accent); margin-left: auto; flex-shrink: 0; opacity: .7; }
 
   /* ============================================================
      KEY FINDINGS（横2カラム）
@@ -527,7 +526,6 @@
           <div class="ov-right-header">QUICK ACCESS</div>
 
           <a class="ov-cta-link primary" href="https://masatosprojects.github.io/tenden-app/" target="_blank" rel="noopener">
-            <div class="ov-cta-icon">🌊</div>
             <div>
               <div class="ov-cta-tag">APP &nbsp;·&nbsp; PWA</div>
               <div class="ov-cta-name">TENDEN</div>
@@ -544,7 +542,6 @@
           </a>
 
           <a class="ov-cta-link" href="https://masatosprojects.github.io/tenden-promo/" target="_blank" rel="noopener">
-            <div class="ov-cta-icon">📱</div>
             <div>
               <div class="ov-cta-tag">PROMO SITE</div>
               <div class="ov-cta-name">
@@ -568,7 +565,6 @@
           </a>
 
           <a class="ov-cta-link" href="https://github.com/masatosprojects/kamakura-sim" target="_blank" rel="noopener">
-            <div class="ov-cta-icon">📄</div>
             <div>
               <div class="ov-cta-tag">PAPER</div>
               <div class="ov-cta-name">
@@ -592,7 +588,6 @@
           </a>
 
           <a class="ov-cta-link" href="simulator/portal.html">
-            <div class="ov-cta-icon">⚙️</div>
             <div>
               <div class="ov-cta-tag">TECHNICAL DOCS</div>
               <div class="ov-cta-name">
@@ -625,52 +620,28 @@
       <div class="manifesto-text-wrap">
         <div class="border-line"></div>
         <p class="manifesto-p">
-          <span class="lang-ja">2011年3月11日。東日本大震災の津波は、約19,000人の命を奪った。</span>
-          <span class="lang-en">March 11, 2011. The tsunami of the Great East Japan Earthquake claimed approximately 19,000 lives.</span>
-          <span class="lang-zh">2011年3月11日，东日本大震灾海啸夺走了约19,000人的生命。</span>
-          <span class="lang-ko">2011년 3월 11일. 동일본대지진의 쓰나미는 약 19,000명의 목숨을 앗아갔다.</span>
-          <span class="lang-es">El 11 de marzo de 2011, el tsunami del Gran Terremoto del Este de Japón se cobró aproximadamente 19,000 vidas.</span>
-          <span class="lang-fr">Le 11 mars 2011, le tsunami du Grand Séisme de l'Est du Japon a coûté la vie à environ 19 000 personnes.</span>
-        </p>
-        <p class="manifesto-p">
-          <span class="lang-ja">混雑した避難路。「まだ大丈夫だろう」という正常性バイアス。動けない高齢者を連れて走る家族。</span>
-          <span class="lang-en">Congested evacuation routes. The normalization bias of "it will be fine." Families running while supporting elderly relatives who cannot move.</span>
-          <span class="lang-zh">拥堵的避难通道。"应该没事吧"的正常化偏差。牵着无法行动的老人奔跑的家庭。</span>
-          <span class="lang-ko">혼잡한 대피로. "아직 괜찮겠지"라는 정상성 편향. 거동하지 못하는 노인을 데리고 뛰는 가족.</span>
-          <span class="lang-es">Rutas de evacuación congestionadas. El sesgo de normalización: "todo irá bien." Familias corriendo con ancianos que no pueden moverse.</span>
-          <span class="lang-fr">Voies d'évacuation encombrées. Le biais de normalisation : "tout ira bien." Des familles courant avec des proches âgés incapables de se déplacer.</span>
+          <span class="lang-ja">2011年3月11日——約19,000人が津波に飲まれた。<br>逃げられなかったのではない。<strong>逃げ方を知らなかった。</strong></span>
+          <span class="lang-en">March 11, 2011 — nearly 19,000 lives lost to the tsunami.<br>Not because they couldn't run. <strong>Because they didn't know where to go.</strong></span>
+          <span class="lang-zh">2011年3月11日——约19,000人被海啸夺去生命。<br>不是跑不动。<strong>是不知道往哪里跑。</strong></span>
+          <span class="lang-ko">2011년 3월 11일 — 약 19,000명이 쓰나미에 휩쓸렸다.<br>못 뛴 게 아니라. <strong>어디로 뛰어야 할지 몰랐던 것이다.</strong></span>
+          <span class="lang-es">11 de marzo de 2011 — cerca de 19,000 vidas arrasadas por el tsunami.<br>No es que no pudieran correr. <strong>Es que no sabían adónde ir.</strong></span>
+          <span class="lang-fr">11 mars 2011 — près de 19 000 vies emportées par le tsunami.<br>Non par manque de jambes. <strong>Par manque de direction.</strong></span>
         </p>
         <p class="manifesto-p" style="color:var(--accent);">
-          <span class="lang-ja">これらは全て、シミュレートできる。</span>
-          <span class="lang-en">All of this can be simulated.</span>
-          <span class="lang-zh">这一切，都可以被模拟。</span>
-          <span class="lang-ko">이 모든 것은, 시뮬레이션할 수 있다.</span>
-          <span class="lang-es">Todo esto se puede simular.</span>
-          <span class="lang-fr">Tout cela peut être simulé.</span>
+          <span class="lang-ja">鎌倉に津波が来たとき、62,299人はどこへ向かうのか。</span>
+          <span class="lang-en">When a tsunami hits Kamakura — where do 62,299 people go?</span>
+          <span class="lang-zh">当海啸袭来鎌仓——62,299人将何去何从？</span>
+          <span class="lang-ko">쓰나미가 가마쿠라를 덮칠 때 — 62,299명은 어디로 향하는가?</span>
+          <span class="lang-es">Cuando el tsunami golpea Kamakura — ¿a dónde van 62,299 personas?</span>
+          <span class="lang-fr">Quand le tsunami frappe Kamakura — où vont 62 299 personnes?</span>
         </p>
         <p class="manifesto-p">
-          <span class="lang-ja">鎌倉は特殊な都市だ。三方を山に囲まれ、狭い古道が大規模避難の致命的ボトルネックとなる。</span>
-          <span class="lang-en">Kamakura is a unique city — surrounded by mountains on three sides, its narrow ancient passes become the fatal bottleneck of any mass evacuation.</span>
-          <span class="lang-zh">镰仓是一座特殊的城市。三面环山，狭窄的古道成为大规模疏散的致命瓶颈。</span>
-          <span class="lang-ko">가마쿠라는 특수한 도시다. 삼면이 산으로 둘러싸여 있어, 좁은 옛길이 대규모 대피의 치명적 병목이 된다.</span>
-          <span class="lang-es">Kamakura es una ciudad única, rodeada de montañas por tres lados. Sus estrechos pasos ancestrales se convierten en el cuello de botella fatal de cualquier evacuación masiva.</span>
-          <span class="lang-fr">Kamakura est une ville unique, entourée de montagnes sur trois côtés. Ses étroits passages ancestraux deviennent le goulot d'étranglement fatal de toute évacuation massive.</span>
-        </p>
-        <p class="manifesto-p">
-          <span class="lang-ja">土地勘のない観光客が62,299人の中に混在したとき、何が起きるのか。<br>それを定量化するために、このシミュレーションは生まれた。</span>
-          <span class="lang-en">When tourists with no local knowledge mix into those 62,299 — what happens?<br>That question is what this simulation was built to answer.</span>
-          <span class="lang-zh">当不熟悉当地的游客混入这62,299人中——会发生什么？<br>为了量化这一问题，这个模拟系统应运而生。</span>
-          <span class="lang-ko">지역을 모르는 관광객이 62,299명 속에 섞였을 때, 무슨 일이 일어날까?<br>그 질문에 답하기 위해 이 시뮬레이션은 탄생했다.</span>
-          <span class="lang-es">Cuando los turistas sin conocimiento local se mezclan con esas 62,299 personas — ¿qué ocurre?<br>Para cuantificarlo, nació esta simulación.</span>
-          <span class="lang-fr">Quand des touristes sans connaissance locale se mêlent à ces 62 299 personnes — que se passe-t-il?<br>Pour quantifier cela, cette simulation est née.</span>
-        </p>
-        <p class="manifesto-p">
-          <span class="lang-ja">だが、その答えは最初から明確ではなかった。<br>問いを深めるほど、モデルは進化しなければならなかった。</span>
-          <span class="lang-en">But the answer wasn't clear from the start.<br>The deeper the question, the more the model had to evolve.</span>
-          <span class="lang-zh">但答案从一开始并不清晰。<br>问题越深入，模型就越需要进化。</span>
-          <span class="lang-ko">하지만 그 답은 처음부터 명확하지 않았다.<br>질문이 깊어질수록, 모델도 진화해야 했다.</span>
-          <span class="lang-es">Pero la respuesta no estuvo clara desde el principio.<br>Cuanto más profunda era la pregunta, más debía evolucionar el modelo.</span>
-          <span class="lang-fr">Mais la réponse n'était pas claire dès le départ.<br>Plus la question s'approfondissait, plus le modèle devait évoluer.</span>
+          <span class="lang-ja">三方を山に囲まれた鎌倉では、観光客が地域住民と一緒に狭い古道へ殺到する。<br>このシミュレーションは、その混乱を数値で捉え、命を救う答えを探し続けている。</span>
+          <span class="lang-en">In Kamakura — boxed in by mountains — tourists and locals flood the same narrow ancient passes.<br>This simulation puts numbers to that chaos, searching for answers that save lives.</span>
+          <span class="lang-zh">三面环山的镰仓，游客与本地居民涌向同样狭窄的古道。<br>这个模拟系统将混乱转化为数据，不断探寻能够拯救生命的答案。</span>
+          <span class="lang-ko">삼면이 산으로 막힌 가마쿠라에서, 관광객과 주민이 같은 좁은 고갯길로 몰린다.<br>이 시뮬레이션은 그 혼란을 숫자로 포착하고, 생명을 구할 답을 찾는다.</span>
+          <span class="lang-es">En Kamakura, rodeada de montañas, turistas y vecinos se lanzan a los mismos pasos estrechos.<br>Esta simulación convierte ese caos en datos y busca respuestas que salvan vidas.</span>
+          <span class="lang-fr">À Kamakura, encerclée de montagnes, touristes et habitants convergent vers les mêmes étroits passages.<br>Cette simulation transforme ce chaos en chiffres et cherche des réponses qui sauvent des vies.</span>
         </p>
       </div>
     </section>
