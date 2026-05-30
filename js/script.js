@@ -5,8 +5,24 @@
            and canvas micro-simulations (klupfel/tobler/herd).
    ============================================================ */
 
-/* ── 0. Custom Cursor (runs on ALL pages) ───────────────────── */
+/* ── 0. Device Detection & Custom Cursor (runs on ALL pages) ─── */
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    || window.innerWidth <= 900 
+    || window.matchMedia('(pointer: coarse)').matches;
+
+// Run immediately to inject classes to body
+if (isMobileDevice) {
+    document.body.classList.add('is-mobile');
+    document.body.classList.remove('is-desktop');
+} else {
+    document.body.classList.add('is-desktop');
+    document.body.classList.remove('is-mobile');
+}
+
 (function () {
+    // Completely disable on mobile/touch devices
+    if (isMobileDevice) return;
+
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     document.body.appendChild(cursor);

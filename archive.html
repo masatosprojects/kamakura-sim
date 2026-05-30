@@ -510,18 +510,33 @@
   <!-- PANELS (READ MORE) are not included here — link to main portal for technical docs -->
 
   <script>
+  // High-precision Device Detection
+  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    || window.innerWidth <= 900 
+    || window.matchMedia('(pointer: coarse)').matches;
+
+  if (isMobileDevice) {
+    document.body.classList.add('is-mobile');
+    document.body.classList.remove('is-desktop');
+  } else {
+    document.body.classList.add('is-desktop');
+    document.body.classList.remove('is-mobile');
+  }
+
   // ── Custom cursor ──
-  const cursor = document.createElement('div');
-  cursor.classList.add('custom-cursor');
-  document.body.appendChild(cursor);
-  window.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
-  });
-  document.querySelectorAll('a, button, .clickable').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
+  if (!isMobileDevice) {
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .clickable').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  }
 
   // ── Hamburger nav ──
   const hamburger = document.getElementById('hamburger');
