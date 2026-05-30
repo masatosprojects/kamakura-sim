@@ -116,25 +116,6 @@
     </p>
   </section>
 
-  <script>
-  var LANGS = ['ja','en','zh','ko','es','fr'];
-  function setLang(lang) {
-    document.body.classList.remove.apply(document.body.classList, LANGS.map(function(l){ return 'lang-' + l; }));
-    document.body.classList.add('lang-' + lang);
-    document.querySelectorAll('.lang-btn-contact [data-lang]').forEach(function(btn) {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-    try { localStorage.setItem('kamakura_lang', lang); } catch(e){}
-  }
-  try { var saved = localStorage.getItem('kamakura_lang'); if (saved && LANGS.indexOf(saved) !== -1) setLang(saved); } catch(e){}
-  const cursor = document.createElement('div');
-  cursor.classList.add('custom-cursor');
-  document.body.appendChild(cursor);
-  window.addEventListener('mousemove', (e) => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
-  document.querySelectorAll('a').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
-  </script>
+  <script src="./js/script.js"></script>
 </body>
 </html>

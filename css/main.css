@@ -460,7 +460,7 @@ body { cursor: none; }
   .manifesto-body p { font-size: 1.1rem; }
   .pic-manifesto-right { float: none; width: 100%; margin: 20px 0; }
   
-  .profile-grid-sub { flex-direction: column; gap: 40px; }
+  .profile-grid { flex-direction: column; gap: 40px; }
   .profile-aside { width: 100%; text-align: center; }
   .profile-name { font-size: 15vw; }
   .tech-grid-blocks { grid-template-columns: 1fr; }
@@ -621,7 +621,7 @@ body { cursor: none; }
 .timeline-content p { color: #aaa; line-height: 1.6; }
 
 /* Profile Layout */
-.profile-grid-sub { display: flex; gap: 60px; }
+.profile-grid { display: flex; gap: 60px; }
 .profile-aside { width: 300px; flex-shrink: 0; }
 .profile-name { font-size: 4rem; font-weight: 900; line-height: 1; color: var(--accent); margin-bottom: 20px; }
 .profile-role { font-size: 1.2rem; color: #fff; margin-bottom: 40px; font-weight: 900; }
@@ -705,7 +705,7 @@ body { cursor: none; }
   .timeline-content h3 { font-size: 1.2rem !important; }
 
   /* Profile */
-  .profile-grid-sub { flex-direction: column !important; gap: 30px !important; }
+  .profile-grid { flex-direction: column !important; gap: 30px !important; }
   .profile-aside { width: 100% !important; text-align: center !important; }
   .profile-name { font-size: 2.5rem !important; }
   .profile-main h2 { font-size: 1.8rem !important; margin: 40px 0 15px !important; }

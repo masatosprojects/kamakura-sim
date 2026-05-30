@@ -59,7 +59,7 @@
     }
 
     /* Cards */
-    .intro-wrap .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0; border: 1px solid rgba(255,255,255,0.1); }
+    .intro-wrap .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 0; border: 1px solid rgba(255,255,255,0.1); }
     
     .intro-wrap .icard {
         background: #05070a; border: 1px solid rgba(255,255,255,0.1); padding: 50px 40px; cursor: default;
@@ -134,13 +134,13 @@
         .intro-wrap .icard { padding: 30px 20px; }
         .deco-img { height: 180px; }
     }
-    /* スマートフォンでは横スクロールでデスクトップレイアウトを維持。縦積み変換は行わない */
+    /* スマートフォンでは縦積みレスポンシブレイアウトを適用 */
     </style>
 
 
 
 </head>
-<body class="lang-ja theme-dark" style="min-width:900px;overflow-x:auto;">
+<body class="lang-ja theme-dark">
 
     <canvas id="particle-canvas"></canvas>
     <div id="page-transition"></div>
