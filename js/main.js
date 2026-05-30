@@ -100,14 +100,13 @@ const FLASH_DURATION   = 800;
 const BREATHE_DURATION = 1600;
 const TOTAL_DURATION   = FLASH_DURATION + BREATHE_DURATION;
 
-// SessionStorage: skip if seen this session
-if (sessionStorage.getItem('KAMAKURA_RITUAL_DONE') === 'true') {
-  ritualComplete = true;
-  if (ritualScreen) ritualScreen.style.display = 'none';
-  const video = document.querySelector('.hero-video-bg');
-  if(video) video.play().catch(e => console.log('Autoplay blocked:', e));
-  setTimeout(initExperience, 50);
-}
+// Unconditionally skip ritual loading screen (bypass Scene 0)
+ritualComplete = true;
+if (ritualScreen) ritualScreen.style.display = 'none';
+const video = document.querySelector('.hero-video-bg');
+if(video) video.play().catch(e => console.log('Autoplay blocked:', e));
+setTimeout(initExperience, 50);
+
 
 // Canvas setup
 const ctx = ritualCanvas ? ritualCanvas.getContext('2d') : null;
@@ -270,11 +269,11 @@ function initExperience() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Map vertical scrolling to horizontal translating of .scroll-container (for both desktop & mobile)
+  // Map vertical scrolling to horizontal translating of .scroll-container (Desktop only)
   const isMobile = window.innerWidth <= 900;
   const scrollContainer = document.querySelector('.scroll-container');
   
-  if(scrollContainer) {
+  if(scrollContainer && !isMobile) {
     // Horizontal scroll setup
     let totalWidth = scrollContainer.offsetWidth;
     
@@ -326,7 +325,7 @@ function initExperience() {
       x: isMobile ? 50 : 200,
       scrollTrigger: {
         trigger: mainHugeNum.parentElement,
-        containerAnimation: ScrollTrigger.getAll()[0],
+        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : undefined,
         start: isMobile ? "top center" : "left center",
         end: isMobile ? "bottom top" : "right left",
         scrub: 1
@@ -345,7 +344,7 @@ function initExperience() {
       ease: "back.out(1.7)",
       scrollTrigger: {
         trigger: line,
-        containerAnimation: ScrollTrigger.getAll()[0],
+        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : undefined,
         start: isMobile ? "top 90%" : "left 90%",
         end: isMobile ? "top 40%" : "left 40%",
         scrub: 1
@@ -361,7 +360,7 @@ function initExperience() {
       opacity: 0,
       scrollTrigger: {
         trigger: card,
-        containerAnimation: ScrollTrigger.getAll()[0],
+        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : undefined,
         start: isMobile ? "top 95%" : "left 90%",
         end: isMobile ? "top 60%" : "left 50%",
         scrub: 1
@@ -377,7 +376,7 @@ function initExperience() {
       stagger: 0.2,
       scrollTrigger: {
         trigger: '.tech-stream',
-        containerAnimation: ScrollTrigger.getAll()[0],
+        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : undefined,
         start: isMobile ? "top 80%" : "left 80%",
       }
     });
@@ -404,7 +403,7 @@ function initExperience() {
       ease: "none",
       scrollTrigger: {
         trigger: tlWrap,
-        containerAnimation: ScrollTrigger.getAll()[0],
+        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : undefined,
         start: "left left",
         end: "right right",
         scrub: 1
