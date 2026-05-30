@@ -4,23 +4,38 @@
  */
 
 // ==========================================
-// 1. Custom Cursor
+// 0. Device Detection
 // ==========================================
-const cursor = document.createElement('div');
-cursor.classList.add('custom-cursor');
-document.body.appendChild(cursor);
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+  || window.innerWidth <= 900 
+  || window.matchMedia('(pointer: coarse)').matches;
 
-window.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
+if (isMobileDevice) {
+  document.body.classList.add('is-mobile');
+} else {
+  document.body.classList.add('is-desktop');
+}
 
-// Hover effect for interactive elements
-const interactives = document.querySelectorAll('a, button, .clickable');
-interactives.forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
+// ==========================================
+// 1. Custom Cursor (Desktop only)
+// ==========================================
+if (!isMobileDevice) {
+  const cursor = document.createElement('div');
+  cursor.classList.add('custom-cursor');
+  document.body.appendChild(cursor);
+
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // Hover effect for interactive elements
+  const interactives = document.querySelectorAll('a, button, .clickable');
+  interactives.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+}
 
 // ==========================================
 // 1.5 Global Hamburger Nav Logic (Safe from CDN failures)
@@ -418,6 +433,7 @@ window.closePanel = function(id) {
 
 // --- GHOST CURSOR ANIMATION ---
 function initGhostCursor() {
+  if (isMobileDevice) return; // Skip on mobile
   const gateBtn = document.getElementById('gate-btn');
   if (!gateBtn) return;
 

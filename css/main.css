@@ -374,8 +374,54 @@ body { cursor: none; }
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-  .scroll-container { flex-direction: column; width: 100%; height: auto; overflow: visible; }
-  .scene, .scene-wide, .scene-auto { width: 100%; height: auto; min-height: 100vh; padding: 12vh 6vw; }
+  .scroll-container { flex-direction: column; width: 100% !important; height: auto; overflow: visible; }
+  .scene, .scene-wide, .scene-auto { width: 100% !important; height: auto !important; min-height: 100vh; padding: 12vh 6vw; }
+  
+  /* Force inline width overrides for mobile */
+  #overview, #findings, #gate {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+  
+  /* Hide custom cursor on touch/mobile devices */
+  body {
+    cursor: auto !important;
+  }
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  /* Vertical stack overrides */
+  .ov-inner {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .ov-left {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    padding: 40px 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,77,0,.18) !important;
+  }
+  .ov-right {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    padding: 40px 0 !important;
+  }
+  
+  .findings-inner {
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 30px !important;
+    padding: 40px 0 !important;
+  }
+  .findings-left, .findings-right {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
   .hero-title { font-size: 8vw; line-height: 1.2; max-width: 100vw; padding: 0 4vw; }
   .hero-title .lang-es, .hero-title .lang-fr { font-size: 5vw; }
   .hero-title .lang-ko { font-size: 6vw; }
