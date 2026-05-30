@@ -22,6 +22,25 @@
   .kpi-bar { top: calc(40px + var(--header-h, 64px)) !important; }
   .side-nav { top: calc(40px + var(--header-h, 64px) + var(--kpi-h, 50px)) !important; }
   .app-body { margin-top: calc(40px + var(--header-h, 64px) + var(--kpi-h, 50px)) !important; }
+  /* Mobile: topbar高さが変動するため .app-header 等は styles.css の @media で上書き */
+  @media (max-width: 768px) {
+    #sim-topbar {
+      height: auto;
+      flex-wrap: wrap;
+      padding: 8px 14px;
+      gap: 4px;
+    }
+    #sim-topbar .tb-links {
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+    #sim-topbar .tb-links a { font-size: 0.58rem; }
+    #sim-topbar .tb-links .tb-active { font-size: 0.58rem; }
+    /* スマホではtopbarの高さを変数で持てないため直値で調整 */
+    .app-header { top: 0 !important; }
+    .kpi-bar { top: var(--header-h, 52px) !important; }
+    .app-body { margin-top: calc(var(--header-h, 52px) + var(--kpi-h, 56px)) !important; }
+  }
 </style>
 <div id="sim-topbar">
   <a href="../../index.html" class="tb-brand">KAMAKURA SIM.</a>
@@ -36,6 +55,7 @@
     <a href="../../contact.html" style="color:#ff2a4b;">CONTACT</a>
   </div>
 </div>
+
 
 <!-- ===== ヘッダー ===== -->
 <header class="app-header">
@@ -323,5 +343,21 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
+
+<!-- Device Detection -->
+<script>
+(function() {
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || window.innerWidth <= 768
+    || window.matchMedia('(pointer: coarse)').matches;
+  if (isMobile) {
+    document.body.classList.add('is-mobile');
+    document.body.classList.remove('is-desktop');
+  } else {
+    document.body.classList.add('is-desktop');
+    document.body.classList.remove('is-mobile');
+  }
+})();
+</script>
 </body>
 </html>

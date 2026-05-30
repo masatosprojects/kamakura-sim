@@ -664,3 +664,68 @@ body { cursor: none; }
 #timeline {
   padding-right: 0;
 }
+
+/* ==============================================================
+   スマートフォン追加対応 (max-width 768px)
+   ============================================================== */
+@media (max-width: 768px) {
+
+  /* スライドパネル → 全幅に */
+  .slide-panel {
+    width: 100vw !important;
+    right: -100vw !important;
+    padding: 3rem 1.5rem !important;
+  }
+  .slide-panel.open { right: 0 !important; }
+  .panel-close { left: 1.5rem !important; font-size: 2rem !important; cursor: pointer !important; }
+  .panel-content h2 { font-size: 1.6rem !important; }
+  .panel-content h3 { font-size: 1.1rem !important; }
+  .panel-content p  { font-size: 0.95rem !important; }
+  .btn-readmore { font-size: 0.8rem !important; cursor: pointer !important; }
+
+  /* サブページコンテンツ余白 */
+  .content { padding: 80px 20px 60px !important; }
+
+  /* Manifesto */
+  .chapter { font-size: 1.6rem !important; }
+  .manifesto-body p { font-size: 1rem !important; }
+  .pic-manifesto-right { float: none !important; width: 100% !important; margin: 20px 0 !important; }
+
+  /* News Timeline */
+  .timeline-year { font-size: 2rem !important; }
+  .timeline-item { flex-direction: column !important; gap: 10px !important; }
+  .timeline-date { width: auto !important; }
+  .timeline-content h3 { font-size: 1.2rem !important; }
+
+  /* Profile */
+  .profile-grid-sub { flex-direction: column !important; gap: 30px !important; }
+  .profile-aside { width: 100% !important; text-align: center !important; }
+  .profile-name { font-size: 2.5rem !important; }
+  .profile-main h2 { font-size: 1.8rem !important; margin: 40px 0 15px !important; }
+  .tech-grid-blocks { grid-template-columns: 1fr !important; }
+
+  /* Footer */
+  .footer { padding: 30px 20px !important; }
+
+  /* ページヘッダー */
+  .page-header .title { font-size: 3rem !important; }
+  .page-header .eyebrow { font-size: 0.75rem !important; }
+
+  /* hero lang switcher */
+  .hero-lang-switcher {
+    top: 80px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.65rem !important;
+    gap: 6px !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* body.is-mobile 専用 — タッチデバイスの細かい調整 */
+body.is-mobile .panel-close { cursor: pointer !important; }
+body.is-mobile .btn-readmore { cursor: pointer !important; }
+body.is-mobile .overlay-nav a { cursor: pointer !important; }
+body.is-mobile .sim-canvas { touch-action: none; }

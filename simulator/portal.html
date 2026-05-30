@@ -134,6 +134,52 @@
         .intro-wrap .icard { padding: 30px 20px; }
         .deco-img { height: 180px; }
     }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       スマートフォン対応 (max 768px)
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    @media(max-width: 768px) {
+        /* コンテナ幅 */
+        .intro-wrap .container { padding: 0 4vw 60px; }
+
+        /* HEROタイトル */
+        section h1 { font-size: clamp(2rem, 11vw, 4rem) !important; }
+        section p  { font-size: 1rem !important; }
+
+        /* isecセクション */
+        .intro-wrap .isec { margin-bottom: 60px; padding-top: 40px; }
+        .intro-wrap .isec-title h2 { font-size: clamp(1.4rem, 6vw, 2.5rem) !important; }
+        .intro-wrap .lead-text { font-size: 1rem; line-height: 1.8; margin-bottom: 30px; }
+
+        /* カードグリッド → 1列 */
+        .intro-wrap .card-grid { grid-template-columns: 1fr !important; }
+        .intro-wrap .icard { padding: 24px 18px; }
+        .intro-wrap .icard h3 { font-size: 1.3rem; }
+        .intro-wrap .icard p  { font-size: 0.95rem; }
+
+        /* ルールリスト */
+        .intro-wrap .rule-item { flex-direction: column; gap: 20px; padding: 24px 18px; }
+        .intro-wrap .rule-item:hover { transform: none; }
+        .intro-wrap .rule-emoji { width: 100%; height: 160px; }
+        .intro-wrap .rule-text h4 { font-size: 1.4rem; }
+        .intro-wrap .rule-text p  { font-size: 0.95rem; max-width: 100%; }
+
+        /* クリックバッジ */
+        .click-badge { font-size: 0.75rem; padding: 6px 14px; }
+
+        /* 数式ボックス */
+        .intro-wrap .math-box { font-size: 1rem; padding: 14px 18px; }
+
+        /* ボタン */
+        .btn-massive { font-size: 0.9rem !important; padding: 14px 24px !important; }
+
+        /* デコ画像 */
+        .deco-img { height: 150px; }
+        .rule-emoji .deco-img { min-height: 140px; }
+
+        /* モーダル */
+        .modal-canvas-container canvas { max-width: 100% !important; max-height: 220px !important; }
+    }
     </style>
 
 

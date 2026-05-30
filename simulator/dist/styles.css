@@ -552,7 +552,11 @@ html, body {
    ===================================================== */
 [hidden] { display: none !important; }
 
-/* レスポンシブ */
+/* =====================================================
+   レスポンシブ (モバイル対応)
+   ===================================================== */
+
+/* --- タブレット (max 900px) --- */
 @media (max-width: 900px) {
   :root { --nav-width: 52px; --header-h: 56px; }
   .nav-label { display: none; }
@@ -560,14 +564,169 @@ html, body {
   .chart-grid { grid-template-columns: 1fr; }
   .timelapse-layout { grid-template-columns: 1fr; height: auto; }
   .timelapse-map-wrap { height: 400px; }
-  
+
   /* Mobile Header simplification */
   .app-header { padding: 0 12px; gap: 8px; justify-content: flex-start; }
   .header-left h1 { font-size: 14px; }
   .header-sub, .file-load-group { display: none !important; }
-  .load-status { min-width: auto; font-size: 10px; margin-left: auto; } 
+  .load-status { min-width: auto; font-size: 10px; margin-left: auto; }
   .kpi-bar-inner { padding: 0 10px; }
   .kpi-card { padding: 8px 12px; min-width: 90px; }
+}
+
+/* --- スマートフォン (max 768px) 完全対応 --- */
+@media (max-width: 768px) {
+
+  /* ── サイトトップバー ── */
+  #sim-topbar {
+    height: auto !important;
+    flex-wrap: wrap !important;
+    padding: 8px 14px !important;
+    gap: 6px !important;
+  }
+  #sim-topbar .tb-links {
+    display: flex !important;
+    gap: 0.8rem !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+  #sim-topbar .tb-links a,
+  #sim-topbar .tb-links .tb-active {
+    font-size: 0.62rem !important;
+  }
+  /* topbar がfixedになる場合の余白補正 */
+  .app-header { top: 0 !important; }
+  .kpi-bar { top: var(--header-h) !important; }
+  .side-nav { top: calc(var(--header-h) + var(--kpi-h)) !important; }
+  .app-body { margin-top: calc(var(--header-h) + var(--kpi-h)) !important; }
+
+  /* ── ヘッダー ── */
+  :root { --header-h: 52px; --kpi-h: 56px; --nav-width: 44px; }
+  .app-header {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 0 10px !important;
+    height: var(--header-h) !important;
+    gap: 6px !important;
+  }
+  .header-icon { font-size: 20px !important; }
+  .header-left h1 { font-size: 12px !important; line-height: 1.3 !important; }
+  .header-sub { display: none !important; }
+  .header-right { display: none !important; }
+  .header-left { flex: 1 !important; min-width: 0 !important; }
+
+  /* ── KPIバー ── */
+  .kpi-bar { height: var(--kpi-h) !important; overflow-x: auto !important; }
+  .kpi-bar-inner { padding: 0 8px !important; gap: 0 !important; }
+  .kpi-card {
+    min-width: 80px !important;
+    padding: 6px 10px !important;
+  }
+  .kpi-value { font-size: 16px !important; }
+  .kpi-label { font-size: 9px !important; }
+  .kpi-placeholder { font-size: 10px !important; }
+
+  /* ── メインレイアウト ── */
+  .app-body {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* ── サイドナビ → 横並びタブバーに変換 ── */
+  .side-nav {
+    width: 100% !important;
+    flex-direction: row !important;
+    padding: 4px 8px !important;
+    gap: 4px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    height: auto !important;
+  }
+  .nav-btn {
+    flex-direction: column !important;
+    gap: 2px !important;
+    padding: 6px 8px !important;
+    font-size: 9px !important;
+    min-width: 50px !important;
+    flex-shrink: 0 !important;
+  }
+  .nav-icon { font-size: 18px !important; }
+  .nav-label { display: block !important; font-size: 8px !important; line-height: 1.2 !important; text-align: center !important; }
+  .nav-divider { width: 1px !important; height: auto !important; align-self: stretch !important; margin: 4px 0 !important; }
+  .nav-footer { display: none !important; }
+
+  /* ── メインコンテンツ ── */
+  .main-content {
+    padding: 12px 10px !important;
+    height: auto !important;
+    overflow: visible !important;
+    flex: none !important;
+  }
+
+  /* ── チャートグリッド ── */
+  .chart-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .chart-grid--maps {
+    grid-template-columns: 1fr !important;
+  }
+  .chart-card { padding: 10px !important; }
+  .chart-card-title { font-size: 11px !important; }
+  .chart-map { height: 220px !important; }
+  .chart-wrap { min-height: 140px !important; }
+  .chart-wrap canvas { max-height: 160px !important; }
+  .btn-detail { font-size: 10px !important; padding: 3px 8px !important; }
+
+  /* ── タイムラプス ── */
+  .timelapse-layout {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    gap: 10px !important;
+  }
+  .timelapse-controls {
+    overflow-y: visible !important;
+    max-height: none !important;
+  }
+  .timelapse-map-wrap {
+    height: min(70vw, 320px) !important;
+    min-height: 240px !important;
+    border-radius: 8px !important;
+  }
+  #timelapse-map { height: 100% !important; }
+  .tl-stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
+  .tl-stat-val { font-size: 14px !important; }
+  .tl-btn-row { flex-wrap: wrap !important; gap: 4px !important; }
+  .btn { font-size: 11px !important; padding: 5px 10px !important; }
+
+  /* 津波パネルをコンパクト化 */
+  .tsunami-params { padding: 8px 10px !important; }
+  .param-scenario-btns { flex-wrap: wrap !important; }
+  .btn-scenario { font-size: 9px !important; padding: 2px 6px !important; }
+
+  /* ── モーダル ── */
+  .modal-overlay { padding: 12px !important; }
+  .modal-box {
+    width: 100% !important;
+    max-height: 95vh !important;
+  }
+  .modal-header { padding: 14px 16px 10px !important; }
+  .modal-title { font-size: 13px !important; }
+  .modal-chart-wrap { padding: 12px !important; min-height: 260px !important; }
+  .modal-chart-wrap .chart-map { height: 320px !important; }
+
+  /* ── 空状態 / KPI big ── */
+  .empty-state { min-height: 40vh !important; }
+  .kpi-big-value { font-size: 28px !important; }
+
+  /* ── tabヘッダー ── */
+  .tab-header h2 { font-size: 15px !important; }
+  .tab-header p { font-size: 11px !important; }
 }
 
 /* ==============================================================
