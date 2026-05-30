@@ -254,8 +254,8 @@ function initExperience() {
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smooth: true,
     mouseMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
+    smoothTouch: true,
+    touchMultiplier: 1.5,
     infinite: false,
   });
 
@@ -270,11 +270,11 @@ function initExperience() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Map vertical scrolling to horizontal translating of .scroll-container (for desktop)
+  // Map vertical scrolling to horizontal translating of .scroll-container (for both desktop & mobile)
   const isMobile = window.innerWidth <= 900;
   const scrollContainer = document.querySelector('.scroll-container');
   
-  if(!isMobile && scrollContainer) {
+  if(scrollContainer) {
     // Horizontal scroll setup
     let totalWidth = scrollContainer.offsetWidth;
     
@@ -326,7 +326,7 @@ function initExperience() {
       x: isMobile ? 50 : 200,
       scrollTrigger: {
         trigger: mainHugeNum.parentElement,
-        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
+        containerAnimation: ScrollTrigger.getAll()[0],
         start: isMobile ? "top center" : "left center",
         end: isMobile ? "bottom top" : "right left",
         scrub: 1
@@ -345,7 +345,7 @@ function initExperience() {
       ease: "back.out(1.7)",
       scrollTrigger: {
         trigger: line,
-        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
+        containerAnimation: ScrollTrigger.getAll()[0],
         start: isMobile ? "top 90%" : "left 90%",
         end: isMobile ? "top 40%" : "left 40%",
         scrub: 1
@@ -361,7 +361,7 @@ function initExperience() {
       opacity: 0,
       scrollTrigger: {
         trigger: card,
-        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
+        containerAnimation: ScrollTrigger.getAll()[0],
         start: isMobile ? "top 95%" : "left 90%",
         end: isMobile ? "top 60%" : "left 50%",
         scrub: 1
@@ -377,7 +377,7 @@ function initExperience() {
       stagger: 0.2,
       scrollTrigger: {
         trigger: '.tech-stream',
-        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
+        containerAnimation: ScrollTrigger.getAll()[0],
         start: isMobile ? "top 80%" : "left 80%",
       }
     });
@@ -404,7 +404,7 @@ function initExperience() {
       ease: "none",
       scrollTrigger: {
         trigger: tlWrap,
-        containerAnimation: !isMobile ? ScrollTrigger.getAll()[0] : null,
+        containerAnimation: ScrollTrigger.getAll()[0],
         start: "left left",
         end: "right right",
         scrub: 1

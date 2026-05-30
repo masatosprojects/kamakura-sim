@@ -374,15 +374,15 @@ body { cursor: none; }
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-  .scroll-container { flex-direction: column; width: 100% !important; height: auto; overflow: visible; }
-  .scene, .scene-wide, .scene-auto { width: 100% !important; height: auto !important; min-height: 100vh; padding: 12vh 6vw; }
+  /* .scroll-container { flex-direction: column; width: 100% !important; height: auto; overflow: visible; } */
+  /* .scene, .scene-wide, .scene-auto { width: 100% !important; height: auto !important; min-height: 100vh; padding: 12vh 6vw; } */
   
   /* Force inline width overrides for mobile */
-  #overview, #findings, #gate {
+  /* #overview, #findings, #gate {
     width: 100% !important;
     height: auto !important;
     min-height: 100vh !important;
-  }
+  } */
   
   /* Hide custom cursor on touch/mobile devices */
   body {
