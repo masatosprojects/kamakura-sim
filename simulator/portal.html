@@ -105,6 +105,24 @@
         background: rgba(255,77,0,0.05); padding: 20px 30px; border: 1px solid rgba(255,77,0,0.3); color: #FF4D00;
         text-align: left; font-size: 1.3rem; margin: 30px 0 0; font-family: monospace; display: inline-block;
     }
+    /* ── モバイル：数式のはみ出し防止 ── */
+    @media (max-width: 768px) {
+        .intro-wrap .math-box {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 14px 16px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        /* MathJax が生成する mjx-container も幅内に収める */
+        .intro-wrap .math-box mjx-container,
+        .intro-wrap .math-box .MathJax {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+    }
 
     /* ====== IMAGES ====== */
     /* Remove the extreme color distortion! Added slow pulse. */

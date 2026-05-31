@@ -25,6 +25,10 @@
     z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 14px;
     pointer-events: none;
   }
+  /* スマホでは横スクロール誘導UIは不要なので非表示 */
+  @media (max-width: 768px) {
+    .scroll-indicator { display: none !important; }
+  }
   .si-label-row {
     display: flex; align-items: center; gap: 10px;
     font-family: 'Inter', monospace; font-size: .72rem; font-weight: 900;
