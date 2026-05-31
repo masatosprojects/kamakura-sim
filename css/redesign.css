@@ -376,6 +376,16 @@ body { padding-top: 0; }
   .manifesto-text-wrap { padding-left: 18px; }
   .slide-panel { width: 100vw !important; right: -100vw !important; }
   .slide-panel.open { right: 0 !important; }
+
+  /* portal：スマホでモデル図解カード（渋滞/地形）が画面幅に収まらない問題の解消 */
+  .intro-wrap .rule-list { padding: 0 !important; }
+  .intro-wrap .rule-item { padding: 22px 16px !important; gap: 14px !important; }
+  .intro-wrap .rule-text h4 { font-size: 1.3rem !important; line-height: 1.35; }
+  .intro-wrap .rule-text p { font-size: .96rem !important; }
+  .intro-wrap .math-box { font-size: .9rem !important; padding: 12px 12px !important; }
+  /* クリックバッジ（▶ クリックで図解）の絶対配置が画面外へ出るのを防ぐ */
+  .intro-wrap .rule-item .click-badge,
+  .intro-wrap .icard .click-badge { position: static !important; display: inline-block; margin-bottom: 12px; }
 }
 
 /* 旧モバイル用の暗色オーバーレイ等を無効化（白基調を阻害する指定の打ち消し） */
@@ -446,6 +456,11 @@ body { padding-top: 0; }
 
 /* オーバーレイメニュー内のサブページ用見出し */
 .overlay-nav .menu-col h3 { color: var(--rb-ink-3) !important; }
+
+/* メニュー（オーバーレイ）が縦に長いと見切れる問題を解消：
+   コンテナをスクロール可能にし、内側を auto マージンで中央寄せ（収まる時は中央、はみ出す時は上から全表示＋スクロール）。 */
+.overlay-nav { overflow-y: auto !important; -webkit-overflow-scrolling: touch; align-items: stretch !important; }
+.overlay-nav-inner { margin: auto !important; padding: 88px 22px 60px !important; max-height: none !important; }
 
 /* Contact ページ独自スタイル（白文字・透明アウトライン）を白基調へ */
 .contact-title { color: var(--rb-ink) !important; mix-blend-mode: normal !important; }
