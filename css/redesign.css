@@ -1,0 +1,492 @@
+/* ============================================================================
+   KAMAKURA SIM — REDESIGN LAYER  (white / minimal / vertical / IKEA-like)
+   このファイルは main.css の「後」に読み込み、見た目だけを全面的に上書きする。
+   HTML本体の要素・文言・多言語・シミュレーションは一切変更しない。
+   ============================================================================ */
+
+:root {
+  --rb-bg:        #ffffff;
+  --rb-bg-soft:   #f6f5f3;   /* 温かみのあるオフホワイト */
+  --rb-line:      #e6e4e0;
+  --rb-ink:       #16181d;   /* ほぼ黒 */
+  --rb-ink-2:     #5b5f66;   /* セカンダリ */
+  --rb-ink-3:     #9aa0a6;   /* 補助 */
+  --rb-accent:    #ff4d00;   /* 既存ブランドのオレンジ一点 */
+  /* 既存変数も白基調へ上書き（var参照箇所をまとめて反転） */
+  --bg:   #ffffff;
+  --text: #16181d;
+}
+
+/* ---- ベース ---------------------------------------------------------------- */
+html, body {
+  background: var(--rb-bg) !important;
+  color: var(--rb-ink) !important;
+  font-family: 'Noto Sans JP', sans-serif !important;
+  background-attachment: scroll !important;
+  cursor: auto !important;
+  -webkit-font-smoothing: antialiased;
+  scrollbar-width: auto;
+  line-height: 1.7;
+}
+html { scroll-behavior: smooth; }
+html::-webkit-scrollbar { display: initial; width: 10px; }
+::selection { background: var(--rb-accent); color: #fff; }
+img { max-width: 100%; }
+
+/* ---- 暗色前提のグローバル演出を停止 --------------------------------------- */
+.film-grain, .scanlines, .custom-cursor, .ghost-cursor,
+#particle-canvas, .global-video-bg,
+.hero-video-bg, .hero-video-overlay,
+.math-noise, .progress-bar-wrap,
+.manifesto-bg, .ov-bg-num,
+.scroll-indicator { display: none !important; }
+
+/* マウスカーソルは通常表示に戻す */
+a, button, .clickable, .nav-link, .panel-close, .btn-readmore,
+.gate-btn, .lang-switcher span, .hamburger { cursor: pointer !important; }
+
+/* ============================================================================
+   レイアウト：横スクロール → 縦スクロールへ
+   ============================================================================ */
+.scroll-container {
+  display: block !important;
+  flex-wrap: initial !important;
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;   /* GSAPのtranslateXを無効化 */
+}
+.scene, .scene-wide, .scene-auto,
+#overview, #findings, #gate, #portal, #manifesto, #profile, #hero {
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  flex-shrink: 1 !important;
+  display: block !important;
+  overflow: visible !important;
+  padding: clamp(64px, 9vw, 140px) 24px !important;
+  box-sizing: border-box !important;
+}
+/* セクション内コンテンツは中央寄せの単カラム */
+.scene > *, .scene-wide > *, .scene-auto > * { max-width: 1040px; margin-left: auto; margin-right: auto; }
+/* アンカー移動時に上部バーへ隠れないよう余白 */
+section[id], div[id="gate"] { scroll-margin-top: 72px; }
+
+/* 交互の背景色でリズムを作る */
+#overview  { background: var(--rb-bg-soft) !important; }
+#findings  { background: var(--rb-bg-soft) !important; }
+#profile   { background: var(--rb-bg-soft) !important; }
+
+/* スクロールでふわっと（redesign.jsが .rb-in を付与） */
+.rb-fade { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.rb-fade.rb-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce){ .rb-fade{ opacity:1; transform:none; transition:none; } }
+
+/* ============================================================================
+   上部バー（固定・細い）  ※redesign.jsが #rb-menu-btn で overlay-nav を開閉
+   ============================================================================ */
+.rb-topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 9500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(255,255,255,.82);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rb-line);
+}
+.rb-brand {
+  font-weight: 900; font-size: 1.02rem; letter-spacing: .02em;
+  color: var(--rb-ink) !important; text-decoration: none; white-space: nowrap;
+}
+.rb-brand .rb-dot { color: var(--rb-accent); }
+.rb-links { display: flex; gap: 26px; align-items: center; }
+.rb-links a {
+  font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--rb-ink-2) !important; text-decoration: none; transition: color .2s;
+  font-family: 'Inter','Noto Sans JP',sans-serif;
+}
+.rb-links a:hover { color: var(--rb-accent) !important; }
+.rb-menu-btn {
+  display: none; border: 1px solid var(--rb-line); background: #fff;
+  font-weight: 800; letter-spacing: .14em; font-size: .72rem; color: var(--rb-ink);
+  padding: 8px 14px; border-radius: 999px; font-family: 'Inter',sans-serif;
+}
+/* トップ(index)では旧ハンバーガーを隠し rb-topbar に集約。
+   サブページは既存 .nav/.hamburger を白基調で活かすため隠さない。 */
+.rb-home .hamburger { display: none !important; }
+.chapter-indicator { display: none !important; }
+/* 本文をバー分だけ押し下げ */
+body { padding-top: 0; }
+#hero { padding-top: 120px !important; }
+
+/* TENDENアプリへのクイックアクセス（残すがミニマルに） */
+.quick-access-btn {
+  position: fixed; bottom: 22px; right: 22px; left: auto;
+  background: var(--rb-ink); color: #fff !important; z-index: 9400;
+  font-size: .74rem; font-weight: 800; letter-spacing: .06em;
+  padding: 12px 18px; border-radius: 999px; border-bottom: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,.16); text-decoration: none;
+}
+.quick-access-btn:hover { background: var(--rb-accent); }
+
+/* ============================================================================
+   HERO : 白地に極太の黒い大文字（静かにフェードイン）
+   ============================================================================ */
+#hero {
+  min-height: 100svh !important;
+  display: flex !important; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+}
+.hero-title {
+  mix-blend-mode: normal !important;
+  color: var(--rb-ink) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.06 !important;
+  text-shadow: none !important;
+  max-width: 1100px;
+  animation: rbHeroIn 1.1s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes rbHeroIn { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform:none; } }
+.hero-title .dot { color: var(--rb-accent) !important; }
+.hero-title .glitch-char {
+  opacity: 1 !important; transform: none !important; filter: none !important;
+}
+.hero-title .lang-ja, .hero-title .lang-zh { font-size: clamp(2.8rem, 11vw, 8.6rem) !important; }
+.hero-title .lang-en { font-size: clamp(2.4rem, 9.5vw, 7.6rem) !important; }
+.hero-title .lang-ko { font-size: clamp(2.4rem, 8.5vw, 6.8rem) !important; }
+.hero-title .lang-es, .hero-title .lang-fr { font-size: clamp(2rem, 6.5vw, 5.2rem) !important; }
+
+.hero-lang-switcher {
+  position: static !important; transform: none !important;
+  margin-top: 40px !important; opacity: 1 !important;
+  justify-content: center; color: var(--rb-ink-2);
+}
+.hero-lang-switcher span { color: var(--rb-ink-2) !important; font-weight: 800; }
+.hero-lang-switcher span.active { color: var(--rb-accent) !important; }
+
+/* スクロール誘導（小さな↓・PCのみ） */
+#hero::after {
+  content: "↓ SCROLL";
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  font-size: .68rem; letter-spacing: .26em; font-weight: 800; color: var(--rb-ink-3);
+  font-family: 'Inter',sans-serif; animation: rbBob 1.8s ease-in-out infinite;
+}
+@keyframes rbBob { 0%,100%{ transform: translateX(-50%) translateY(0);} 50%{ transform: translateX(-50%) translateY(6px);} }
+@media (max-width: 768px){ #hero::after{ display:none; } }
+
+/* ============================================================================
+   OVERVIEW : 研究概要 + 統計 + クイックアクセス（単カラム）
+   ============================================================================ */
+.ov-inner { display: block !important; height: auto !important; }
+.ov-left, .ov-right {
+  flex: initial !important; width: 100% !important; padding: 0 !important;
+  border: none !important; overflow: visible !important;
+}
+.ov-right { margin-top: 56px; }
+.ov-kicker, .ov-right-header {
+  color: var(--rb-accent) !important; font-weight: 800; letter-spacing: .22em;
+  font-size: .72rem !important; opacity: 1 !important; margin-bottom: 14px;
+  font-family: 'Inter','Noto Sans JP',sans-serif;
+}
+.ov-title {
+  color: var(--rb-ink) !important; font-weight: 900 !important;
+  font-size: clamp(1.8rem, 4.4vw, 3rem) !important; line-height: 1.18 !important;
+  letter-spacing: -.02em; margin-bottom: 22px;
+}
+.ov-desc {
+  color: var(--rb-ink-2) !important; opacity: 1 !important; max-width: 720px !important;
+  font-size: 1rem !important; line-height: 1.95 !important;
+}
+.ov-stats { gap: 40px !important; margin-top: 36px !important; }
+.ov-stat-num {
+  color: var(--rb-accent) !important;
+  font-family: 'Space Grotesk','Inter',monospace;
+  font-size: clamp(1.7rem, 4vw, 2.6rem) !important; font-weight: 700;
+}
+.ov-stat-num.neutral { color: var(--rb-ink) !important; }
+.ov-stat-lbl { color: var(--rb-ink-3) !important; opacity: 1 !important; font-size: .68rem !important; }
+
+/* クイックアクセス（CTAリスト） */
+.ov-cta-link {
+  background: #fff !important; border: 1px solid var(--rb-line) !important;
+  color: var(--rb-ink) !important; border-radius: 14px; padding: 22px 24px !important;
+  margin-bottom: 14px; box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.ov-cta-link:hover { border-color: var(--rb-accent) !important; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.06); background:#fff !important; }
+.ov-cta-link::before { background: var(--rb-accent) !important; }
+.ov-cta-link.primary { border-color: rgba(255,77,0,.45) !important; background: rgba(255,77,0,.04) !important; }
+.ov-cta-tag { color: var(--rb-accent) !important; opacity: 1 !important; letter-spacing:.18em; }
+.ov-cta-name { color: var(--rb-ink) !important; }
+.ov-cta-desc { color: var(--rb-ink-2) !important; opacity: 1 !important; }
+.ov-cta-arrow { color: var(--rb-accent) !important; opacity: 1 !important; }
+
+/* ============================================================================
+   MANIFESTO : 大きな編集的引用
+   ============================================================================ */
+#manifesto { background: #fff !important; }
+.manifesto-text-wrap {
+  position: relative !important; z-index: 2; width: 100% !important; max-width: 880px !important;
+  margin: 0 auto !important; padding-left: 28px; gap: 30px !important;
+}
+.border-line {
+  transform: none !important; background: var(--rb-accent) !important;
+  width: 3px !important; left: 0 !important;
+}
+.manifesto-p {
+  color: var(--rb-ink) !important; font-weight: 800 !important;
+  mix-blend-mode: normal !important; text-shadow: none !important;
+  font-size: clamp(1.25rem, 2.6vw, 1.9rem) !important; line-height: 1.7 !important;
+}
+.manifesto-p[style*="--accent"], .manifesto-p[style*="var(--accent)"] { color: var(--rb-accent) !important; }
+.manifesto-p strong { color: var(--rb-accent) !important; }
+
+/* ============================================================================
+   KEY FINDINGS : 数値カード + パラドックス
+   ============================================================================ */
+.findings-inner {
+  display: block !important; width: 100% !important; height: auto !important; padding: 0 !important;
+}
+.findings-left, .findings-right {
+  flex: initial !important; width: 100% !important; height: auto !important;
+}
+.findings-right { margin-top: 40px; }
+.results-kicker { color: var(--rb-accent) !important; opacity: 1 !important; letter-spacing:.22em; font-size:.72rem !important; }
+.results-headline { color: var(--rb-ink) !important; font-size: clamp(1.8rem,4.4vw,3rem) !important; }
+.results-grid {
+  background: var(--rb-line) !important;
+  border: 1px solid var(--rb-line); border-radius: 14px; overflow: hidden;
+}
+.rc { background: #fff !important; }
+.rc:hover { background: #fff !important; }
+.rc-tag { color: var(--rb-ink-3) !important; opacity: 1 !important; letter-spacing:.14em; }
+.rc-num { color: var(--rb-ink) !important; }
+.rc-num.danger { color: var(--rb-accent) !important; }
+.rc-desc { color: var(--rb-ink-2) !important; opacity: 1 !important; }
+.rc::after { background: var(--rb-accent) !important; }
+
+.paradox-box {
+  border: 1px solid rgba(255,77,0,.3) !important; background: rgba(255,77,0,.05) !important;
+  border-radius: 14px; padding: 28px !important;
+}
+.paradox-title { color: var(--rb-ink) !important; }
+.paradox-body { color: var(--rb-ink-2) !important; opacity: 1 !important; }
+.pn-val { color: var(--rb-ink) !important; }
+.pn-val.d { color: var(--rb-accent) !important; }
+
+/* ============================================================================
+   MODEL ENGINE (#portal) : モデル解説カード
+   ============================================================================ */
+.tech-grid-scene {
+  display: grid !important; grid-template-columns: repeat(2, 1fr) !important;
+  gap: 18px !important; padding-left: 0 !important; height: auto !important;
+}
+.tech-card {
+  width: auto !important; background: #fff !important;
+  border: 1px solid var(--rb-line) !important; border-radius: 14px;
+  backdrop-filter: none !important; padding: 28px !important; transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.tech-card:hover { border-color: var(--rb-accent) !important; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+.tech-card h3 { color: var(--rb-ink) !important; font-size: 1.5rem !important; }
+.tech-card p { color: var(--rb-ink-2) !important; font-size: .95rem !important; line-height: 1.85 !important; }
+/* 装飾サムネは最小限化のため非表示（重複AI画像の削減） */
+.tech-thumb { display: none !important; }
+.btn-readmore {
+  border: 1px solid var(--rb-ink) !important; color: var(--rb-ink) !important;
+  background: transparent !important; font-size: .74rem !important; border-radius: 999px;
+  padding: 9px 18px !important; letter-spacing: .12em;
+}
+.btn-readmore:hover { background: var(--rb-ink) !important; color: #fff !important; }
+
+/* ============================================================================
+   PROFILE
+   ============================================================================ */
+.profile-wrap { display: block !important; width: 100% !important; max-width: 880px; }
+.profile-img-wrap { display: none !important; }  /* 装飾AI画像は非表示 */
+.tech-stream {
+  color: var(--rb-ink-2) !important; font-size: .95rem !important; line-height: 2.1 !important;
+  font-family: 'Space Grotesk', monospace;
+}
+.tech-stream span { opacity: 1 !important; transform: none !important; }
+.tech-stream a { color: var(--rb-ink) !important; }
+.tech-stream span[style*="--accent"], .tech-stream span[style*="var(--accent)"] { color: var(--rb-accent) !important; }
+
+/* ============================================================================
+   FINAL GATE : シミュレーターへ（強いCTA・白基調）
+   ============================================================================ */
+.gate-scene {
+  background: var(--rb-ink) !important; border-radius: 0;
+  display: flex !important; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 18px;
+}
+.gate-btn {
+  color: #fff !important; font-size: clamp(2.2rem, 7vw, 5rem) !important;
+  animation: none !important; letter-spacing: -.01em;
+  border: 2px solid rgba(255,255,255,.25); border-radius: 18px; padding: 24px 40px;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.gate-btn:hover { background: var(--rb-accent) !important; border-color: var(--rb-accent) !important; color: #fff !important; transform: none !important; letter-spacing: -.01em; }
+.click-guide-text { color: var(--rb-accent) !important; font-weight: 800; letter-spacing: .1em; }
+
+/* ============================================================================
+   SLIDE PANELS (READ MORE) : 白化
+   ============================================================================ */
+.slide-panel {
+  background: #fff !important; color: var(--rb-ink-2) !important;
+  border-left: 1px solid var(--rb-line) !important;
+  box-shadow: -20px 0 60px rgba(0,0,0,.12) !important;
+}
+.panel-close { color: var(--rb-ink) !important; }
+.panel-close:hover { color: var(--rb-accent) !important; }
+.panel-content h2 { color: var(--rb-ink) !important; border-bottom: 2px solid var(--rb-accent) !important; font-size: clamp(1.4rem,3vw,2rem) !important; }
+.panel-content h3 { color: var(--rb-accent) !important; font-size: 1.1rem !important; }
+.panel-content p { color: var(--rb-ink-2) !important; font-size: .98rem !important; line-height: 1.9 !important; }
+.panel-content p sub { color: var(--rb-ink-3) !important; }
+.sim-canvas { background: var(--rb-bg-soft) !important; border: 1px solid var(--rb-line) !important; }
+
+/* ============================================================================
+   HAMBURGER オーバーレイメニュー（白基調・モバイル用フルメニュー）
+   ============================================================================ */
+.overlay-nav { background: rgba(255,255,255,.98) !important; backdrop-filter: blur(8px) !important; }
+.overlay-nav .menu-col h3 { color: var(--rb-ink-3) !important; border-bottom: 1px solid var(--rb-line) !important; }
+.overlay-nav a { color: var(--rb-ink) !important; }
+.overlay-nav a:hover { color: var(--rb-accent) !important; }
+.overlay-nav .lang-switcher span { color: var(--rb-ink-2) !important; }
+.overlay-nav .lang-switcher span.active { color: var(--rb-accent) !important; }
+.overlay-nav .sep { color: var(--rb-line) !important; }
+
+/* ============================================================================
+   レスポンシブ
+   ============================================================================ */
+@media (max-width: 900px) {
+  .tech-grid-scene { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 768px) {
+  .rb-links { display: none !important; }
+  .rb-menu-btn { display: inline-block !important; }
+  .rb-topbar { height: 54px; padding: 0 16px; }
+  #hero { padding-top: 96px !important; }
+  .ov-stats { gap: 26px !important; }
+  .scene, .scene-wide, .scene-auto,
+  #overview, #findings, #gate, #portal, #manifesto, #profile {
+    padding: 64px 18px !important;
+  }
+  .manifesto-text-wrap { padding-left: 18px; }
+  .slide-panel { width: 100vw !important; right: -100vw !important; }
+  .slide-panel.open { right: 0 !important; }
+}
+
+/* 旧モバイル用の暗色オーバーレイ等を無効化（白基調を阻害する指定の打ち消し） */
+.hero-video-bg, .hero-video-overlay { display: none !important; }
+
+/* ============================================================================
+   サブページ共通（manifesto / news / profile / archive / contact）白基調化
+   既存の縦レイアウト(.nav/.content/...)はそのまま、色だけ白へ反転する。
+   ============================================================================ */
+
+/* 上部ナビ（PC固定バー）＝細い白バー */
+.nav, .navbar {
+  background: rgba(255,255,255,.86) !important;
+  backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rb-line) !important;
+  height: 60px !important;
+}
+.nav-brand { color: var(--rb-ink) !important; letter-spacing: .02em; }
+.nav-links a, .navbar .nav-links a { color: var(--rb-ink-2) !important; font-weight: 700; }
+.nav-links a:hover, .nav-links a.active { color: var(--rb-accent) !important; }
+.nav-meta, .nav-meta * { color: var(--rb-ink-3) !important; }
+
+/* ハンバーガー（モバイル）＝白地に黒線 */
+.hamburger { background: rgba(255,255,255,.9) !important; border: 1px solid var(--rb-line); border-radius: 999px; }
+.h-lines span { background: var(--rb-ink) !important; }
+.h-text { color: var(--rb-ink) !important; }
+.hamburger.open .h-lines span { background: var(--rb-accent) !important; }
+
+/* 本文コンテナ */
+.content { color: var(--rb-ink) !important; max-width: 880px !important; }
+.page-header .eyebrow { color: var(--rb-accent) !important; letter-spacing: .22em; }
+.page-header .title { color: var(--rb-ink) !important; letter-spacing: -.03em; }
+.rule { background: var(--rb-line) !important; height: 1px !important; }
+
+/* 見出し・本文 */
+.chapter { color: var(--rb-ink) !important; }
+.manifesto-body p { color: var(--rb-ink-2) !important; font-size: 1.08rem !important; line-height: 2 !important; }
+.manifesto-body strong { color: var(--rb-ink) !important; border-bottom: 2px solid var(--rb-accent) !important; }
+
+/* 大きな装飾画像：暗いグラデの覆いを除去し、白地に馴染ませる（最小限の装飾として残す） */
+.content div[style*="linear-gradient"] { background: none !important; }
+.content img { border-radius: 10px; }
+
+/* News タイムライン */
+.timeline-year { color: rgba(255,77,0,.55) !important; border-bottom: 1px solid var(--rb-line) !important; }
+.timeline-content { background: #fff !important; border-left: 3px solid var(--rb-accent) !important; border: 1px solid var(--rb-line); border-left: 3px solid var(--rb-accent) !important; border-radius: 10px; }
+.timeline-date { color: var(--rb-accent) !important; }
+.timeline-content h3 { color: var(--rb-ink) !important; }
+.timeline-content p { color: var(--rb-ink-2) !important; }
+.timeline-tag { background: var(--rb-accent) !important; color: #fff !important; }
+
+/* Profile */
+.profile-name { color: var(--rb-ink) !important; }
+.profile-role { color: var(--rb-ink-2) !important; }
+.profile-links a { color: var(--rb-ink-2) !important; }
+.profile-links a:hover { color: var(--rb-accent) !important; }
+.profile-main h2 { color: var(--rb-ink) !important; }
+.profile-main p { color: var(--rb-ink-2) !important; }
+.tech-item { background: var(--rb-bg-soft) !important; color: var(--rb-ink) !important; border-left: 4px solid var(--rb-accent) !important; border-radius: 8px; }
+
+/* Footer */
+.footer { border-top: 1px solid var(--rb-line) !important; }
+.footer-copy { color: var(--rb-ink-3) !important; }
+.footer-link { color: var(--rb-accent) !important; }
+
+/* Contact ページ等の汎用ダーク前提を打ち消す */
+.content a { color: var(--rb-accent); }
+
+/* オーバーレイメニュー内のサブページ用見出し */
+.overlay-nav .menu-col h3 { color: var(--rb-ink-3) !important; }
+
+/* Contact ページ独自スタイル（白文字・透明アウトライン）を白基調へ */
+.contact-title { color: var(--rb-ink) !important; mix-blend-mode: normal !important; }
+.contact-title span[style*="--accent"] { color: var(--rb-accent) !important; }
+.contact-link { color: var(--rb-ink) !important; -webkit-text-stroke: 0 !important; }
+.contact-link:hover { color: var(--rb-accent) !important; -webkit-text-stroke: 0 !important; filter: none !important; letter-spacing: .05em; }
+.home-back { color: var(--rb-ink) !important; }
+.home-back:hover { color: var(--rb-accent) !important; }
+.lang-btn-contact span { color: var(--rb-ink-2) !important; }
+.lang-btn-contact span.active { color: var(--rb-accent) !important; }
+
+/* 装飾画像の無限ドリフトを停止（静かなミニマルに） */
+.content img { animation: none !important; }
+
+/* ============================================================================
+   simulator/portal.html（独自ダークテーマ）の白基調化
+   .intro-wrap / .isec / .icard / .rule-* / .modal-* は portal 専用クラス。
+   先頭の没入型ヒーロー（background:#000 の大セクション）はインパクト維持で残す。
+   ============================================================================ */
+.intro-wrap .isec-title h2 { color: var(--rb-ink) !important; }
+.intro-wrap .isec-title p  { color: var(--rb-accent) !important; }
+.intro-wrap .lead-text     { color: var(--rb-ink-2) !important; }
+.intro-wrap .card-grid     { border: 1px solid var(--rb-line) !important; }
+.intro-wrap .icard         { background: #fff !important; border: 1px solid var(--rb-line) !important; }
+.intro-wrap .icard:hover   { border-color: var(--rb-accent) !important; box-shadow: 0 16px 40px rgba(0,0,0,.07) !important; }
+.intro-wrap .icard::before { display: none !important; }      /* オレンジ塗り上がりは抑制 */
+.intro-wrap .icard h3      { color: var(--rb-ink) !important; }   /* 多色見出しもinkに統一 */
+.intro-wrap .icard:hover h3{ color: var(--rb-accent) !important; }
+.intro-wrap .icard p       { color: var(--rb-ink-2) !important; }
+.intro-wrap .icard .icon   { border-bottom: 1px solid var(--rb-line) !important; }
+.intro-wrap .rule-item     { background: var(--rb-bg-soft) !important; border: 1px solid var(--rb-line) !important; border-left: 6px solid var(--rb-accent) !important; border-radius: 12px; }
+.intro-wrap .rule-item:hover { box-shadow: 0 16px 40px rgba(0,0,0,.07) !important; border-color: var(--rb-line) !important; border-left-color: var(--rb-accent) !important; }
+.intro-wrap .rule-text h4  { color: var(--rb-ink) !important; }
+.intro-wrap .rule-text p   { color: var(--rb-ink-2) !important; }
+.intro-wrap .rule-emoji    { display: none !important; }      /* ダークな装飾画像枠は非表示（最小限化） */
+.intro-wrap .math-box      { color: var(--rb-accent) !important; background: rgba(255,77,0,.05) !important; border: 1px solid rgba(255,77,0,.3) !important; }
+
+/* モデル解説モーダル（白化・canvasはダークの実験ビューとして内包） */
+.modal-overlay { background: rgba(22,24,29,.45) !important; }
+.modal-content { background: #fff !important; color: var(--rb-ink) !important; border: 1px solid var(--rb-line) !important; }
+.modal-title   { color: var(--rb-ink) !important; }
+.modal-desc    { color: var(--rb-ink-2) !important; opacity: 1 !important; }
+.modal-canvas-container { border: 1px solid var(--rb-line) !important; }
+.close-btn     { color: var(--rb-ink) !important; }
