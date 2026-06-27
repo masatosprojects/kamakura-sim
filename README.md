@@ -21,6 +21,13 @@
 - `contact.html` — お問い合わせ
 - `simulator/` — シミュレーション関連コンテンツ
 
+## 2026-06-27 更新
+
+- シミュレーション試行回数を論文準拠の **242回**（BASE 50 + 24×8）に修正（旧表記 386 は誤り）
+- TENDEN 紹介を **v7.0 / 30言語 / 2ルート / オフライン opt-in** に更新
+- 分析ビューア同梱データを **v2.0 BASE 代表ラン**（60,794人・37.7%・4属性）に差し替え。タイムラプスは25%サンプリング・2ステップ間引き
+- [TENDEN 開発履歴（v0.1〜v7.0）](https://masatosprojects.github.io/tenden-promo/version-history.html) へのリンクを追加
+
 ## 関連リンク
 
 - 避難ナビアプリ TENDEN: https://masatosprojects.github.io/tenden-app/ （リポジトリ: [tenden-app](https://github.com/masatosprojects/tenden-app)）
