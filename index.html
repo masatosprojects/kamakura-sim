@@ -245,6 +245,14 @@
     <span class="lang-es">Probar TENDEN ⚡</span>
     <span class="lang-fr">Essayer TENDEN ⚡</span>
   </a>
+  <a href="analysis-v2.html" class="quick-access-btn quick-access-btn--secondary">
+    <span class="lang-ja">2026 分析レポート 📊</span>
+    <span class="lang-en">2026 Analysis 📊</span>
+    <span class="lang-zh">2026 分析报告 📊</span>
+    <span class="lang-ko">2026 분석 리포트 📊</span>
+    <span class="lang-es">Análisis 2026 📊</span>
+    <span class="lang-fr">Analyse 2026 📊</span>
+  </a>
 
   <!-- HAMBURGER NAV -->
   <div class="hamburger" id="hamburger">
@@ -378,14 +386,53 @@
             <span class="lang-fr">Simulation Multi-Agents<br>d'Évacuation Tsunami<br>à Kamakura</span>
           </h2>
           <p class="ov-desc">
-            <span class="lang-ja">25シナリオ×242試行の大規模感度分析。ハザードマップ認知率が高いほど生存率が低下するという逆説的な傾向を数値的に確認し、観光客向け避難アプリ TENDEN の設計根拠を提供。</span>
-            <span class="lang-en">Large-scale sensitivity analysis: 25 scenarios × 242 runs. Numerically confirmed the paradoxical tendency that higher hazard-map awareness correlates with lower survival rates, providing design rationale for the TENDEN evacuation app.</span>
-            <span class="lang-zh">大规模敏感性分析：25个场景×242次运行。以数值方式确认了危险地图认知度越高生存率越低的悖论性趋势，为TENDEN疏散应用提供设计依据。</span>
-            <span class="lang-ko">25시나리오×242회 대규모 민감도 분석. 위험 지도 인지율이 높을수록 생존율이 낮아지는 역설적 경향을 수치적으로 확인하여 TENDEN 대피 앱의 설계 근거를 제공.</span>
-            <span class="lang-es">Análisis de sensibilidad a gran escala: 25 escenarios × 242 ejecuciones. Confirmación numérica de la tendencia paradójica de que una mayor conciencia del mapa de peligros correlaciona con tasas de supervivencia más bajas.</span>
-            <span class="lang-fr">Analyse de sensibilité à grande échelle : 25 scénarios × 242 exécutions. Confirmation numérique de la tendance paradoxale où une plus grande connaissance des cartes de risques corrèle avec des taux de survie plus faibles.</span>
+            <span class="lang-ja">卒業論文（25シナリオ×242試行）の知見に加え、2026年6月のフルスケール一括実行（15シナリオ・46 run）を実施。論文 BASE との比較検証レポートを公開中。</span>
+            <span class="lang-en">Beyond the thesis (25 scenarios × 242 runs), a full-scale batch re-run in June 2026 (15 scenarios, 46 runs) is now published with comparison against thesis BASE.</span>
+            <span class="lang-zh">除毕业论文（25场景×242次）外，2026年6月完成全规模批量运行（15场景·46次），并公开与论文 BASE 的对比报告。</span>
+            <span class="lang-ko">졸업 논문(25시나리오×242회)에 더해 2026년 6월 전 규모 일괄 실행(15시나리오·46 run) 및 논문 BASE 비교 리포트를 공개.</span>
+            <span class="lang-es">Además de la tesis (25 escenarios × 242 ejecuciones), lote completo de junio 2026 con informe comparativo vs. BASE de la tesis.</span>
+            <span class="lang-fr">Au-delà de la thèse (25 scénarios × 242 exécutions), lot complet de juin 2026 avec rapport comparatif vs. BASE de la thèse.</span>
           </p>
-          <div class="ov-stats">
+
+          <div class="ov-update-bar">
+            <p>
+              <span class="lang-ja"><strong>NEW · 2026.06</strong> — 一括実行の生存率は A1 で <strong>16.3%</strong>（論文 BASE 36.8%）。パラメータ更新後の再検証結果をグラフ化。</span>
+              <span class="lang-en"><strong>NEW · Jun 2026</strong> — Batch A1 survival <strong>16.3%</strong> vs thesis BASE 36.8%. Updated parameters, full comparison charts.</span>
+            </p>
+            <a class="ov-update-btn" href="analysis-v2.html">View Report →</a>
+          </div>
+
+          <div class="ov-stats-block latest">
+            <div class="ov-stats-head">
+              <span class="lang-ja">2026 一括実行（最新）</span>
+              <span class="lang-en">2026 Full Batch (Latest)</span>
+            </div>
+            <div class="ov-stats">
+              <div>
+                <div class="ov-stat-num neutral">60,794</div>
+                <div class="ov-stat-lbl"><span class="lang-ja">エージェント</span><span class="lang-en">Agents</span></div>
+              </div>
+              <div>
+                <div class="ov-stat-num neutral">15</div>
+                <div class="ov-stat-lbl"><span class="lang-ja">シナリオ</span><span class="lang-en">Scenarios</span></div>
+              </div>
+              <div>
+                <div class="ov-stat-num neutral">46</div>
+                <div class="ov-stat-lbl"><span class="lang-ja">総 run</span><span class="lang-en">Total Runs</span></div>
+              </div>
+              <div>
+                <div class="ov-stat-num batch">16.3%</div>
+                <div class="ov-stat-lbl"><span class="lang-ja">A1 生存率</span><span class="lang-en">A1 Survival</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ov-stats-block">
+            <div class="ov-stats-head">
+              <span class="lang-ja">卒業論文 BASE（2025）</span>
+              <span class="lang-en">Thesis BASE (2025)</span>
+            </div>
+            <div class="ov-stats">
             <div>
               <div class="ov-stat-num neutral">62,299</div>
               <div class="ov-stat-lbl">
@@ -430,6 +477,7 @@
                 <span class="lang-fr">Survie BASE</span>
               </div>
             </div>
+            </div>
           </div>
         </div>
 
@@ -437,7 +485,19 @@
         <div class="ov-right">
           <div class="ov-right-header">QUICK ACCESS</div>
 
-          <a class="ov-cta-link primary" href="https://masatosprojects.github.io/tenden-app/" target="_blank" rel="noopener">
+          <a class="ov-cta-link primary" href="analysis-v2.html">
+            <div>
+              <div class="ov-cta-tag">NEW &nbsp;·&nbsp; ANALYSIS · V2 BATCH</div>
+              <div class="ov-cta-name">2026 一括実行レポート</div>
+              <div class="ov-cta-desc">
+                <span class="lang-ja">15シナリオ・46 run の生存率。論文 BASE との比較グラフ・感度レンジ・津波到達カーブ。</span>
+                <span class="lang-en">15 scenarios, 46 runs — survival rates, thesis comparison charts, sensitivity ranges.</span>
+              </div>
+            </div>
+            <div class="ov-cta-arrow">→</div>
+          </a>
+
+          <a class="ov-cta-link" href="https://masatosprojects.github.io/tenden-app/" target="_blank" rel="noopener">
             <div>
               <div class="ov-cta-tag">APP &nbsp;·&nbsp; PWA</div>
               <div class="ov-cta-name">TENDEN</div>
@@ -514,22 +574,6 @@
             <div class="ov-cta-arrow">→</div>
           </a>
 
-          <a class="ov-cta-link primary" href="analysis-v2.html">
-            <div>
-              <div class="ov-cta-tag">ANALYSIS &nbsp;·&nbsp; V2 BATCH</div>
-              <div class="ov-cta-name">2026 一括実行レポート</div>
-              <div class="ov-cta-desc">
-                <span class="lang-ja">D ドライブ全シナリオ（15種・46 run）の生存率集計。卒業論文 BASE との比較・感度分析レンジを Chart.js で可視化。</span>
-                <span class="lang-en">Survival rates from the full June 2026 batch (15 scenarios, 46 runs). Comparison with thesis BASE and sensitivity ranges, visualized with Chart.js.</span>
-                <span class="lang-zh">D 盘全场景（15种·46次运行）生存率汇总。与毕业论文 BASE 对比及灵敏度分析，Chart.js 可视化。</span>
-                <span class="lang-ko">D 드라이브 전 시나리오(15종·46 run) 생존율 집계. 졸업 논문 BASE 비교 및 감도 분석 Chart.js 시각화.</span>
-                <span class="lang-es">Tasas de supervivencia del lote completo de junio 2026. Comparación con BASE de la tesis.</span>
-                <span class="lang-fr">Taux de survie du lot complet de juin 2026. Comparaison avec BASE de la thèse.</span>
-              </div>
-            </div>
-            <span class="ov-cta-arrow">→</span>
-          </a>
-
           <a class="ov-cta-link" href="simulator/portal.html">
             <div>
               <div class="ov-cta-tag">TECHNICAL DOCS</div>
@@ -594,7 +638,14 @@
       <div class="findings-inner">
 
         <div class="findings-left">
-          <div class="results-kicker">25 SCENARIOS · 242 RUNS · BASE n=50</div>
+          <div class="results-kicker">
+            <span class="lang-ja">論文 BASE · 2025 &nbsp;|&nbsp; 25 SCENARIOS · 242 RUNS · n=50</span>
+            <span class="lang-en">THESIS BASE · 2025 &nbsp;|&nbsp; 25 SCENARIOS · 242 RUNS · n=50</span>
+          </div>
+          <p style="font-size:.78rem;opacity:.45;margin:-1rem 0 1.5rem;line-height:1.6;">
+            <span class="lang-ja">※ 以下は卒業論文の数値。<a href="analysis-v2.html" style="color:var(--accent);">2026 一括実行レポート</a>で最新モデルとの比較を公開。</span>
+            <span class="lang-en">※ Figures below are from the thesis. See the <a href="analysis-v2.html" style="color:var(--accent);">2026 batch report</a> for updated model comparison.</span>
+          </p>
           <h2 class="results-headline">
             <span class="lang-ja">シミュレーションが<br>暴いた構造</span>
             <span class="lang-en">What the Simulation<br>Revealed</span>

@@ -129,6 +129,14 @@ body { padding-top: 0; }
   box-shadow: 0 6px 24px rgba(0,0,0,.16); text-decoration: none;
 }
 .quick-access-btn:hover { background: var(--rb-accent); }
+.quick-access-btn--secondary {
+  bottom: 68px; background: #fff; color: var(--rb-ink) !important;
+  border: 1px solid rgba(255,77,0,.35);
+}
+.quick-access-btn--secondary:hover { background: rgba(255,77,0,.08); color: var(--rb-accent) !important; }
+@media (max-width: 640px) {
+  .quick-access-btn--secondary { bottom: 62px; font-size: .68rem; padding: 10px 14px; }
+}
 
 /* ============================================================================
    HERO : 白地に極太の黒い大文字（静かにフェードイン）
@@ -207,6 +215,34 @@ body { padding-top: 0; }
 }
 .ov-stat-num.neutral { color: var(--rb-ink) !important; }
 .ov-stat-lbl { color: var(--rb-ink-3) !important; opacity: 1 !important; font-size: .68rem !important; }
+
+.ov-update-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin: 18px 0 28px; padding: 14px 18px;
+  border: 1px solid rgba(255,77,0,.35); border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255,77,0,.08), rgba(255,77,0,.03));
+}
+.ov-update-bar p { margin: 0; font-size: .82rem; line-height: 1.6; color: var(--rb-ink-2); max-width: 52ch; }
+.ov-update-bar strong { color: var(--rb-accent); }
+.ov-update-btn {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 999px; text-decoration: none;
+  background: var(--rb-accent); color: #fff !important;
+  font-family: 'Inter', monospace; font-size: .68rem; font-weight: 800;
+  letter-spacing: .12em; text-transform: uppercase;
+  transition: transform .2s, box-shadow .2s;
+}
+.ov-update-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,77,0,.25); }
+
+.ov-stats-block { margin-top: 28px; }
+.ov-stats-head {
+  font-family: 'Inter', monospace; font-size: .62rem; font-weight: 800;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--rb-ink-3);
+  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rb-line);
+}
+.ov-stats-block.latest .ov-stats-head { color: var(--rb-accent); border-bottom-color: rgba(255,77,0,.25); }
+.ov-stats-block + .ov-stats-block { margin-top: 24px; }
+.ov-stat-num.batch { color: #c0392b !important; }
 
 /* クイックアクセス（CTAリスト） */
 .ov-cta-link {
