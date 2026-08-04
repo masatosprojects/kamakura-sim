@@ -362,16 +362,16 @@
 
     <div class="stats">
       <div class="stat">
-        <div class="stat-n">36.8<span style="font-size:1.1rem">%</span></div>
-        <div class="stat-l">基本条件での<strong style="color:#fff">全体生存率</strong><br>（現状では3人に2人が間に合わない）</div>
+        <div class="stat-n">18.4<span style="font-size:1.1rem">%</span></div>
+        <div class="stat-l">基準条件（津波到達8分）での<strong style="color:#fff">全体生存率</strong><br>（現状では約5人に4人が間に合わない）</div>
       </div>
       <div class="stat">
-        <div class="stat-n">53<span style="font-size:1.1rem">pp</span></div>
-        <div class="stat-l">地域住民（85%）と<br><strong style="color:#fff">来訪客（32%）の生存率差</strong></div>
+        <div class="stat-n">18<span style="font-size:1.1rem">pt</span></div>
+        <div class="stat-l">地域住民（33%）と<br><strong style="color:#fff">観光客（16%）の生存率差</strong></div>
       </div>
       <div class="stat">
-        <div class="stat-n">−6.1<span style="font-size:1.1rem">pp</span></div>
-        <div class="stat-l">ハザードマップ全員認知時に<br><strong style="color:#fff">確認された生存率の低下</strong></div>
+        <div class="stat-n">1.9<span style="font-size:1.1rem">倍</span></div>
+        <div class="stat-l">避難支援アプリ「TENDEN」導入で<br><strong style="color:#fff">確認された生存率の改善</strong></div>
       </div>
     </div>
   </div>
@@ -409,62 +409,62 @@
       <!-- Finding 01：全体生存率 -->
       <div class="fcard">
         <div class="fnum">Finding 01</div>
-        <h3>現状の条件下で、全体の生存率は36.8%にとどまった</h3>
+        <h3>現状の条件下で、基準シナリオの全体生存率は18.4%にとどまった</h3>
         <div class="big-stat-card">
-          <div class="big-n">36.8<span style="font-size:1.8rem">%</span></div>
+          <div class="big-n">18.4<span style="font-size:1.8rem">%</span></div>
           <div class="big-desc">
-            <strong style="color:#fff">基本条件での全体平均生存率</strong><br>
-            （夏の観光シーズン・津波到達14分・62,299人・50回試行）<br>
-            標準偏差 SD = 0.16%（非常に安定した結果）
+            <strong style="color:#fff">基準シナリオでの全体平均生存率</strong><br>
+            （夏の観光シーズン・津波到達8分・70,265人・3回平均）
           </div>
         </div>
-        <p>南海トラフ巨大地震による津波が到達まで14分という条件でシミュレーションを実施したところ、
-           全体の平均生存率は<strong>36.8%</strong>という結果になりました。
-           最も厳しい8分到達では<strong>26.9%</strong>、
-           オフシーズン条件では<strong>67.8%</strong>と、条件によって大きく変動します。</p>
+        <p>南海トラフ巨大地震による津波が到達まで8分という厳しい条件でシミュレーションを実施したところ、
+           全体の平均生存率は<strong>18.4%</strong>という結果になりました。
+           全員が即時避難した場合は<strong>29.9%</strong>、
+           避難支援アプリ「TENDEN」を全員が使用した場合は<strong>34.9%（約1.9倍）</strong>まで改善しました。</p>
       </div>
 
       <!-- Finding 02：属性間格差 -->
       <div class="fcard">
         <div class="fnum">Finding 02</div>
-        <h3>土地勘の有無で、生存率に53ポイントの差が生まれた</h3>
+        <h3>土地勘の有無で、生存率に2倍以上の差が生まれた</h3>
         <div class="fcard-grid">
           <div>
-            <p>地域住民の生存率が<strong>85.1%</strong>であるのに対し、
-               一般来訪客の生存率は<strong>31.6%</strong>にとどまりました。
-               この約53ポイントの差は、土地勘の有無によるものと考えられます。</p>
-            <p>鎌倉市には観光客を含む多くの方が訪れる一方、
-               来訪者は避難ルートや避難所の場所を知らないケースが多く、
-               この格差が生じる要因となっています。</p>
+            <p>地域住民の生存率が<strong>33.1%</strong>であるのに対し、
+               一般来訪客（観光客）の生存率は<strong>15.6%</strong>にとどまりました。
+               この差は、土地勘の有無・避難距離の長さによるものと考えられます。</p>
+            <p>要因を標準化しオッズ比で分析すると、生存率を最も下げるのは
+               「避難先までの距離」（0.45倍）と「避難開始の遅れ」（0.48倍）でした。
+               属性そのものは変えられませんが、避難開始を早め、混雑を避けるという
+               状況は変えられます。</p>
           </div>
           <img src="pic/chart2_tornado.png" alt="感度分析：各要因が生存率に与える影響">
         </div>
       </div>
 
-      <!-- Finding 03：ハザードマップ逆説 -->
+      <!-- Finding 03：混雑ボトルネック -->
       <div class="fcard">
         <div class="fnum">Finding 03 ─ 特に注目の結果</div>
-        <h3>ハザードマップ認知率が高いほど、生存率が低下する傾向がデータ上で示された</h3>
+        <h3>幅わずか2mの砂浜出口で、危険水準を超える混雑が発生した</h3>
         <div class="fcard-grid">
           <div>
             <div class="paradox">
-              ハザードマップ認知率 <strong>100%（D1群）</strong>：生存率 <strong>35.8%</strong><br>
-              ハザードマップ認知率 <strong>0%（D5群）</strong>：生存率 <strong>41.9%</strong><br>
-              差：<strong>−6.1ポイント</strong>（認知率が高いほど低い）
+              最大混雑ボトルネック（幅約2m）：密度 <strong>12.1人/m²</strong><br>
+              群集事故の危険水準：<strong>10人/m²</strong><br>
+              差：危険水準を<strong>2.1人/m² 上回る</strong>
             </div>
             <p style="margin-top:.8rem">
-               ※ このシミュレーションにおける「ハザードマップ認知率」は、
-               スマートフォンのGPS・ナビゲーション機能の利用能力を示すパラメータです
-               （紙のハザードマップの保有そのものとは異なります）。</p>
-            <p>この結果の解釈は慎重に行う必要がありますが、
-               シミュレーション上では、均一なナビゲーション情報を持つエージェントが
-               同じ最短ルートへ集中することで特定の出口ノードに渋滞が発生し、
-               生存率が低下する傾向が確認されました。</p>
-            <p>この結果は、均一な情報配布に加え、
-               混雑状況に応じた動的な経路案内の仕組みが必要である可能性を示唆しています。
-               ただしこの解釈にはさらなる検証が必要です。</p>
+               シミュレーション上、砂浜からの出口が限られているため、
+               海水浴客の避難がごく一部の出口に集中し、
+               群集事故のリスクが高まる密度に達することが確認されました。</p>
+            <p>観光客数が多いほど、また方向感覚（土地勘）を持つ人が多いほど、
+               むしろ混雑は悪化する傾向も確認されました。
+               単一の推奨ルートに人が集中することの危険性を示す結果です。</p>
+            <p>一方、避難支援アプリ「TENDEN」の導入率を上げるほど混雑のピークは下がり、
+               導入率80%以上で危険水準を下回りました。
+               混雑が予想される出口から避難路を増設するなど、
+               自治体レベルでの対応もあわせて有効と考えられます。</p>
           </div>
-          <img src="pic/chart1_hazard.png" alt="ハザードマップ認知率と生存率の関係">
+          <img src="pic/chart1_hazard.png" alt="道路混雑度の分布">
         </div>
       </div>
 
@@ -498,7 +498,7 @@
         <div class="prop-icon">📄</div>
         <span class="ease e-mid">内部ご検討が必要</span>
         <h3>研究データの参考活用</h3>
-        <p>シミュレーション結果（25シナリオ・242回）のデータをご参考として提供することもできます。
+        <p>シミュレーション結果（全29シナリオ・各3回平均）のデータをご参考として提供することもできます。
            避難計画の検討や研究機関との連携の参考としていただければ幸いです。</p>
       </div>
     </div>
@@ -536,15 +536,15 @@
     <h2>研究の規模と方法</h2>
     <div class="trust">
       <div class="trust-item">
-        <div class="trust-n">62,299</div>
+        <div class="trust-n">70,265</div>
         <div class="trust-l">仮想避難者数<br>（実地図データ準拠）</div>
       </div>
       <div class="trust-item">
-        <div class="trust-n">242</div>
-        <div class="trust-l">シミュレーション<br>実施回数</div>
+        <div class="trust-n">87</div>
+        <div class="trust-l">シミュレーション<br>実施回数（29×3回）</div>
       </div>
       <div class="trust-item">
-        <div class="trust-n">25</div>
+        <div class="trust-n">29</div>
         <div class="trust-l">設計した<br>シナリオ数</div>
       </div>
       <div class="trust-item">
@@ -556,9 +556,10 @@
        Klüpfelモデル（群衆密度による速度低下）。
        空間データは国土地理院FG-GML、OpenStreetMap、国土交通省PLATEAUを統合して使用しています。</p>
     <p>本研究は高校生の自主研究であり、専門家による査読・検証は現時点では限定的です。
-       研究論文（PDF）の詳細は下記の研究サイトよりご確認いただけます。</p>
-    <p><a class="inline" href="https://masatosprojects.github.io/kamakura-sim/" target="_blank">
-       → 研究サイト・論文詳細（masatosprojects.github.io/kamakura-sim/）</a></p>
+       公開中の分析レポートと技術概要は下記よりご確認いただけます。</p>
+    <p><a class="inline" href="analysis-v2.html">→ 2026一括実行 分析レポート</a>
+       &nbsp;·&nbsp;
+       <a class="inline" href="simulator/portal.html">研究概要（技術解説）</a></p>
   </section>
 
 </div><!-- /wrap -->

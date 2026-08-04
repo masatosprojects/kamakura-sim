@@ -44,6 +44,7 @@
   }
   .v2-h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 900; margin-bottom: .8rem; letter-spacing: -.03em; }
   .v2-desc { font-size: .86rem; opacity: .45; max-width: 65ch; line-height: 1.75; margin-bottom: 2rem; }
+  .v2-desc strong { opacity: 1; color: rgba(255,255,255,.78); font-weight: 700; }
 
   .v2-kpi-grid {
     display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px;
@@ -51,16 +52,24 @@
     margin-bottom: 2.5rem;
   }
   @media (max-width: 900px) { .v2-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
-  .v2-kpi { background: #05070a; padding: 1.2rem 1.4rem; }
-  .v2-kpi-tag { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; opacity: .45; margin-bottom: .4rem; }
+  .v2-kpi { background: #05070a; padding: 1.2rem 1.4rem; color: #e8eaed; }
+  .v2-kpi-tag { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75); opacity: 1; margin-bottom: .4rem; }
   .v2-kpi-val { font-family: 'Space Grotesk', monospace; font-size: 1.6rem; font-weight: 700; color: var(--accent); }
   .v2-kpi-val.neutral { color: #fff; }
 
   .v2-chart-box {
     background: rgba(5,7,10,.85); border: 1px solid rgba(255,255,255,.08);
     padding: 1.2rem 1.4rem 1.4rem; margin-bottom: 1.5rem;
+    color: #e8eaed;
   }
-  .v2-chart-title { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .55; margin-bottom: .8rem; }
+  .v2-chart-title { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #e8ecf0; opacity: 1; margin-bottom: .8rem; }
+  .v2-chart-box .v2-chart-title { color: #f0f2f5; }
+  .v2-disclaimer {
+    padding: 1rem 1.2rem; margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+    font-size: .8rem; line-height: 1.75; color: rgba(255,255,255,.72);
+  }
+  .v2-disclaimer strong { color: rgba(255,255,255,.92); font-weight: 700; }
   .v2-chart-wrap { position: relative; height: 320px; }
   .v2-chart-wrap.tall { height: 420px; }
 
@@ -69,7 +78,8 @@
 
   .v2-note {
     padding: 1.2rem 1.4rem; border-left: 3px solid var(--accent);
-    background: rgba(255,77,0,.06); font-size: .82rem; line-height: 1.75; opacity: .7;
+    background: rgba(255,77,0,.06); font-size: .82rem; line-height: 1.75;
+    color: var(--rb-ink-2, #5b5f66); opacity: 1;
     margin-top: 1.5rem;
   }
 
@@ -84,7 +94,7 @@
   .v2-footer { padding: 5vh 8vw; text-align: center; font-family: monospace; font-size: .65rem; letter-spacing: .2em; opacity: .25; }
   </style>
 </head>
-<body class="lang-ja">
+<body class="lang-ja page-analysis-v2">
   <div class="film-grain"></div>
   <div class="scanlines"></div>
 
@@ -95,7 +105,7 @@
         <h3>THIS PAGE</h3>
         <ul>
           <li><a href="#summary" class="nav-link">01. SUMMARY</a></li>
-          <li><a href="#compare" class="nav-link">02. PAPER vs V2</a></li>
+          <li><a href="#compare" class="nav-link">02. V1 vs V2</a></li>
           <li><a href="#scenarios" class="nav-link">03. SCENARIOS</a></li>
           <li><a href="#sensitivity" class="nav-link">04. SENSITIVITY</a></li>
         </ul>
@@ -114,38 +124,63 @@
   <div class="v2-page">
     <header class="v2-header">
       <a href="index.html" class="v2-back">← 最新の研究に戻る</a>
-      <div class="v2-kicker">V2.0 · BATCH ANALYSIS · 2026.06</div>
-      <h1 class="v2-title">全シナリオ一括実行<br>分析レポート</h1>
+      <div class="v2-kicker">FINAL · 2026.07 · POSTER DATA</div>
+      <h1 class="v2-title">最終版シミュレーション<br>結果サマリー</h1>
       <p class="v2-lead">
-        <span class="lang-ja">D:\kamakura_sim_results に保存された 2026年6月バッチ（15シナリオ・46 run）の集計結果。卒業論文（25シナリオ・242 run）との比較検証を含む。</span>
-        <span class="lang-en">Aggregated results from the June 2026 batch (15 scenarios, 46 runs) stored at D:\kamakura_sim_results, including comparison with the graduation thesis (25 scenarios, 242 runs).</span>
+        <span class="lang-ja">ポスター発表・配布資料と同一の最終データ（70,265人・全29シナリオ A〜G・各3回平均）。以下 02〜04 は 2026年6月バッチ（15シナリオ・46 run）による中間分析で、参考のため保存しているアーカイブ資料。</span>
+        <span class="lang-en">The final dataset used in the poster and handout (70,265 agents, all 29 scenarios A–G, 3-run avg). Sections 02–04 below are the June 2026 interim batch (15 scenarios, 46 runs), kept as archived reference material.</span>
       </p>
     </header>
 
     <section class="v2-section" id="summary">
-      <div class="v2-label">01 · EXECUTIVE SUMMARY</div>
-      <h2 class="v2-h2">現行バッチの概要</h2>
+      <div class="v2-label">00 · FINAL RESULTS (2026.07)</div>
+      <h2 class="v2-h2">最終版データ — ポスター採用値</h2>
+      <div class="v2-kpi-grid">
+        <div class="v2-kpi"><div class="v2-kpi-tag">基準シナリオ生存率</div><div class="v2-kpi-val">18.4%</div></div>
+        <div class="v2-kpi"><div class="v2-kpi-tag">TENDEN 100%導入時</div><div class="v2-kpi-val">34.9%</div></div>
+        <div class="v2-kpi"><div class="v2-kpi-tag">改善倍率</div><div class="v2-kpi-val">約1.9倍</div></div>
+        <div class="v2-kpi"><div class="v2-kpi-tag">総エージェント数</div><div class="v2-kpi-val neutral">70,265</div></div>
+        <div class="v2-kpi"><div class="v2-kpi-tag">シナリオ数</div><div class="v2-kpi-val neutral">29（A〜G）</div></div>
+        <div class="v2-kpi"><div class="v2-kpi-tag">地域住民 vs 一般来訪客</div><div class="v2-kpi-val">33.1% / 15.6%</div></div>
+      </div>
+      <div class="v2-note">
+        <strong>オッズ比（標準化・95%信頼区間、基準シナリオ内）：</strong>
+        避難先までの距離 0.45倍・避難開始の遅れ 0.48倍・高齢者 0.71倍・子ども 0.74倍・スマホ所持 0.99倍(n.s.)・歩く速さ 1.20倍・プロ誘導員 1.57倍・現地就業者 1.73倍・全力疾走可能 2.11倍・地域住民 3.42倍。
+        最大混雑ボトルネック（幅2m）は密度12.1人/m²に達し、TENDEN導入率80%以上で危険水準（10人/m²）を下回った。
+      </div>
+      <div class="v2-note" style="margin-top:.75rem;">
+        <strong>データの出典：</strong> シミュレーション結果ディレクトリの2026年7月12日実行分（A1×3, B1/B2/B4×3, C1/C3/C4×3, D1〜D4×3, E1/E2×3, F1〜F5×3, G1〜G11×3 = 29シナリオ×3回）を集計。詳細はポスター配布資料「基準シナリオ全パラメータ一覧」を参照。
+      </div>
+    </section>
+
+    <section class="v2-section" id="summary-old">
+      <div class="v2-label">01 · JUNE 2026 INTERIM BATCH (ARCHIVED)</div>
+      <h2 class="v2-h2">2026年6月版バッチの概要（アーカイブ）</h2>
       <div class="v2-kpi-grid">
         <div class="v2-kpi"><div class="v2-kpi-tag">A1 生存率</div><div class="v2-kpi-val" id="kpi-current-base">—</div></div>
-        <div class="v2-kpi"><div class="v2-kpi-tag">論文 BASE</div><div class="v2-kpi-val neutral" id="kpi-paper-base">—</div></div>
+        <div class="v2-kpi"><div class="v2-kpi-tag">v1 参考値</div><div class="v2-kpi-val neutral" id="kpi-paper-base">—</div></div>
         <div class="v2-kpi"><div class="v2-kpi-tag">差分</div><div class="v2-kpi-val" id="kpi-delta">—</div></div>
         <div class="v2-kpi"><div class="v2-kpi-tag">A1 run数</div><div class="v2-kpi-val neutral" id="kpi-runs">—</div></div>
         <div class="v2-kpi"><div class="v2-kpi-tag">人口</div><div class="v2-kpi-val neutral" id="kpi-pop">—</div></div>
         <div class="v2-kpi"><div class="v2-kpi-tag">完了シナリオ</div><div class="v2-kpi-val neutral" id="kpi-scenarios">—</div></div>
       </div>
       <div class="v2-note">
-        <strong>設計上の違い：</strong> 論文は A=津波到達・B=人口・C=警報・D=ハザードマップ・E=CaseI。
-        現行バッチは A=Baseline・B=警報・C=行動・D=津波・E=人口。
-        ハザードマップ逆説（論文D群）と CaseI スイープ（論文E群）は現行バッチに未収録。E2（150%人口）は未実行。
+        <strong>※ 2026年7月の最終版（人口70,265人・全29シナリオ）でさらに更新されています。上記00セクションを参照。</strong><br>
+        <strong>設計上の違い：</strong> v1 系統（25シナリオ・242 run）は A=津波到達・B=人口・C=警報・D=ハザードマップ・E=CaseI。
+        v2 一括は A=Baseline・B=警報・C=行動・D=津波・E=人口（15シナリオ・46 run）。
+        ハザードマップ逆説（v1 D群）と CaseI スイープ（v1 E群）は v2 バッチに未収録。E2（150%人口）は未実行。
       </div>
     </section>
 
     <section class="v2-section" id="compare">
-      <div class="v2-label">02 · PAPER vs V2</div>
-      <h2 class="v2-h2">論文 BASE との比較</h2>
-      <p class="v2-desc">同一条件の完全再現ではない（津波到達480s vs 論文840s、パラメータ更新あり）が、属性間格差や感度の方向性を検証。</p>
+      <div class="v2-label">02 · V1 vs V2</div>
+      <h2 class="v2-h2">v1 との参考比較</h2>
+      <p class="v2-desc">v1（最大 89,000 人・10 属性）と v2（60,794 人・4 属性）は人口構成・シナリオ設計・パラメータが大きく異なる。以下は v1 系統 baseline 参考値と v2 A1 の並置であり、<strong>同一条件の比較ではない</strong>。属性間格差や感度の<strong>方向性</strong>を確認する参考資料として読むこと。</p>
+      <div class="v2-disclaimer">
+        <strong>参考比較の限界：</strong> v1.0 初期系（89,000 人・10 属性・静的浸水）から v2.0（60,794 人・4 属性・動的津波）へ設計を刷新している。グラフの v1 棒は 2025 baseline 試行データ（4 属性・25 シナリオ）を参考値として表示。津波到達 480s（v2 A1）vs 840s（v1 baseline）、物理・行動モデルの更新も含め、数値差は設計差の反映であり直接の優劣評価には使えない。
+      </div>
       <div class="v2-chart-box">
-        <div class="v2-chart-title">全体・属性別・年齢別 生存率 — 論文 vs 現行</div>
+        <div class="v2-chart-title">全体・属性別・年齢別 生存率 — v1 参考値 vs v2 A1</div>
         <div class="v2-chart-wrap tall"><canvas id="chart-baseline-compare"></canvas></div>
       </div>
     </section>
@@ -168,7 +203,7 @@
           <thead>
             <tr>
               <th>シナリオ</th><th>グループ</th><th>run</th><th>人口</th>
-              <th>生存率</th><th>BASE比</th><th>SD</th>
+              <th>生存率</th><th>v1参考比</th><th>SD</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -179,14 +214,14 @@
     <section class="v2-section" id="sensitivity">
       <div class="v2-label">04 · SENSITIVITY</div>
       <h2 class="v2-h2">グループ別 変動幅（レンジ）</h2>
-      <p class="v2-desc">論文では人口(B)・津波到達(A)が ±30pp 超で支配的。現行バッチでは津波到達(D)が最も大きく、警報・行動は ±2pp 以内。</p>
+      <p class="v2-desc">v1 系統 baseline では人口(B)・津波到達(A)が ±30pp 超で支配的。v2 一括では津波到達(D)が最も大きく、警報・行動は ±2pp 以内。シナリオ構成が異なるため参考程度。</p>
       <div class="v2-chart-box">
-        <div class="v2-chart-title">感度分析レンジ比較（論文 vs 現行）</div>
+        <div class="v2-chart-title">感度分析レンジ比較（v1 参考値 vs v2）</div>
         <div class="v2-chart-wrap"><canvas id="chart-group-range"></canvas></div>
       </div>
       <div class="v2-note">
         <strong>定性的に一致：</strong> 地域住民 &gt; 来訪客の格差、津波到達延長で生存率↑、警報・行動介入は限定的。<br>
-        <strong>定量的に相違：</strong> 絶対生存率は約20pp低い。津波感度レンジは論文31pp → 現行9pp。人口削減効果も縮小。
+        <strong>定量的に相違：</strong> 絶対生存率は約20pp低い。津波感度レンジは v1 参考 31pp → v2 9pp。人口削減効果も縮小。設計差を踏まえた参考値。
       </div>
     </section>
 

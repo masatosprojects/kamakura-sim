@@ -92,8 +92,8 @@
       pv.baseline_by_age['児童'].current_pct,
     ];
     makeBar('chart-baseline-compare', labels, [
-      { label: '論文 BASE (2025)', data: paper, backgroundColor: 'rgba(255,255,255,0.25)' },
-      { label: '現行バッチ A1 (2026)', data: current, backgroundColor: 'rgba(255,77,0,0.85)' },
+      { label: 'v1.0 参考値', data: paper, backgroundColor: 'rgba(255,255,255,0.25)' },
+      { label: 'v2 一括 A1 (2026)', data: current, backgroundColor: 'rgba(255,77,0,0.85)' },
     ], { yMax: 100, yLabel: '生存率 (%)' });
   }
 
@@ -118,8 +118,8 @@
       { label: 'CaseI / 行動', paper: paper['E_CaseI'].range_pp, current: current['C_行動(現行)']?.range_pp },
     ];
     makeBar('chart-group-range', items.map((i) => i.label), [
-      { label: '論文 変動幅 (pp)', data: items.map((i) => i.paper), backgroundColor: 'rgba(255,255,255,0.22)' },
-      { label: '現行 変動幅 (pp)', data: items.map((i) => i.current ?? 0), backgroundColor: 'rgba(255,77,0,0.8)' },
+      { label: 'v1 参考 変動幅 (pp)', data: items.map((i) => i.paper), backgroundColor: 'rgba(255,255,255,0.22)' },
+      { label: 'v2 変動幅 (pp)', data: items.map((i) => i.current ?? 0), backgroundColor: 'rgba(255,77,0,0.8)' },
     ], { yLabel: 'レンジ (pp)' });
   }
 

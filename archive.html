@@ -45,7 +45,7 @@
     line-height: 1.05; letter-spacing: -.04em; margin-bottom: 1rem;
   }
   .arc-subtitle {
-    font-size: .92rem; opacity: .45; max-width: 55ch; line-height: 1.75;
+    font-size: .92rem; color: #5b5f66; max-width: 55ch; line-height: 1.75;
   }
 
   /* Section divider */
@@ -63,7 +63,7 @@
     letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.2rem;
   }
   .arc-section-desc {
-    font-size: .88rem; opacity: .45; max-width: 60ch; line-height: 1.8;
+    font-size: .88rem; color: #5b5f66; max-width: 60ch; line-height: 1.8;
     margin-bottom: 3rem;
   }
 
@@ -88,43 +88,54 @@
   @media (max-width: 500px) {
     .arc-grid { grid-template-columns: 1fr; }
   }
-  .arc-cell { background: #05070a; padding: 1.3rem 1.5rem; }
+  .arc-cell { background: #05070a; color: #e8eaed; padding: 1.3rem 1.5rem; }
   .arc-cell-tag {
     font-size: .6rem; font-weight: 700; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--accent); opacity: .7; margin-bottom: .45rem;
+    text-transform: uppercase; color: var(--accent); opacity: .85; margin-bottom: .45rem;
   }
   .arc-cell-val {
     font-family: 'Space Grotesk','Inter',monospace;
     font-size: clamp(1.4rem,2.5vw,2.2rem); font-weight: 700;
-    letter-spacing: -.04em; line-height: 1;
+    letter-spacing: -.04em; line-height: 1; color: #fff;
   }
   .arc-cell-desc {
-    font-size: .7rem; opacity: .4; margin-top: .35rem; line-height: 1.55;
+    font-size: .7rem; color: rgba(255,255,255,.78); margin-top: .35rem; line-height: 1.55;
   }
   .arc-chips { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .6rem; }
   .arc-chip {
     font-family: monospace; font-size: .6rem; padding: .18rem .48rem;
-    border: 1px solid rgba(255,255,255,.14); opacity: .55;
-    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.9);
+    background: rgba(255,255,255,.06);
   }
 
   /* Evolution bar */
-  .arc-evo-bar {
+  .archive-page .arc-evo-bar {
     display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;
-    gap: 1.5rem; padding: 1.4rem 2rem;
+    gap: 1.25rem 1.75rem; padding: 1.65rem 1.75rem;
     background: linear-gradient(90deg,rgba(255,77,0,.04),rgba(255,77,0,.1),rgba(255,77,0,.04));
     border-top: 1px solid rgba(255,77,0,.25); border-bottom: 1px solid rgba(255,77,0,.25);
     margin-bottom: 3rem;
   }
-  .arc-evo-col { text-align: center; }
-  .arc-evo-num {
+  .archive-page .arc-evo-col { text-align: center; min-width: 5.5rem; }
+  .archive-page .arc-evo-num {
     font-family: 'Space Grotesk',monospace;
-    font-size: clamp(1rem,2.5vw,1.6rem); font-weight: 700; letter-spacing: -.03em;
+    font-size: clamp(1.15rem, 3.5vw, 1.85rem); font-weight: 700; letter-spacing: -.03em;
   }
-  .arc-evo-num.old { opacity: .35; text-decoration: line-through; text-decoration-color: var(--accent); }
-  .arc-evo-num.now { color: var(--accent); }
-  .arc-evo-lbl { font-size: .6rem; opacity: .45; letter-spacing: .1em; text-transform: uppercase; margin-top: .25rem; }
-  .arc-evo-arrow { font-size: 1.4rem; opacity: .35; color: var(--accent); }
+  .archive-page .arc-evo-num.old { opacity: .35; text-decoration: line-through; text-decoration-color: var(--accent); }
+  .archive-page .arc-evo-num.now { color: var(--accent); }
+  .archive-page .arc-evo-lbl {
+    font-size: clamp(.72rem, 2.2vw, .85rem); opacity: .68;
+    letter-spacing: .1em; text-transform: uppercase; margin-top: .35rem; line-height: 1.4;
+  }
+  .archive-page .arc-evo-arrow { font-size: clamp(1.5rem, 4vw, 2rem); opacity: .5; color: var(--accent); }
+  @media (max-width: 528px) {
+    .archive-page .arc-evo-bar {
+      padding: 1.35rem 1rem; gap: 1rem 1.25rem; justify-content: center;
+    }
+    .archive-page .arc-evo-num { font-size: clamp(1.2rem, 5.5vw, 1.5rem); }
+    .archive-page .arc-evo-lbl { font-size: .78rem; opacity: .72; }
+    .archive-page .arc-evo-arrow { font-size: 1.65rem; }
+  }
 
   /* Videos: side-by-side on desktop */
   .arc-videos {
@@ -172,7 +183,7 @@
   }
   .arc-tl-body { flex: 1; padding-right: 2vw; }
   .arc-tl-body p {
-    font-size: clamp(.85rem,1.4vw,1rem); line-height: 1.8; opacity: .65;
+    font-size: clamp(.85rem,1.4vw,1rem); line-height: 1.8; opacity: .85;
   }
   .arc-tl-dot {
     position: absolute; left: -6px; top: 50%; transform: translateY(-50%);
@@ -189,7 +200,7 @@
   .arc-footer a { color: var(--accent); text-decoration: none; }
   </style>
 </head>
-<body class="lang-ja">
+<body class="lang-ja page-archive">
 
   <div class="film-grain"></div>
   <div class="scanlines"></div>
@@ -214,7 +225,7 @@
           <li><a href="index.html" class="nav-link">← <span class="lang-ja">最新の研究へ戻る</span><span class="lang-en">Back to Current Research</span><span class="lang-zh">返回最新研究</span><span class="lang-ko">최신 연구로 돌아가기</span><span class="lang-es">Volver a la investigación</span><span class="lang-fr">Retour à la recherche</span></a></li>
           <li><a href="https://masatosprojects.github.io/tenden-app/" target="_blank" rel="noopener" class="nav-link">&#9632; TENDEN App (PWA)</a></li>
           <li><a href="https://masatosprojects.github.io/tenden-promo/" target="_blank" rel="noopener" class="nav-link">&#9632; TENDEN Promo Site</a></li>
-          <li><a href="https://github.com/masatosprojects/kamakura-sim" target="_blank" rel="noopener" class="nav-link">&#9632; Research Paper</a></li>
+          <li><a href="simulator/portal.html" class="nav-link">&#9632; <span class="lang-ja">研究概要</span><span class="lang-en">Research Summary</span><span class="lang-zh">研究概要</span><span class="lang-ko">연구 개요</span><span class="lang-es">Resumen de Investigación</span><span class="lang-fr">Résumé de Recherche</span></a></li>
         </ul>
       </div>
       <div class="menu-col" style="align-self:flex-end;">
@@ -301,7 +312,7 @@
         <div class="arc-cell">
           <div class="arc-cell-tag">危機感モデル</div>
           <div class="arc-cell-val">3段階</div>
-          <div class="arc-cell-desc" style="font-family:monospace;line-height:1.7;opacity:.4;font-size:.65rem;">
+          <div class="arc-cell-desc" style="font-family:monospace;line-height:1.7;font-size:.65rem;">
             C &lt; 0.4 → ×0.8<br>
             0.4 ≤ C &lt; 0.8 → ×1.3<br>
             C ≥ 0.8 → ×1.8
@@ -346,7 +357,7 @@
         </div>
         <div class="arc-evo-arrow">→</div>
         <div class="arc-evo-col">
-          <div class="arc-evo-num now" style="font-size:1.1rem;">Tobler · Klüpfel · SFM</div>
+          <div class="arc-evo-num now" style="font-size:clamp(1rem,2.8vw,1.3rem);">Tobler · Klüpfel · SFM</div>
           <div class="arc-evo-lbl">新物理モデル群</div>
         </div>
         <div class="arc-evo-arrow">→</div>
@@ -386,7 +397,7 @@
          SECTION 2: DEVELOPMENT TIMELINE
          ══════════════════════════════════════════════════════ -->
     <section class="arc-section" id="timeline">
-      <div class="arc-section-label">DEVELOPMENT HISTORY · 2025.06 → 2026.04</div>
+      <div class="arc-section-label">DEVELOPMENT HISTORY · 2023 → 2026.06</div>
       <h2 class="arc-section-title">
         <span class="lang-ja">開発の歩み</span>
         <span class="lang-en">The Timeline</span>
@@ -396,27 +407,42 @@
         <span class="lang-fr">La Chronologie</span>
       </h2>
       <p class="arc-section-desc">
-        <span class="lang-ja">10ヶ月間の試行錯誤。問いを深めるごとに、モデルは進化した。</span>
-        <span class="lang-en">10 months of iteration. The deeper the question, the more the model evolved.</span>
-        <span class="lang-zh">10个月的反复探索。问题越深入，模型就越进化。</span>
-        <span class="lang-ko">10개월간의 시행착오. 질문이 깊어질수록 모델도 진화했다.</span>
-        <span class="lang-es">10 meses de iteración. Cuanto más profunda la pregunta, más evolucionó el modelo.</span>
-        <span class="lang-fr">10 mois d'itération. Plus la question s'approfondissait, plus le modèle évoluait.</span>
+        <span class="lang-ja">2年以上の研究。2025年6月から本サイトで公開を開始。</span>
+        <span class="lang-en">Over two years of research. Public documentation on this site began in June 2025.</span>
+        <span class="lang-zh">两年以上的研究。自2025年6月起在本站公开。</span>
+        <span class="lang-ko">2년 이상의 연구. 2025년 6월부터 본 사이트에서 공개를 시작.</span>
+        <span class="lang-es">Más de dos años de investigación. La documentación pública en este sitio comenzó en junio de 2025.</span>
+        <span class="lang-fr">Plus de deux ans de recherche. La documentation publique sur ce site a débuté en juin 2025.</span>
       </p>
 
       <div class="arc-tl">
 
         <div class="arc-tl-item">
           <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2023頃</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">研究開始・原型開発。鎌倉の津波避難を題材に、エージェントベースモデルの設計と検証を開始。</span>
+              <span class="lang-en">Research begins · prototype development. Started designing and validating agent-based models for Kamakura tsunami evacuation.</span>
+              <span class="lang-zh">研究启动·原型开发。以镰仓海啸避难为题材，开始设计与验证基于智能体的模型。</span>
+              <span class="lang-ko">연구 시작·프로토타입 개발. 가마쿠라 쓰나미 대피를 주제로 에이전트 기반 모델의 설계와 검증을 시작.</span>
+              <span class="lang-es">Inicio de la investigación · desarrollo del prototipo. Diseño y validación de modelos basados en agentes para la evacuación por tsunami en Kamakura.</span>
+              <span class="lang-fr">Début de la recherche · développement du prototype. Conception et validation de modèles à base d'agents pour l'évacuation tsunami à Kamakura.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
           <div class="arc-tl-date">2025.06</div>
           <div class="arc-tl-body">
             <p>
-              <span class="lang-ja">プロジェクト始動。鎌倉市の道路・標高・避難所データを統合したマスターグラフ（18,580ノード・90,068エッジ）を構築。</span>
-              <span class="lang-en">Project launch. Master graph built: 18,580 nodes · 90,068 edges integrating road, elevation, and shelter data.</span>
-              <span class="lang-zh">项目启动。构建融合道路、高程、避难所数据的主图（18,580节点 · 90,068条边）。</span>
-              <span class="lang-ko">프로젝트 시작. 도로·표고·대피소 데이터를 통합한 마스터 그래프(18,580노드 · 90,068엣지) 구축.</span>
-              <span class="lang-es">Lanzamiento del proyecto. Grafo maestro: 18,580 nodos · 90,068 aristas integrando vías, altimetría y refugios.</span>
-              <span class="lang-fr">Lancement du projet. Graphe maître : 18 580 nœuds · 90 068 arêtes intégrant routes, altitudes et abris.</span>
+              <span class="lang-ja">本サイトで研究を公開開始。鎌倉市の道路・標高・避難所データを統合したマスターグラフ（18,580ノード・90,068エッジ）を構築・公開。</span>
+              <span class="lang-en">Research published on this portal. Master graph built and published: 18,580 nodes · 90,068 edges integrating road, elevation, and shelter data.</span>
+              <span class="lang-zh">在本站公开研究。构建并发布融合道路、高程、避难所数据的主图（18,580节点 · 90,068条边）。</span>
+              <span class="lang-ko">본 사이트에서 연구 공개 시작. 도로·표고·대피소 데이터를 통합한 마스터 그래프(18,580노드 · 90,068엣지) 구축·공개.</span>
+              <span class="lang-es">Investigación publicada en este portal. Grafo maestro construido y publicado: 18,580 nodos · 90,068 aristas integrando vías, altimetría y refugios.</span>
+              <span class="lang-fr">Recherche publiée sur ce portail. Graphe maître construit et publié : 18 580 nœuds · 90 068 arêtes intégrant routes, altitudes et abris.</span>
             </p>
           </div>
         </div>
@@ -492,6 +518,36 @@
               <span class="lang-ko">감재 앱 「TENDEN」 공개. 포털 사이트·분석 뷰어 공개. 연구 논문 집필 완료.</span>
               <span class="lang-es">Lanzamiento de la app TENDEN. Portal y visor analítico publicados. Artículo de investigación completado.</span>
               <span class="lang-fr">Lancement de l'app TENDEN. Portail et visualiseur analytique publiés. Article de recherche finalisé.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2026.06</div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja">フルスケール一括実行（60,794人・15シナリオ・46 run）を実施。<a href="analysis-v2.html" style="color:var(--accent);">V2バッチ分析レポート</a>として公開（現在はアーカイブ資料）。</span>
+              <span class="lang-en">Full-scale batch re-run (60,794 agents, 15 scenarios, 46 runs) published as the <a href="analysis-v2.html" style="color:var(--accent);">V2 batch analysis report</a> (now archived reference material).</span>
+              <span class="lang-zh">实施全规模批量运行（60,794人·15情景·46次），以<a href="analysis-v2.html" style="color:var(--accent);">V2批量分析报告</a>形式公开（现为归档资料）。</span>
+              <span class="lang-ko">전 규모 일괄 실행(60,794명·15시나리오·46 run)을 실시. <a href="analysis-v2.html" style="color:var(--accent);">V2 배치 분석 리포트</a>로 공개(현재는 아카이브 자료).</span>
+              <span class="lang-es">Lote completo a escala real (60,794 agentes, 15 escenarios, 46 ejecuciones) publicado como <a href="analysis-v2.html" style="color:var(--accent);">informe de análisis V2</a> (ahora material de archivo).</span>
+              <span class="lang-fr">Lot complet à grande échelle (60 794 agents, 15 scénarios, 46 exécutions) publié comme <a href="analysis-v2.html" style="color:var(--accent);">rapport d'analyse V2</a> (désormais archivé).</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2026.07 — <span style="color:var(--accent);">現在</span></div>
+          <div class="arc-tl-body">
+            <p>
+              <span class="lang-ja"><strong>最終版：</strong>実データに基づき人口・全パラメータを再較正（70,265人・全29シナリオ A〜G・各3回平均）。SSF2026ポスター発表・配布資料・本サイトの「最新」表示はすべてこのデータに基づく。</span>
+              <span class="lang-en"><strong>Final version:</strong> Population and all parameters recalibrated against real data (70,265 agents, all 29 scenarios A–G, 3-run avg). The SSF2026 poster, handout, and this site's "latest" figures are all based on this dataset.</span>
+              <span class="lang-zh"><strong>最终版：</strong>基于实际数据重新校准人口与全部参数（70,265人・全29情景A〜G・各3次平均）。SSF2026海报、发放资料及本站"最新"数据均基于此数据集。</span>
+              <span class="lang-ko"><strong>최종판：</strong>실제 데이터를 기반으로 인구·전 파라미터를 재보정(70,265명·전29시나리오 A〜G·각3회 평균). SSF2026 포스터·배포자료·본 사이트의 "최신" 표시는 모두 이 데이터에 기반함.</span>
+              <span class="lang-es">Versión final: población y todos los parámetros recalibrados con datos reales (70,265 agentes, los 29 escenarios A–G, promedio de 3 ejecuciones). El póster SSF2026, el folleto y las cifras "más recientes" de este sitio se basan todos en este conjunto de datos.</span>
+              <span class="lang-fr">Version finale : population et tous les paramètres recalibrés sur des données réelles (70 265 agents, les 29 scénarios A–G, moyenne de 3 exécutions). L'affiche SSF2026, le prospectus et les chiffres « les plus récents » de ce site reposent tous sur ce jeu de données.</span>
             </p>
           </div>
         </div>

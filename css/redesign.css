@@ -122,7 +122,10 @@ body { padding-top: 0; }
 
 /* TENDENアプリへのクイックアクセス（残すがミニマルに） */
 .quick-access-btn {
-  position: fixed; bottom: 22px; right: 22px; left: auto;
+  --qa-bottom: 22px;
+  --qa-gap: 14px;
+  --qa-btn-h: 2.75rem; /* padding + line-height buffer for primary */
+  position: fixed; bottom: var(--qa-bottom); right: 22px; left: auto;
   background: var(--rb-ink); color: #fff !important; z-index: 9400;
   font-size: .74rem; font-weight: 800; letter-spacing: .06em;
   padding: 12px 18px; border-radius: 999px; border-bottom: none;
@@ -130,12 +133,16 @@ body { padding-top: 0; }
 }
 .quick-access-btn:hover { background: var(--rb-accent); }
 .quick-access-btn--secondary {
-  bottom: 68px; background: #fff; color: var(--rb-ink) !important;
+  bottom: calc(var(--qa-bottom) + var(--qa-btn-h) + var(--qa-gap));
+  background: #fff; color: var(--rb-ink) !important;
   border: 1px solid rgba(255,77,0,.35);
 }
 .quick-access-btn--secondary:hover { background: rgba(255,77,0,.08); color: var(--rb-accent) !important; }
 @media (max-width: 640px) {
-  .quick-access-btn--secondary { bottom: 62px; font-size: .68rem; padding: 10px 14px; }
+  .quick-access-btn { --qa-btn-h: 3rem; }
+  .quick-access-btn--secondary { font-size: .68rem; padding: 10px 14px; }
+  /* stacked quick-access buttons: 22 + 3rem + 14 + 3rem + buffer */
+  .findings-right { padding-bottom: 168px; }
 }
 
 /* ============================================================================
@@ -195,17 +202,17 @@ body { padding-top: 0; }
 .ov-right { margin-top: 56px; }
 .ov-kicker, .ov-right-header {
   color: var(--rb-accent) !important; font-weight: 800; letter-spacing: .22em;
-  font-size: .72rem !important; opacity: 1 !important; margin-bottom: 14px;
+  font-size: .76rem !important; opacity: 1 !important; margin-bottom: 14px;
   font-family: 'Inter','Noto Sans JP',sans-serif;
 }
 .ov-title {
   color: var(--rb-ink) !important; font-weight: 900 !important;
-  font-size: clamp(1.8rem, 4.4vw, 3rem) !important; line-height: 1.18 !important;
+  font-size: clamp(2rem, 4.4vw, 3rem) !important; line-height: 1.18 !important;
   letter-spacing: -.02em; margin-bottom: 22px;
 }
 .ov-desc {
   color: var(--rb-ink-2) !important; opacity: 1 !important; max-width: 720px !important;
-  font-size: 1rem !important; line-height: 1.95 !important;
+  font-size: 1.05rem !important; line-height: 1.95 !important;
 }
 .ov-stats { gap: 40px !important; margin-top: 36px !important; }
 .ov-stat-num {
@@ -214,7 +221,7 @@ body { padding-top: 0; }
   font-size: clamp(1.7rem, 4vw, 2.6rem) !important; font-weight: 700;
 }
 .ov-stat-num.neutral { color: var(--rb-ink) !important; }
-.ov-stat-lbl { color: var(--rb-ink-3) !important; opacity: 1 !important; font-size: .68rem !important; }
+.ov-stat-lbl { color: var(--rb-ink-3) !important; opacity: 1 !important; font-size: .76rem !important; }
 
 .ov-update-bar {
   display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
@@ -222,13 +229,13 @@ body { padding-top: 0; }
   border: 1px solid rgba(255,77,0,.35); border-radius: 12px;
   background: linear-gradient(90deg, rgba(255,77,0,.08), rgba(255,77,0,.03));
 }
-.ov-update-bar p { margin: 0; font-size: .82rem; line-height: 1.6; color: var(--rb-ink-2); max-width: 52ch; }
+.ov-update-bar p { margin: 0; font-size: .88rem; line-height: 1.6; color: var(--rb-ink-2); max-width: 52ch; }
 .ov-update-bar strong { color: var(--rb-accent); }
 .ov-update-btn {
   flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 16px; border-radius: 999px; text-decoration: none;
   background: var(--rb-accent); color: #fff !important;
-  font-family: 'Inter', monospace; font-size: .68rem; font-weight: 800;
+  font-family: 'Inter', monospace; font-size: .72rem; font-weight: 800;
   letter-spacing: .12em; text-transform: uppercase;
   transition: transform .2s, box-shadow .2s;
 }
@@ -236,7 +243,7 @@ body { padding-top: 0; }
 
 .ov-stats-block { margin-top: 28px; }
 .ov-stats-head {
-  font-family: 'Inter', monospace; font-size: .62rem; font-weight: 800;
+  font-family: 'Inter', monospace; font-size: .7rem; font-weight: 800;
   letter-spacing: .24em; text-transform: uppercase; color: var(--rb-ink-3);
   margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rb-line);
 }
@@ -254,10 +261,10 @@ body { padding-top: 0; }
 .ov-cta-link:hover { border-color: var(--rb-accent) !important; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.06); background:#fff !important; }
 .ov-cta-link::before { background: var(--rb-accent) !important; }
 .ov-cta-link.primary { border-color: rgba(255,77,0,.45) !important; background: rgba(255,77,0,.04) !important; }
-.ov-cta-tag { color: var(--rb-accent) !important; opacity: 1 !important; letter-spacing:.18em; }
-.ov-cta-name { color: var(--rb-ink) !important; }
-.ov-cta-desc { color: var(--rb-ink-2) !important; opacity: 1 !important; }
-.ov-cta-arrow { color: var(--rb-accent) !important; opacity: 1 !important; }
+.ov-cta-tag { color: var(--rb-accent) !important; opacity: 1 !important; letter-spacing:.18em; font-size: .68rem !important; }
+.ov-cta-name { color: var(--rb-ink) !important; font-size: clamp(1.35rem, 2.2vw, 1.9rem) !important; }
+.ov-cta-desc { color: var(--rb-ink-2) !important; opacity: 1 !important; font-size: .95rem !important; line-height: 1.55; }
+.ov-cta-arrow { color: var(--rb-accent) !important; opacity: 1 !important; font-size: 1.85rem !important; }
 
 /* ============================================================================
    MANIFESTO : 大きな編集的引用
@@ -308,9 +315,24 @@ body { padding-top: 0; }
   border-radius: 14px; padding: 28px !important;
 }
 .paradox-title { color: var(--rb-ink) !important; }
-.paradox-body { color: var(--rb-ink-2) !important; opacity: 1 !important; }
+.paradox-body { color: var(--rb-ink-2) !important; opacity: 1 !important; font-size: .88rem !important; line-height: 1.85 !important; }
 .pn-val { color: var(--rb-ink) !important; }
 .pn-val.d { color: var(--rb-accent) !important; }
+.pn-lbl { color: var(--rb-ink-3) !important; opacity: 1 !important; font-size: .62rem !important; }
+
+.findings-note-box {
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--rb-line);
+  background: #fff;
+  border-radius: 14px;
+}
+.findings-note-tag { margin-bottom: .6rem !important; }
+.findings-note-text {
+  color: var(--rb-ink-2);
+  font-size: .88rem;
+  line-height: 1.7;
+  margin: 0;
+}
 
 /* ============================================================================
    MODEL ENGINE (#portal) : モデル解説カード
@@ -405,6 +427,19 @@ body { padding-top: 0; }
   .rb-topbar { height: 54px; padding: 0 16px; }
   #hero { padding-top: 96px !important; }
   .ov-stats { gap: 26px !important; }
+  /* Overview: mobile typography */
+  .ov-kicker, .ov-right-header { font-size: .82rem !important; }
+  .ov-title { font-size: clamp(2rem, 5.5vw, 2.8rem) !important; }
+  .ov-desc { font-size: 1.12rem !important; }
+  .ov-stat-num { font-size: clamp(1.85rem, 4.8vw, 2.4rem) !important; }
+  .ov-stat-lbl { font-size: .82rem !important; }
+  .ov-stats-head { font-size: .78rem; }
+  .ov-update-bar p { font-size: .95rem; }
+  .ov-update-btn { font-size: .78rem; }
+  .ov-cta-tag { font-size: .72rem !important; }
+  .ov-cta-name { font-size: clamp(1.4rem, 4.5vw, 1.75rem) !important; }
+  .ov-cta-desc { font-size: 1rem !important; }
+  .ov-cta-arrow { font-size: 1.6rem !important; }
   .scene, .scene-wide, .scene-auto,
   #overview, #findings, #gate, #portal, #manifesto, #profile {
     padding: 64px 18px !important;
@@ -541,3 +576,13 @@ body { padding-top: 0; }
 .modal-desc    { color: var(--rb-ink-2) !important; opacity: 1 !important; }
 .modal-canvas-container { border: 1px solid var(--rb-line) !important; }
 .close-btn     { color: var(--rb-ink) !important; }
+
+/* ============================================================================
+   archive.html — ライト本文 + ダーク統計グリッド（:root --text 反転の影響を打ち消す）
+   ============================================================================ */
+body.page-archive .arc-section-desc,
+body.page-archive .arc-subtitle { color: var(--rb-ink-2) !important; opacity: 1 !important; }
+body.page-archive .arc-cell { color: #e8eaed !important; }
+body.page-archive .arc-cell-val { color: #fff !important; }
+body.page-archive .arc-cell-desc { color: rgba(255,255,255,.78) !important; opacity: 1 !important; }
+body.page-archive .arc-chip { color: rgba(255,255,255,.9) !important; opacity: 1 !important; }

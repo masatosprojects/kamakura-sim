@@ -333,9 +333,11 @@ function _startKlupfel() {
             if (d.x > W + 15) { d.x = -15; d.y = Math.random() * H; }
 
             ctx.beginPath(); ctx.arc(d.x, d.y, 6, 0, Math.PI * 2);
-            const r = Math.floor(255 * (1 - cs / d.speed));
-            const g = Math.floor(150 * (cs / d.speed));
-            ctx.fillStyle = `rgb(${r},${g},200)`;
+            const ratio = cs / d.speed;
+            const inZone = d.x > wallX - 100 && d.x < wallX + 20;
+            ctx.fillStyle = !inZone || ratio >= 0.7 ? '#0097e6'
+                : ratio >= 0.3 ? '#e1b12c'
+                : '#e84118';
             ctx.fill();
         });
 
