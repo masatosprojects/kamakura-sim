@@ -187,8 +187,14 @@
       gap: 1.5rem;
       align-items: start;
     }
+    .fcard-grid > *, .props > *, .tenden > * { min-width: 0; }
     .fcard-grid img { width: 100%; height: auto; border: 1px solid var(--border); }
-    @media(max-width:620px){ .fcard-grid{grid-template-columns:1fr;} }
+    @media(max-width:620px){
+      body { word-break: normal; }
+      .fcard { padding: 1.25rem 1rem; }
+      .fcard-grid { grid-template-columns: minmax(0,1fr); }
+      .paradox { padding: .85rem; }
+    }
 
     /* 逆説ボックス */
     .paradox {
@@ -244,7 +250,7 @@
     }
     .e-low { background: #e8f5e9; color: #2e7d32; }
     .e-mid { background: #fff8e1; color: #e65100; }
-    @media(max-width:580px){ .props{grid-template-columns:1fr;} }
+    @media(max-width:580px){ .props{grid-template-columns:minmax(0,1fr);} }
 
     /* ── TENDEN Box ── */
     .tenden {
