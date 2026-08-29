@@ -139,12 +139,12 @@
           <span class="lang-fr">Ayant grandi en regardant les images du Grand Séisme de l'Est du Japon, la question "qu'arriverait-il à Kamakura lors du prochain grand séisme ?" est devenue une urgence profondément personnelle.</span>
         </p>
         <p class="reveal">
-          <span class="lang-ja">既存の行政シミュレーションは非公開か、あるいは現実の複雑性を捨象したモデルが多い。ならば自分で作る、という単純な動機が出発点だ。</span>
-          <span class="lang-en">Existing governmental simulations are either classified or built on models that strip away real-world complexity. Building one myself, from scratch — that was the simple motivation at the start.</span>
-          <span class="lang-zh">现有的行政模拟要么不公开，要么是舍弃了现实复杂性的模型。"那就自己做"——这个简单的动机是出发点。</span>
-          <span class="lang-ko">기존의 행정 시뮬레이션은 비공개이거나, 현실의 복잡성을 버린 모델이 많다. 그렇다면 직접 만들자는 단순한 동기가 출발점이었다.</span>
-          <span class="lang-es">Las simulaciones gubernamentales existentes son confidenciales o están construidas sobre modelos que eliminan la complejidad real. Construirlo yo mismo desde cero — esa fue la motivación simple al principio.</span>
-          <span class="lang-fr">Les simulations gouvernementales existantes sont soit classifiées, soit construites sur des modèles qui éliminent la complexité réelle. Le construire moi-même — c'était la motivation simple au départ.</span>
+          <span class="lang-ja">既存の公開資料だけでは、鎌倉の観光客・住民・道路・津波到達を一つの条件変更可能なモデルとして追跡しにくかった。ならば自分で組み立てて検証する、という動機が出発点だ。</span>
+          <span class="lang-en">Publicly available materials did not make it easy to trace Kamakura's visitors, residents, roads, and tsunami arrival in one adjustable model. Building and testing such a model became the starting motivation.</span>
+          <span class="lang-zh">仅凭公开资料难以在一个可调模型中追踪镰仓的游客、居民、道路和海啸到达。因此决定自行构建并验证。</span>
+          <span class="lang-ko">공개 자료만으로 가마쿠라의 방문객·주민·도로·쓰나미 도달을 하나의 조정 가능한 모델에서 추적하기 어려웠다. 직접 구축·검증하는 것이 출발점이었다.</span>
+          <span class="lang-es">Los materiales públicos no permitían seguir fácilmente visitantes, residentes, vías y llegada del tsunami en un único modelo ajustable. Construirlo y probarlo fue el punto de partida.</span>
+          <span class="lang-fr">Les ressources publiques ne permettaient pas de suivre facilement visiteurs, habitants, routes et arrivée du tsunami dans un modèle réglable unique. Le construire et le tester fut le point de départ.</span>
         </p>
 
         <h2 class="reveal">
@@ -200,12 +200,12 @@
           <span class="lang-fr">L'essence du Modèle Multi-Agents (ABM) est de <strong>laisser le comportement macro émerger des règles micro</strong>. L'évacuation comme phénomène de masse est décrite comme une accumulation de décisions individuelles.</span>
         </p>
         <p class="reveal">
-          <span class="lang-ja">v2.0では<strong>3つの数理モデルを階層統合</strong>する設計を採用している。①<strong>Toblerの歩行速度関数</strong>（地形傾斜に応じた移動速度の連続補正）、②<strong>Klüpfelの群衆密度モデル</strong>（局所密度に応じた速度低下・パニック伝染）、③<strong>Social Force Model</strong>（Helbing &amp; Molnár, 1995、個人間の引力・斥力による物理的相互作用）。これら3モデルを統合することで、地形・密度・個人行動の3軸を同時に記述する。</span>
-          <span class="lang-en">v2.0 adopts a <strong>three-model hierarchical integration</strong> design: ① <strong>Tobler's hiking function</strong> (continuous speed correction based on terrain slope), ② <strong>Klüpfel's crowd density model</strong> (velocity reduction and panic contagion based on local density), ③ <strong>Social Force Model</strong> (Helbing &amp; Molnár, 1995 — physical attraction/repulsion between individuals). Integrating all three simultaneously describes terrain, density, and individual behavior in a single framework.</span>
-          <span class="lang-zh">v2.0采用<strong>三模型层次集成</strong>设计：①<strong>Tobler步行速度函数</strong>（根据地形坡度持续修正移动速度）、②<strong>Klüpfel群体密度模型</strong>（基于局部密度的速度降低与恐慌传染）、③<strong>Social Force Model</strong>（Helbing &amp; Molnár, 1995——个体间的引力与斥力物理交互）。三模型统合，同时描述地形、密度与个人行为三个维度。</span>
-          <span class="lang-ko">v2.0에서는 <strong>3가지 수리 모델의 계층적 통합</strong> 설계를 채택하고 있다. ①<strong>Tobler의 도보 속도 함수</strong>（지형 경사에 따른 이동 속도 연속 보정）, ②<strong>Klüpfel의 군중 밀도 모델</strong>（국소 밀도에 따른 속도 저하·패닉 전염）, ③<strong>Social Force Model</strong>（Helbing &amp; Molnár, 1995——개인 간 인력·척력에 의한 물리적 상호작용）. 세 모델을 통합하여 지형·밀도·개인 행동의 3축을 동시에 기술한다.</span>
-          <span class="lang-es">v2.0 adopta un diseño de <strong>integración jerárquica de tres modelos</strong>: ① <strong>Función de caminata de Tobler</strong> (corrección continua de velocidad basada en pendiente del terreno), ② <strong>Modelo de densidad de multitudes de Klüpfel</strong> (reducción de velocidad y contagio de pánico según densidad local), ③ <strong>Social Force Model</strong> (Helbing &amp; Molnár, 1995 — interacción física de atracción/repulsión entre individuos). La integración de los tres describe simultáneamente terreno, densidad y comportamiento individual.</span>
-          <span class="lang-fr">v2.0 adopte une conception d'<strong>intégration hiérarchique de trois modèles</strong> : ① <strong>Fonction de marche de Tobler</strong> (correction continue de vitesse basée sur la pente du terrain), ② <strong>Modèle de densité de foule de Klüpfel</strong> (réduction de vitesse et contagion de panique selon la densité locale), ③ <strong>Social Force Model</strong> (Helbing &amp; Molnár, 1995 — interaction physique attraction/répulsion entre individus). L'intégration des trois décrit simultanément le terrain, la densité et le comportement individuel.</span>
+          <span class="lang-ja">v2.0は、<strong>傾斜による歩行速度補正</strong>、<strong>局所密度による速度低下</strong>、危機感・周囲への同調・避難開始遅延といった<strong>明示的な行動規則</strong>を統合する。個人間の引力・斥力を逐次解くSocial Force Modelそのものではなく、採用した数式と仮定を追跡できる形で実装している。</span>
+          <span class="lang-en">v2.0 combines <strong>slope-based walking-speed adjustment</strong>, <strong>density-based slowdown</strong>, and explicit rules for crisis perception, conformity, and start delay. It does not solve a full attraction/repulsion Social Force Model; the implemented formulas and assumptions remain traceable.</span>
+          <span class="lang-zh">v2.0整合坡度步速修正、密度减速以及危机感、从众和开始延迟等明确规则。它并非逐步求解引力/斥力的完整Social Force Model。</span>
+          <span class="lang-ko">v2.0은 경사 보행속도 보정, 밀도 감속, 위기감·동조·시작 지연 규칙을 통합한다. 인력·척력을 푸는 완전한 Social Force Model 자체는 아니다.</span>
+          <span class="lang-es">v2.0 combina velocidad por pendiente, reducción por densidad y reglas explícitas de percepción, conformidad y retraso. No resuelve un Social Force Model completo de atracción/repulsión.</span>
+          <span class="lang-fr">v2.0 combine vitesse selon la pente, ralentissement par densité et règles explicites de perception, conformité et délai. Il ne résout pas un Social Force Model complet d'attraction/répulsion.</span>
         </p>
         <p class="reveal">
           <span class="lang-ja">津波の伝播には<strong>後藤・村上式（動的津波モデル）</strong>を採用。v1.0の静的浸水マップとは異なり、波前線が時刻ごとに更新され、エージェントが「今まさに浸水しつつある場所」に実時間で反応する設計だ。この動的設計により、避難開始タイミングの微差が生死を分けるシビアな構造が再現されている。</span>

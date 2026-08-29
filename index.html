@@ -851,8 +851,8 @@
             <span class="lang-fr">Psychologie<br>des Foules</span>
           </h3>
           <p>
-            <span class="lang-ja">視野内の多数が走っていると、安全な避難路を捨て混雑ルートへ引き込まれる。Social Force Model の拡張として実装。半径20m 内の走行エージェント数に応じ危機感が上昇し、同調行動が連鎖する。</span>
-            <span class="lang-en">When the majority in sight are running, agents abandon safe routes and are drawn toward congested ones. Implemented as an SFM extension — crisis level rises per nearby runner, triggering chain herding.</span>
+            <span class="lang-ja">半径20m内の走行エージェント数に応じて危機感を加算する明示的な行動規則を実装し、同調行動の連鎖を比較した。個人間の引力・斥力を解くSocial Force Modelそのものではない。</span>
+            <span class="lang-en">An explicit rule adds crisis level according to runners within 20m and compares chained conformity. It is not a full attraction/repulsion Social Force Model.</span>
           </p>
           <div class="tech-thumb" style="background:#001144;">
             <img src="pic/AZ2G559c0dGLqG14wkAQTw-AZ2G559c8XAPzHVVYuc86A-removebg-preview.png" style="width:100%;height:100%;object-fit:cover;">
@@ -966,8 +966,8 @@
       <h2>群集心理と同調パニック</h2>
       <p>パニックは伝染します。視野内に走っている人がいると、自分の状況に関わらず同調して走り出してしまう危険な習性です。</p>
       <canvas id="canvas-herd" class="sim-canvas"></canvas>
-      <h3>Social Force Model 拡張</h3>
-      <p>半径20m以内の走行エージェント（危機感≥0.70）1人あたり危機感 +0.10 を加算。これにより「警告者の叫び声 → 危機感上昇 → 走行開始 → 周囲の同調 → 細路での群衆形成 → デッドロック」という連鎖を再現する。</p>
+      <h3>危機感と同調行動の規則</h3>
+      <p>半径20m以内の走行エージェント（危機感≥0.70）1人あたり危機感+0.10を加える仮定で、危機感上昇から同調・混雑へ至るモデル上の連鎖を比較する。現実のパニック伝染を直接再現・予測する式ではない。</p>
       <p>E群の感度分析では、率先避難者（CaseI）の割合を10%→90%に変化させても生存率改善は +1.5pp にとどまった。道路ボトルネックが律速段階となり、行動介入だけでは物理的上限を突破できないことを示している。</p>
     </div>
   </div>
