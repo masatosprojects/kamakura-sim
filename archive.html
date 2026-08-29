@@ -215,8 +215,9 @@
       <div class="menu-col">
         <h3>THIS PAGE</h3>
         <ul>
-          <li><a href="#v1archive" class="nav-link">01. VERSION 1.0</a></li>
-          <li><a href="#timeline"  class="nav-link">02. THE HISTORY</a></li>
+          <li><a href="#ledger" class="nav-link">01. DATA LEDGER</a></li>
+          <li><a href="#v1archive" class="nav-link">02. VERSION 1.0</a></li>
+          <li><a href="#timeline"  class="nav-link">03. THE HISTORY</a></li>
         </ul>
       </div>
       <div class="menu-col">
@@ -264,6 +265,23 @@
         <span class="lang-fr">L'évolution de v1.0 à v2.0 — la trace des essais et erreurs qui définit la valeur de cette recherche.</span>
       </p>
     </header>
+
+    <section class="arc-section" id="ledger">
+      <div class="arc-section-label">SOURCE OF TRUTH · ADMISSIONS RECORD · 2026.08</div>
+      <h2 class="arc-section-title"><span class="lang-ja">研究データ世代台帳</span><span class="lang-en">Research Dataset Ledger</span></h2>
+      <p class="arc-section-desc">
+        <span class="lang-ja">異なる人口・条件・試行を同一の「最終結果」として結ばないための台帳。2026年8月の筑波大学AC入試・慶應義塾大学SFC AO入試の提出資料を基準に整理した。</span>
+        <span class="lang-en">A ledger preventing populations, conditions, and runs from different generations from being presented as one “final result.” It follows the August 2026 admissions submissions.</span>
+      </p>
+      <div class="arc-grid">
+        <div class="arc-cell"><div class="arc-cell-tag">FINAL POPULATION SETTING</div><div class="arc-cell-val">70,265</div><div class="arc-cell-desc">一般来訪客47,730・地域住民17,308・現地就業者5,077・プロ誘導員約150。統計と推計を組み合わせた最終人口設定であり、242試行やTENDEN効果の母集団ではない。</div></div>
+        <div class="arc-cell"><div class="arc-cell-tag">SENSITIVITY STUDY</div><div class="arc-cell-val">62,299</div><div class="arc-cell-desc">25条件・計242試行。BASEは50試行、平均避難完了率36.789%、SD 0.164。ハザードマップ認知率の逆説はこの世代だけの傾向で、70,265人版では再現していない。</div></div>
+        <div class="arc-cell"><div class="arc-cell-tag">TENDEN RULE TEST</div><div class="arc-cell-val">19,978</div><div class="arc-cell-desc">一般来訪者へのモデル内規則適用率を0〜100%に変更。避難完了率18.4%→34.9%（+16.5pt、約1.9倍）。現実のアプリ普及率・実地効果ではない。</div></div>
+        <div class="arc-cell"><div class="arc-cell-tag">SUPPLEMENTARY BATCHES</div><div class="arc-cell-val">15 / 29</div><div class="arc-cell-desc">60,794人・15条件・46 run、および2026年7月の29条件バッチは補助資料として保存。入試提出資料の主要結論と世代を分け、直接接続しない。</div></div>
+        <div class="arc-cell"><div class="arc-cell-tag">APPLICATION INPUT</div><div class="arc-cell-val">5 DATA TYPES</div><div class="arc-cell-desc">安全地点、BASE 3試行平均の60秒刻み混雑、54避難先、400エピソード学習の一般向けQ学習方策、要配慮者向け多源ダイクストラ方策。</div></div>
+        <div class="arc-cell"><div class="arc-cell-tag">INTERPRETATION LIMIT</div><div class="arc-cell-val">MODEL ONLY</div><div class="arc-cell-desc">現実の死亡率を直接予測せず、人が理解して行動できるか、経路の現地安全性、行政運用の責任分担は未検証。</div></div>
+      </div>
+    </section>
 
     <!-- ══════════════════════════════════════════════════════
          SECTION 1: VERSION 1.0 ARCHIVE
@@ -539,17 +557,23 @@
 
         <div class="arc-tl-item">
           <div class="arc-tl-dot"></div>
-          <div class="arc-tl-date">2026.07 — <span style="color:var(--accent);">現在</span></div>
+          <div class="arc-tl-date">2026.07</div>
           <div class="arc-tl-body">
             <p>
-              <span class="lang-ja"><strong>最終版：</strong>実データに基づき人口・全パラメータを再較正（70,265人・全29シナリオ A〜G・各3回平均）。SSF2026ポスター発表・配布資料・本サイトの「最新」表示はすべてこのデータに基づく。</span>
-              <span class="lang-en"><strong>Final version:</strong> Population and all parameters recalibrated against real data (70,265 agents, all 29 scenarios A–G, 3-run avg). The SSF2026 poster, handout, and this site's "latest" figures are all based on this dataset.</span>
-              <span class="lang-zh"><strong>最终版：</strong>基于实际数据重新校准人口与全部参数（70,265人・全29情景A〜G・各3次平均）。SSF2026海报、发放资料及本站"最新"数据均基于此数据集。</span>
-              <span class="lang-ko"><strong>최종판：</strong>실제 데이터를 기반으로 인구·전 파라미터를 재보정(70,265명·전29시나리오 A〜G·각3회 평균). SSF2026 포스터·배포자료·본 사이트의 "최신" 표시는 모두 이 데이터에 기반함.</span>
-              <span class="lang-es">Versión final: población y todos los parámetros recalibrados con datos reales (70,265 agentes, los 29 escenarios A–G, promedio de 3 ejecuciones). El póster SSF2026, el folleto y las cifras "más recientes" de este sitio se basan todos en este conjunto de datos.</span>
-              <span class="lang-fr">Version finale : population et tous les paramètres recalibrés sur des données réelles (70 265 agents, les 29 scénarios A–G, moyenne de 3 exécutions). L'affiche SSF2026, le prospectus et les chiffres « les plus récents » de ce site reposent tous sur ce jeu de données.</span>
+              <span class="lang-ja"><strong>補助バッチ：</strong>70,265人設定を用いた29条件A〜G・各3回の集計を作成。後の入試提出資料では、人口設定・62,299人感度分析・19,978人TENDEN検証を分離したため、この29条件集計は補助アーカイブとして保存する。</span>
+              <span class="lang-en"><strong>Supplementary batch:</strong> a 29-condition A–G aggregation using the 70,265 population setting was produced. Later admissions records separated population setting, the 62,299-agent sensitivity study, and the 19,978-agent TENDEN test, so this batch is preserved as an archive.</span>
+              <span class="lang-zh"><strong>补充批次：</strong>基于70,265人口设定制作29条件A〜G、各3次的汇总。后续入试资料将人口设定、62,299人敏感性分析和19,978人TENDEN验证分开，因此本批次作为补充档案保存。</span>
+              <span class="lang-ko"><strong>보조 배치:</strong> 70,265명 설정으로 29조건 A〜G 각3회 집계를 작성했다. 이후 입시 자료는 인구 설정, 62,299명 민감도 분석, 19,978명 TENDEN 검증을 분리했으므로 이 배치는 보조 아카이브로 보존한다.</span>
+              <span class="lang-es"><strong>Lote complementario:</strong> se produjo un agregado de 29 condiciones A–G con la población de 70.265. Los expedientes posteriores separan la población, el estudio de sensibilidad de 62.299 y la prueba TENDEN de 19.978; este lote queda archivado.</span>
+              <span class="lang-fr"><strong>Lot complémentaire :</strong> une agrégation de 29 conditions A–G avec la population de 70 265 a été produite. Les dossiers ultérieurs séparent population, sensibilité à 62 299 et test TENDEN à 19 978 ; ce lot reste archivé.</span>
             </p>
           </div>
+        </div>
+
+        <div class="arc-tl-item">
+          <div class="arc-tl-dot"></div>
+          <div class="arc-tl-date">2026.08 — <span style="color:var(--accent);">現在</span></div>
+          <div class="arc-tl-body"><p><span class="lang-ja"><strong>資料整合：</strong>筑波大学AC入試・慶應義塾大学SFC AO入試の提出資料を基準にデータ世代台帳を作成。過去ページは削除せず、世代・母集団・試行数を明記してアーカイブ化。</span><span class="lang-en"><strong>Evidence reconciliation:</strong> a dataset ledger was created from the University of Tsukuba AC and Keio SFC AO submissions. Older pages remain, labeled with generation, population, and run count.</span></p></div>
         </div>
 
       </div>
