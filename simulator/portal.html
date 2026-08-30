@@ -108,6 +108,13 @@
     }
     /* ── モバイル：数式のはみ出し防止 ── */
     @media (max-width: 768px) {
+        .intro-wrap .rule-item {
+            box-sizing: border-box;
+            min-width: 0;
+            max-width: 100%;
+            padding: 34px 18px 24px;
+        }
+        .intro-wrap .rule-text { min-width: 0; }
         .intro-wrap .math-box {
             display: block;
             max-width: 100%;
@@ -122,6 +129,16 @@
         .intro-wrap .math-box .MathJax {
             max-width: 100%;
             overflow-x: auto;
+        }
+        /* MathJax の読み上げ用要素をレイアウト幅の計算から外す */
+        .intro-wrap mjx-assistive-mml {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            border: 0 !important;
+            overflow: hidden !important;
+            clip: rect(1px, 1px, 1px, 1px) !important;
         }
     }
 
