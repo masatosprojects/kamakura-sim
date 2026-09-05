@@ -1,5 +1,5 @@
 /**
- * app.js — 鎌倉市 津波避難シミュレーター 静的ビューア
+ * app.js — 鎌倉沿岸部 津波避難シミュレーター 旧版・個人研究の静的ビューア
  *
  * ● Flask/API 不要。timelapse_data.json と analysis_data.json を
  *   fetch() またはファイルピッカーで読み込み全チャートを描画する。
